@@ -1,0 +1,30 @@
+﻿@model NewCo.Areas.PersonalData.Models.Country
+
+@{
+    ViewData["Title"] = "Eliminazione Paese";
+}
+
+<h1>Eliminazione Paese</h1>
+
+<h3>Sei sicuro di voler eliminare questo paese?</h3>
+<div>
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ID)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ID)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete" method="post">
+        <input type="submit" value="Elimina" class="btn btn-danger" /> 
+        <a asp-action="Index" class="btn btn-primary">Annulla</a>
+    </form>
+</div>

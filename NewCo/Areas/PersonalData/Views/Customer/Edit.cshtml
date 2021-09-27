@@ -1,0 +1,109 @@
+﻿@model NewCo.Areas.PersonalData.ViewModels.CustomerViewModel
+
+@inject NewCo.Services.DataBaseService DbService
+
+@{
+    ViewData["Title"] = "Scheda Cliente";
+
+    #region Country Dropdown
+
+    var countriesData = await DbService.CountriesAsync();
+
+    countriesData.Insert(0, new Country()
+    {
+        ID = 9999,
+        Name = "Seleziona un paese"
+    });
+
+    var countries = Model.Countries.Select(c =>
+    new SelectListItem()
+    {
+        Text = c.Name,
+        Value = c.ID.ToString()
+    });
+
+    #endregion
+
+    #region County Dropdown
+
+    var countiesData = await DbService.CountiesAsync();
+
+    countiesData.Insert(0, new County()
+    {
+        ID = 9999,
+        Name = "Seleziona una provincia"
+    });
+
+    var counties = Model.Counties.Select(c =>
+    new SelectListItem()
+    {
+        Text = c.Name,
+        Value = c.ID.ToString()
+    });
+
+    #endregion
+}
+
+<h1>Scheda Cliente</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-area="PersonalData"
+              asp-controller="Customer"
+              asp-action="Edit"
+              method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ID" class="control-label"></label>
+                <input asp-for="ID" class="form-control" readonly />
+                <span asp-validation-for="ID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" maxlength="50" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Code" class="control-label"></label>
+                <input asp-for="Code" class="form-control" maxlength="2" />
+                <span asp-validation-for="Code" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control" maxlength="50" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="City" class="control-label"></label>
+                <input asp-for="City" class="form-control" maxlength="50" />
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PostCode" class="control-label"></label>
+                <input asp-for="PostCode" class="form-control" maxlength="10" />
+                <span asp-validation-for="PostCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CountyId" class="control-label"></label>
+                @Html.DropDownListFor(m => m.CountyId, counties, new { @class = "form-control" })
+                <span asp-validation-for="CountyId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CountryId" class="control-label"></label>
+                @Html.DropDownListFor(m => m.CountryId, countries, new { @class = "form-control" })
+                <span asp-validation-for="CountryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Salva" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Lista Clienti</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
