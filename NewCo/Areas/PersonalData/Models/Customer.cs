@@ -43,8 +43,10 @@ namespace NewCo.Areas.PersonalData.Models
         [Display(Name = "Città")]
         public string City { get; set; }
 
+        [Display(Name = "Provincia")]
         public int CountyId { get; set; }
 
+        [Display(Name = "Paese")]
         public int CountryId { get; set; }
 
         [Display(Name = "P. IVA")]

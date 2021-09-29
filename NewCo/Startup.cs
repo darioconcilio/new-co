@@ -24,11 +24,14 @@ namespace NewCo
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvcCore();
             services.AddControllersWithViews();
 
             //Singola: alla prima richiesta, crea una nuova istanza
             //         non ne ricrea più nessuna
             services.AddSingleton<IDatabaseService, DataBaseService>();
+            
+            services.AddTransient<DataBaseService>();
 
             //Scopo: ogni volta che si ignetta il servizio (ad esempio in un controller), crea una nuova istanza
             //       se fai più chiamata, l'istanza rimane la stessa
