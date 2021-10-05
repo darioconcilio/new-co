@@ -24,6 +24,7 @@ namespace NewCo.Areas.PersonalData.Models
             City = dr["City"].ToString();
             CountryId = Convert.ToInt32(dr["Country ID"]);
             CountyId = Convert.ToInt32(dr["County ID"]);
+            VATRegistrationCode = dr["VAT Registration Code"].ToString();
         }
 
         public int ID { get; set; }

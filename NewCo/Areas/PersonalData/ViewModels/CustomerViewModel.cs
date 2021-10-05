@@ -8,7 +8,14 @@ namespace NewCo.Areas.PersonalData.ViewModels
 {
     public class CustomerViewModel : Customer
     {
-        public CustomerViewModel(Customer customer)
+        public CustomerViewModel()
+        {
+            //Init collections for dropdown
+            Counties = new List<County>();
+            Countries = new List<Country>();
+        }
+
+        public CustomerViewModel(Customer customer) : base ()
         {
             ID = customer.ID;
             Name = customer.Name;

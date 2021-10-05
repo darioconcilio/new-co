@@ -28,7 +28,29 @@ namespace NewCo.Areas.PersonalData.Controllers
         public async Task<IActionResult> EditAsync(int id)
         {
             Customer item = await _IDbService.CustomerAsync(id);
-            CustomerViewModel vm = new CustomerViewModel(item);
+
+            CustomerViewModel vm = new CustomerViewModel(item)
+            {
+                //Caricamento delle dropdown
+                Countries = await _IDbService.CountriesAsync(),
+                Counties = await _IDbService.CountiesAsync()
+            };
+
+            vm.Counties.Insert(0, new County()
+            {
+                ID = 9999,
+                Name = "Seleziona una provincia"
+            });
+
+            vm.Countries.Insert(0, new Country()
+            {
+                ID = 9999,
+                Name = "Seleziona un paese"
+            });
+
+            ViewBag.Error = false;
+            ViewBag.ErrorMessage = "";
+
             return View(vm);
         }
 
@@ -38,9 +60,13 @@ namespace NewCo.Areas.PersonalData.Controllers
         {
             var bundle = await _IDbService.UpdateAsync(vmToUpdate); //Magia della OOP!!! :-)
 
+            ViewBag.Error = false;
+            ViewBag.ErrorMessage = "";
+
             if (!bundle.Result)
             {
-                ViewBag["Error"] = bundle.Result;
+                ViewBag.Error = true;
+                ViewBag.ErrorMessage = bundle.Message;
                 return View(vmToUpdate);
             }
             else
@@ -51,6 +77,10 @@ namespace NewCo.Areas.PersonalData.Controllers
         {
             var item = new Customer();
             CustomerViewModel vm = new CustomerViewModel(item);
+
+            ViewBag.Error = false;
+            ViewBag.ErrorMessage = "";
+
             return View(vm);
         }
 
@@ -60,9 +90,13 @@ namespace NewCo.Areas.PersonalData.Controllers
         {
             var bundle = await _IDbService.InsertAsync(vmToInsert);
 
+            ViewBag.Error = false;
+            ViewBag.ErrorMessage = "";
+
             if (!bundle.Result)
             {
-                ViewBag["Error"] = bundle.Result;
+                ViewBag.Error = true;
+                ViewBag.ErrorMessage = bundle.Message;
                 return View(vmToInsert);
             }
             else
@@ -72,6 +106,10 @@ namespace NewCo.Areas.PersonalData.Controllers
         public async Task<IActionResult> DeleteAsync(int id)
         {
             var item = await _IDbService.CustomerAsync(id);
+
+            ViewBag.Error = false;
+            ViewBag.ErrorMessage = "";
+
             return View(item);
         }
 
@@ -81,9 +119,13 @@ namespace NewCo.Areas.PersonalData.Controllers
         {
             var bundle = await _IDbService.DeleteAsync(itemToDelete);
 
+            ViewBag.Error = false;
+            ViewBag.ErrorMessage = "";
+
             if (!bundle.Result)
             {
-                ViewBag["Error"] = bundle.Result;
+                ViewBag.Error = true;
+                ViewBag.ErrorMessage = bundle.Message;
                 return View(itemToDelete);
             }
             else
