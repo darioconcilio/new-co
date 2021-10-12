@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using NewCo.Areas.PersonalData.Models;
+using NewCo.Areas.Sales.Models;
 using NewCo.Commons;
 using System;
 using System.Collections.Generic;
@@ -37,6 +38,23 @@ namespace NewCo.Services
         public Task<Bundle> InsertAsync(Customer itemToAdd);
         public Task<Bundle> UpdateAsync(Customer itemToUpdate);
         public Task<Bundle> DeleteAsync(Customer itemToDelete);
+
+        #endregion
+
+        #region Order
+
+        public Task<List<Order>> OrdersAsync();
+        public Task<Order> OrderAsync(int id);
+        public Task<Bundle> InsertAsync(Order itemToAdd);
+        public Task<Bundle> UpdateAsync(Order itemToUpdate);
+        public Task<Bundle> DeleteAsync(Order itemToDelete);
+
+
+        public Task<List<OrderLine>> OrderLinesAsync();
+        public Task<OrderLine> OrderLineAsync(int id);
+        public Task<Bundle> InsertAsync(OrderLine itemToAdd);
+        public Task<Bundle> UpdateAsync(OrderLine itemToUpdate);
+        public Task<Bundle> DeleteAsync(OrderLine itemToDelete);
 
         #endregion
     }

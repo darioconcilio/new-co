@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using NewCo.Areas.PersonalData.Models;
+using NewCo.Areas.Sales.Models;
 using NewCo.Commons;
 using System;
 using System.Collections.Generic;
@@ -464,6 +465,60 @@ namespace NewCo.Services
             }
 
             return bundle;
+        }
+
+        #endregion
+
+        #region Order
+
+        public Task<List<Order>> OrdersAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Order> OrderAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Bundle> InsertAsync(Order itemToAdd)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Bundle> UpdateAsync(Order itemToUpdate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Bundle> DeleteAsync(Order itemToDelete)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<OrderLine>> OrderLinesAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<OrderLine> OrderLineAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Bundle> InsertAsync(OrderLine itemToAdd)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Bundle> UpdateAsync(OrderLine itemToUpdate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Bundle> DeleteAsync(OrderLine itemToDelete)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion
