@@ -547,12 +547,61 @@ namespace NewCo.Services
 
         public async Task<Bundle> UpdateAsync(Item itemToUpdate)
         {
-            throw new NotImplementedException();
+            var bundle = new Bundle();
+
+            var sqlCommand = new SqlCommand
+            {
+                Connection = _sqlConnection,
+                CommandText = "UPDATE [Item] " +
+                              "SET [Description] = @Description, " + 
+                              "[UnitPrice] = @UnitPrice, " +
+                              "[Inventory] = @Inventory " +
+                              "WHERE[Id] = @Id"
+            };
+            
+            sqlCommand.Parameters.AddWithValue("@Description", itemToUpdate.Description);
+            sqlCommand.Parameters.AddWithValue("@UnitPrice", itemToUpdate.UnitPrice);
+            sqlCommand.Parameters.AddWithValue("@Inventory", itemToUpdate.Inventory);
+            sqlCommand.Parameters.AddWithValue("@Id", itemToUpdate.Id);
+
+            try
+            {
+                await sqlCommand.ExecuteNonQueryAsync();
+                bundle.Result = true;
+            }
+            catch (Exception ex)
+            {
+                bundle.Result = false;
+                bundle.Message = ex.Message;
+            }
+
+            return bundle;
         }
 
         public async Task<Bundle> DeleteAsync(Item itemToDelete)
         {
-            throw new NotImplementedException();
+            var bundle = new Bundle();
+
+            var sqlCommand = new SqlCommand
+            {
+                Connection = _sqlConnection,
+                CommandText = "DELETE FROM [Item] WHERE [ID] = @ID"
+            };
+
+            sqlCommand.Parameters.AddWithValue("@ID", itemToDelete.Id);
+
+            try
+            {
+                await sqlCommand.ExecuteNonQueryAsync();
+                bundle.Result = true;
+            }
+            catch (Exception ex)
+            {
+                bundle.Result = false;
+                bundle.Message = ex.Message;
+            }
+
+            return bundle;
         }
 
         #endregion
@@ -648,12 +697,59 @@ namespace NewCo.Services
 
         public async Task<Bundle> UpdateAsync(Order itemToUpdate)
         {
-            throw new NotImplementedException();
+            var bundle = new Bundle();
+
+            var sqlCommand = new SqlCommand
+            {
+                Connection = _sqlConnection,
+                CommandText = "UPDATE [Order] " +
+                              "SET [Date] = @Date, " +
+                              "[CustomerId] = @CustomerId " +
+                              "WHERE [No] = @No"
+            };
+ 
+            sqlCommand.Parameters.AddWithValue("@Date", itemToUpdate.Date);
+            sqlCommand.Parameters.AddWithValue("@CustomerId", itemToUpdate.CustomerId);
+            sqlCommand.Parameters.AddWithValue("@No", itemToUpdate.No);
+
+            try
+            {
+                await sqlCommand.ExecuteNonQueryAsync();
+                bundle.Result = true;
+            }
+            catch (Exception ex)
+            {
+                bundle.Result = false;
+                bundle.Message = ex.Message;
+            }
+
+            return bundle;
         }
 
         public async Task<Bundle> DeleteAsync(Order itemToDelete)
         {
-            throw new NotImplementedException();
+            var bundle = new Bundle();
+
+            var sqlCommand = new SqlCommand
+            {
+                Connection = _sqlConnection,
+                CommandText = "DELETE FROM [Order] WHERE [No] = @No"
+            };
+
+            sqlCommand.Parameters.AddWithValue("@No", itemToDelete.No);
+
+            try
+            {
+                await sqlCommand.ExecuteNonQueryAsync();
+                bundle.Result = true;
+            }
+            catch (Exception ex)
+            {
+                bundle.Result = false;
+                bundle.Message = ex.Message;
+            }
+
+            return bundle;
         }
 
         public async Task<List<OrderLine>> OrderLinesAsync()
@@ -752,12 +848,67 @@ namespace NewCo.Services
 
         public async Task<Bundle> UpdateAsync(OrderLine itemToUpdate)
         {
-            throw new NotImplementedException();
+            var bundle = new Bundle();
+
+            var sqlCommand = new SqlCommand
+            {
+                Connection = _sqlConnection,
+                CommandText = "UPDATE [OrderLine] " +
+                              "SET [ItemId] = @ItemId, " +
+                              "[Description] = @Description " +
+                              "[Quantity] = @Quantity " +
+                              "[UnitPrice] = @UnitPrice " +
+                              "[LineAmount] = @LineAmount " +
+                              "WHERE [OrderNo] = @OrderNo AND [LineNo] = @LineNo"
+            };
+
+            sqlCommand.Parameters.AddWithValue("@ItemId", itemToUpdate.ItemId);
+            sqlCommand.Parameters.AddWithValue("@Description", itemToUpdate.Description);
+            sqlCommand.Parameters.AddWithValue("@Quantity", itemToUpdate.Quantity);
+            sqlCommand.Parameters.AddWithValue("@UnitPrice", itemToUpdate.UnitPrice);
+            sqlCommand.Parameters.AddWithValue("@LineAmount", itemToUpdate.LineAmount);
+            sqlCommand.Parameters.AddWithValue("@OrderNo", itemToUpdate.OrderNo);
+            sqlCommand.Parameters.AddWithValue("@LineNo", itemToUpdate.LineNo);
+
+            try
+            {
+                await sqlCommand.ExecuteNonQueryAsync();
+                bundle.Result = true;
+            }
+            catch (Exception ex)
+            {
+                bundle.Result = false;
+                bundle.Message = ex.Message;
+            }
+
+            return bundle;
         }
 
         public async Task<Bundle> DeleteAsync(OrderLine itemToDelete)
         {
-            throw new NotImplementedException();
+            var bundle = new Bundle();
+
+            var sqlCommand = new SqlCommand
+            {
+                Connection = _sqlConnection,
+                CommandText = "DELETE FROM [OrderLine] WHERE [OrderNo] = @OrderNo AND [LineNo] = @LineNo"
+            };
+
+            sqlCommand.Parameters.AddWithValue("@OrderNo", itemToDelete.OrderNo);
+            sqlCommand.Parameters.AddWithValue("@LineNo", itemToDelete.LineNo);
+
+            try
+            {
+                await sqlCommand.ExecuteNonQueryAsync();
+                bundle.Result = true;
+            }
+            catch (Exception ex)
+            {
+                bundle.Result = false;
+                bundle.Message = ex.Message;
+            }
+
+            return bundle;
         }
 
         
