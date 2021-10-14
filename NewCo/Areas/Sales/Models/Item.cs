@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NewCo.Areas.PersonalData.Models
+namespace NewCo.Areas.Sales.Models
 {
     public class Item
     {
@@ -21,5 +21,6 @@ namespace NewCo.Areas.PersonalData.Models
         public int Id { get; set; }
         public string Description { get; set; }
         public double UnitPrice { get; set; }
+        public double Inventory { get; set; }
     }
 }

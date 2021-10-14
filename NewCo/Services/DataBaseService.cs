@@ -469,57 +469,298 @@ namespace NewCo.Services
 
         #endregion
 
+        #region Item
+
+        public async Task<List<Item>> ItemsAsync()
+        {
+            var sqlCommand = new SqlCommand
+            {
+                Connection = _sqlConnection,
+                CommandText = "SELECT [Id], [Description], [UnitPrice], [Inventory] " +
+                              "FROM [Item]"
+            };
+
+            var itemsFound = new List<Item>();
+
+            using (var sqlReader = await sqlCommand.ExecuteReaderAsync())
+            {
+                while (await sqlReader.ReadAsync())
+                {
+                    var currentItem = new Item(sqlReader);
+
+                    itemsFound.Add(currentItem);
+                }
+            }
+
+            return itemsFound;
+        }
+
+        public async Task<Item> ItemAsync(int id)
+        {
+            var sqlCommand = new SqlCommand
+            {
+                Connection = _sqlConnection,
+                CommandText = "SELECT [Id], [Description], [UnitPrice], [Inventory] " +
+                              "FROM [Item] WHERE [ID] = @ID"
+            };
+
+            sqlCommand.Parameters.AddWithValue("@ID", id);
+
+            var sqlReader = await sqlCommand.ExecuteReaderAsync();
+
+            await sqlReader.ReadAsync();
+            var currentItem = new Item(sqlReader);
+
+            sqlReader.Close();
+
+            return currentItem;
+        }
+
+        public async Task<Bundle> InsertAsync(Item itemToAdd)
+        {
+            var bundle = new Bundle();
+
+            var sqlCommand = new SqlCommand
+            {
+                Connection = _sqlConnection,
+                CommandText = "INSERT INTO [Item] ([Description], [UnitPrice], [Inventory]) " +
+                              "VALUES (@Description, @UnitPrice, @Inventory)"
+            };
+
+            sqlCommand.Parameters.AddWithValue("@Description", itemToAdd.Description);
+            sqlCommand.Parameters.AddWithValue("@UnitPrice", itemToAdd.UnitPrice);
+            sqlCommand.Parameters.AddWithValue("@Inventory", itemToAdd.Inventory);
+
+            try
+            {
+                await sqlCommand.ExecuteNonQueryAsync();
+                bundle.Result = true;
+            }
+            catch (Exception ex)
+            {
+                bundle.Result = false;
+                bundle.Message = ex.Message;
+            }
+
+            return bundle;
+        }
+
+        public async Task<Bundle> UpdateAsync(Item itemToUpdate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<Bundle> DeleteAsync(Item itemToDelete)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
         #region Order
 
-        public Task<List<Order>> OrdersAsync()
+        public async Task<List<Order>> OrdersAsync()
+        {
+            var sqlCommand = new SqlCommand
+            {
+                Connection = _sqlConnection,
+                CommandText = "SELECT [No], [Date], [CustomerId] " +
+                              "FROM [Order]"
+            };
+
+            var OrdersFound = new List<Order>();
+
+            using (var sqlReader = await sqlCommand.ExecuteReaderAsync())
+            {
+                while (await sqlReader.ReadAsync())
+                {
+                    var currentOrder = new Order(sqlReader);
+
+                    //Get Customer
+                    if (currentOrder.CustomerId != 0)
+                    {
+                        var customerItem = await CustomerAsync(currentOrder.CustomerId);
+                        currentOrder.CustomerRef = customerItem;
+                    }
+
+                    OrdersFound.Add(currentOrder);
+                }
+            }
+
+            return OrdersFound;
+        }
+
+        public async Task<Order> OrderAsync(int id)
+        {
+            var sqlCommand = new SqlCommand
+            {
+                Connection = _sqlConnection,
+                CommandText = "SELECT [No], [Date], [CustomerId] FROM [Order] WHERE [ID] = @ID"
+            };
+
+            sqlCommand.Parameters.AddWithValue("@ID", id);
+
+            var sqlReader = await sqlCommand.ExecuteReaderAsync();
+
+            await sqlReader.ReadAsync();
+            var currentItem = new Order(sqlReader);
+
+            //Get Customer
+            if (currentItem.CustomerId != 0)
+            {
+                var customerItem = await CustomerAsync(currentItem.CustomerId);
+                currentItem.CustomerRef = customerItem;
+            }
+
+            sqlReader.Close();
+
+            return currentItem;
+        }
+
+        public async Task<Bundle> InsertAsync(Order itemToAdd)
+        {
+            var bundle = new Bundle();
+
+            var sqlCommand = new SqlCommand
+            {
+                Connection = _sqlConnection,
+                CommandText = "INSERT INTO [Order] ([No], [Date], [CustomerId]) " +
+                              "VALUES (@No, @Date, @CustomerId)"
+            };
+
+            sqlCommand.Parameters.AddWithValue("@No", itemToAdd.No);
+            sqlCommand.Parameters.AddWithValue("@Date", itemToAdd.Date);
+            sqlCommand.Parameters.AddWithValue("@CustomerId", itemToAdd.CustomerId);
+
+            try
+            {
+                await sqlCommand.ExecuteNonQueryAsync();
+                bundle.Result = true;
+            }
+            catch (Exception ex)
+            {
+                bundle.Result = false;
+                bundle.Message = ex.Message;
+            }
+
+            return bundle;
+        }
+
+        public async Task<Bundle> UpdateAsync(Order itemToUpdate)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Order> OrderAsync(int id)
+        public async Task<Bundle> DeleteAsync(Order itemToDelete)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Bundle> InsertAsync(Order itemToAdd)
+        public async Task<List<OrderLine>> OrderLinesAsync()
+        {
+            var sqlCommand = new SqlCommand
+            {
+                Connection = _sqlConnection,
+                CommandText = "SELECT [OrderNo], [LineNo], [ItemId], [Description], [Quantity], [UnitPrice], [LineAmount] " +
+                              "FROM [OrderLine]"
+            };
+
+            var OrderLinesFound = new List<OrderLine>();
+
+            using (var sqlReader = await sqlCommand.ExecuteReaderAsync())
+            {
+                while (await sqlReader.ReadAsync())
+                {
+                    var currentOrderLine = new OrderLine(sqlReader);
+
+                    //Get Item
+                    if (currentOrderLine.ItemId != 0)
+                    {
+                        var ItemItem = await ItemAsync(currentOrderLine.ItemId);
+                        currentOrderLine.ItemRef = ItemItem;
+                    }
+
+                    OrderLinesFound.Add(currentOrderLine);
+                }
+            }
+
+            return OrderLinesFound;
+        }
+
+        public async Task<OrderLine> OrderLineAsync(int id)
+        {
+            var sqlCommand = new SqlCommand
+            {
+                Connection = _sqlConnection,
+                CommandText = "SELECT [OrderNo], [LineNo], [ItemId], [Description], [Quantity], [UnitPrice], [LineAmount] " +
+                              "FROM [OrderLine] WHERE [ID] = @ID"
+            };
+
+            sqlCommand.Parameters.AddWithValue("@ID", id);
+
+            var sqlReader = await sqlCommand.ExecuteReaderAsync();
+
+            await sqlReader.ReadAsync();
+            var currentItem = new OrderLine(sqlReader);
+
+            //Get Item
+            if (currentItem.ItemId != 0)
+            {
+                var itemItem = await ItemAsync(currentItem.ItemId);
+                currentItem.ItemRef = itemItem;
+            }
+
+            sqlReader.Close();
+
+            return currentItem;
+        }
+
+        public async Task<Bundle> InsertAsync(OrderLine itemToAdd)
+        {
+            var bundle = new Bundle();
+
+            var sqlCommand = new SqlCommand
+            {
+                Connection = _sqlConnection,
+                CommandText = "INSERT INTO [OrderLine] ([OrderNo], [LineNo], [ItemId], [Description], [Quantity], " +
+                              "            [UnitPrice], [LineAmount]) " +
+                              "VALUES (@OrderNo, @LineNo, @ItemId, @Description, @Quantity, " +
+                              "            @UnitPrice, @LineAmount)"
+            };
+
+            sqlCommand.Parameters.AddWithValue("@OrderNo", itemToAdd.OrderNo);
+            sqlCommand.Parameters.AddWithValue("@LineNo", itemToAdd.LineNo);
+            sqlCommand.Parameters.AddWithValue("@ItemId", itemToAdd.ItemId);
+            sqlCommand.Parameters.AddWithValue("@Description", itemToAdd.Description);
+            sqlCommand.Parameters.AddWithValue("@Quantity", itemToAdd.Quantity);
+            sqlCommand.Parameters.AddWithValue("@UnitPrice", itemToAdd.UnitPrice);
+            sqlCommand.Parameters.AddWithValue("@LineAmount", itemToAdd.LineAmount);
+
+            try
+            {
+                await sqlCommand.ExecuteNonQueryAsync();
+                bundle.Result = true;
+            }
+            catch (Exception ex)
+            {
+                bundle.Result = false;
+                bundle.Message = ex.Message;
+            }
+
+            return bundle;
+        }
+
+        public async Task<Bundle> UpdateAsync(OrderLine itemToUpdate)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Bundle> UpdateAsync(Order itemToUpdate)
+        public async Task<Bundle> DeleteAsync(OrderLine itemToDelete)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Bundle> DeleteAsync(Order itemToDelete)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<OrderLine>> OrderLinesAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<OrderLine> OrderLineAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Bundle> InsertAsync(OrderLine itemToAdd)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Bundle> UpdateAsync(OrderLine itemToUpdate)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Bundle> DeleteAsync(OrderLine itemToDelete)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         #endregion
     }

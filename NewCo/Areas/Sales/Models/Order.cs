@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NewCo.Areas.PersonalData.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -21,6 +22,8 @@ namespace NewCo.Areas.Sales.Models
         public string No { get; set; }
         public DateTime? Date { get; set; }
         public int CustomerId { get; set; }
+        
         public List<OrderLine> Lines { get; set; }
+        public Customer CustomerRef { get; set; }
     }
 }
