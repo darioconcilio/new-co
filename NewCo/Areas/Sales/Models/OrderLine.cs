@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NewCo.Areas.PersonalData.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -15,7 +16,13 @@ namespace NewCo.Areas.Sales.Models
 
         public OrderLine(SqlDataReader reader)
         {
-
+            OrderNo = reader["OrderNo"].ToString();
+            LineNo = Convert.ToInt32(reader["LineNo"]);
+            ItemId = Convert.ToInt32(reader["ItemId"]);
+            Description = reader["Description"].ToString();
+            Quantity = Convert.ToDouble(reader["Quantity"]);
+            UnitPrice = Convert.ToDouble(reader["UnitPrice"]);
+            LineAmount = Convert.ToDouble(reader["LineAmount"]);
         }
 
         public string OrderNo { get; set; }

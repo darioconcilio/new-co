@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace NewCo.Areas.Sales.Controllers
 {
-    public class HomeController : Controller
+    [Area("Sales")]
+    public class SalesHomeController : Controller
     {
         public IActionResult Index()
         {

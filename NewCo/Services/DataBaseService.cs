@@ -639,15 +639,15 @@ namespace NewCo.Services
             return OrdersFound;
         }
 
-        public async Task<Order> OrderAsync(int id)
+        public async Task<Order> OrderAsync(string No)
         {
             var sqlCommand = new SqlCommand
             {
                 Connection = _sqlConnection,
-                CommandText = "SELECT [No], [Date], [CustomerId] FROM [Order] WHERE [ID] = @ID"
+                CommandText = "SELECT [No], [Date], [CustomerId] FROM [Order] WHERE [No] = @No"
             };
 
-            sqlCommand.Parameters.AddWithValue("@ID", id);
+            sqlCommand.Parameters.AddWithValue("@No", No);
 
             var sqlReader = await sqlCommand.ExecuteReaderAsync();
 
@@ -752,14 +752,16 @@ namespace NewCo.Services
             return bundle;
         }
 
-        public async Task<List<OrderLine>> OrderLinesAsync()
+        public async Task<List<OrderLine>> OrderLinesAsync(string OrderNo)
         {
             var sqlCommand = new SqlCommand
             {
                 Connection = _sqlConnection,
                 CommandText = "SELECT [OrderNo], [LineNo], [ItemId], [Description], [Quantity], [UnitPrice], [LineAmount] " +
-                              "FROM [OrderLine]"
+                              "FROM [OrderLine] WHERE [OrderNo] = @OrderNo"
             };
+
+            sqlCommand.Parameters.AddWithValue("@OrderNo", OrderNo);
 
             var OrderLinesFound = new List<OrderLine>();
 
@@ -783,16 +785,17 @@ namespace NewCo.Services
             return OrderLinesFound;
         }
 
-        public async Task<OrderLine> OrderLineAsync(int id)
+        public async Task<OrderLine> OrderLineAsync(string OrderNo, int LineNo)
         {
             var sqlCommand = new SqlCommand
             {
                 Connection = _sqlConnection,
                 CommandText = "SELECT [OrderNo], [LineNo], [ItemId], [Description], [Quantity], [UnitPrice], [LineAmount] " +
-                              "FROM [OrderLine] WHERE [ID] = @ID"
+                              "FROM [OrderLine] WHERE [OrderNo] = @OrderNo AND [LineNo] = @LineNo"
             };
 
-            sqlCommand.Parameters.AddWithValue("@ID", id);
+            sqlCommand.Parameters.AddWithValue("@OrderNo", OrderNo);
+            sqlCommand.Parameters.AddWithValue("@LineNo", LineNo);
 
             var sqlReader = await sqlCommand.ExecuteReaderAsync();
 

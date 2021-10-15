@@ -1,0 +1,57 @@
+﻿@model IEnumerable<NewCo.Areas.PersonalData.Models.Item>
+
+@{
+    ViewData["Title"] = "Articoli";
+}
+
+<h1>Articoli</h1>
+
+<p>
+    <a asp-action="Create">Crea</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnitPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Inventory)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Inventory)
+            </td>
+            <td>
+                @Html.ActionLink("Modifica", "Edit", "Item", new { Area = "PersonalData", id = item.Id }) |
+                @Html.ActionLink("Elimina", "Delete", "Item", new { Area = "PersonalData", id = item.Id })
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <a asp-area="PersonalData" asp-controller="PersonalDataHome" asp-action="Index">Lista Anagrafiche</a>
+</div>

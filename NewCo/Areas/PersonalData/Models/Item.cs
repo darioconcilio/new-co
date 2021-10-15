@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NewCo.Areas.Sales.Models
+namespace NewCo.Areas.PersonalData.Models
 {
     public class Item
     {
@@ -15,7 +15,10 @@ namespace NewCo.Areas.Sales.Models
 
         public Item(SqlDataReader reader)
         {
-
+            Id = Convert.ToInt32(reader["Id"]);
+            Description = reader["Description"].ToString();
+            UnitPrice = Convert.ToDouble(reader["UnitPrice"]);
+            Inventory = Convert.ToDouble(reader["Inventory"]);
         }
 
         public int Id { get; set; }

@@ -1,0 +1,46 @@
+﻿@model IEnumerable<NewCo.Areas.Sales.Models.Order>
+
+@{
+    ViewData["Title"] = "Ordini";
+}
+
+<h1>View</h1>
+
+<p>
+    <a asp-action="Create">Nuovo Ordine</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.No)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.No)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerRef.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Modifica", "Edit", new { id=item.No }) |
+                @Html.ActionLink("Elimina", "Delete", new { id=item.No })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
