@@ -69,5 +69,80 @@ namespace NewCo.Areas.Sales.Controllers
             else
                 return RedirectToAction(nameof(Index));
         }
+
+        public async Task<IActionResult> CreateAsync()
+        {
+            var item = new Order();
+
+            //Assego il numero protocollo al nuovo ordine
+            item.No = await _IDbService.GetLastOrderNoAsync();
+            //Propongo la data di oggi
+            item.Date = DateTime.Today;
+
+            OrderViewModel vm = new OrderViewModel(item)
+            {
+                //Caricamento delle dropdown
+                Customers = await _IDbService.CustomersAsync()
+            };
+
+            vm.Customers.Insert(0, new Customer()
+            {
+                ID = 9999,
+                Name = "Seleziona una cliente"
+            });
+
+            ViewBag.Error = false;
+            ViewBag.ErrorMessage = "";
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateAsync(OrderViewModel vmToInsert)
+        {
+            var bundle = await _IDbService.InsertAsync(vmToInsert);
+
+            ViewBag.Error = false;
+            ViewBag.ErrorMessage = "";
+
+            if (!bundle.Result)
+            {
+                ViewBag.Error = true;
+                ViewBag.ErrorMessage = bundle.Message;
+                return View(vmToInsert);
+            }
+            else
+                return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> DeleteAsync(string no)
+        {
+            var item = await _IDbService.OrderAsync(no);
+
+            ViewBag.Error = false;
+            ViewBag.ErrorMessage = "";
+
+            return View(item);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteAsync(Order itemToDelete)
+        {
+            var bundle = await _IDbService.DeleteAsync(itemToDelete);
+
+            ViewBag.Error = false;
+            ViewBag.ErrorMessage = "";
+
+            if (!bundle.Result)
+            {
+                ViewBag.Error = true;
+                ViewBag.ErrorMessage = bundle.Message;
+                return View(itemToDelete);
+            }
+            else
+                return RedirectToAction(nameof(Index));
+        }
     }
 }

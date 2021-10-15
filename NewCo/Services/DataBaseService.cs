@@ -79,7 +79,7 @@ namespace NewCo.Services
                 await sqlCommand.ExecuteNonQueryAsync();
                 bundle.Result = true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 bundle.Result = false;
                 bundle.Message = ex.Message;
@@ -87,7 +87,7 @@ namespace NewCo.Services
 
             return bundle;
         }
-      
+
 
         public async Task<County> CountyAsync(int id)
         {
@@ -438,13 +438,13 @@ namespace NewCo.Services
             var sqlCommand = new SqlCommand
             {
                 Connection = _sqlConnection,
-                CommandText = "INSERT INTO [dbo].[Customer] ([Code], [Name], [Address], [Post Code], [City], "+
+                CommandText = "INSERT INTO [dbo].[Customer] ([Code], [Name], [Address], [Post Code], [City], " +
                               "                              [County ID], [Country ID], [VAT Registration Code]) " +
-                              "VALUES (@Code, @Name, @Address, @PostCode, @City, "+
+                              "VALUES (@Code, @Name, @Address, @PostCode, @City, " +
                               "        @CountyID, @CountryID, @VATRegistrationCode)"
             };
 
-            sqlCommand.Parameters.AddWithValue("@Code", itemToAdd.Code); 
+            sqlCommand.Parameters.AddWithValue("@Code", itemToAdd.Code);
             sqlCommand.Parameters.AddWithValue("@Name", itemToAdd.Name);
             sqlCommand.Parameters.AddWithValue("@Address", itemToAdd.Address);
             sqlCommand.Parameters.AddWithValue("@PostCode", itemToAdd.PostCode);
@@ -501,10 +501,10 @@ namespace NewCo.Services
             {
                 Connection = _sqlConnection,
                 CommandText = "SELECT [Id], [Description], [UnitPrice], [Inventory] " +
-                              "FROM [Item] WHERE [ID] = @ID"
+                              "FROM [Item] WHERE [Id] = @Id"
             };
 
-            sqlCommand.Parameters.AddWithValue("@ID", id);
+            sqlCommand.Parameters.AddWithValue("@Id", id);
 
             var sqlReader = await sqlCommand.ExecuteReaderAsync();
 
@@ -553,12 +553,12 @@ namespace NewCo.Services
             {
                 Connection = _sqlConnection,
                 CommandText = "UPDATE [Item] " +
-                              "SET [Description] = @Description, " + 
+                              "SET [Description] = @Description, " +
                               "[UnitPrice] = @UnitPrice, " +
                               "[Inventory] = @Inventory " +
                               "WHERE[Id] = @Id"
             };
-            
+
             sqlCommand.Parameters.AddWithValue("@Description", itemToUpdate.Description);
             sqlCommand.Parameters.AddWithValue("@UnitPrice", itemToUpdate.UnitPrice);
             sqlCommand.Parameters.AddWithValue("@Inventory", itemToUpdate.Inventory);
@@ -639,6 +639,34 @@ namespace NewCo.Services
             return OrdersFound;
         }
 
+        public async Task<string> GetLastOrderNoAsync()
+        {
+            //Anno corrente a 2 cifre
+            var year2 = DateTime.Now.Year.ToString().Substring(2, 2);
+            //Lunghezza protocollo 7 fisso
+            var lastOrderNo = $"O{year2}0001";
+
+            //Recupero tutti gli ordini (avrei potuto fare una chiamata già filtrata per anno corrente, ma...
+            var orders = await OrdersAsync();
+            //Filtro gli ordini dell'anno corrente
+            var ordersOfCurrentYear = orders.Where(o => o.No.Substring(1, 2) == year2).ToList();
+            
+            //Verifico se ne esistono già
+            if (ordersOfCurrentYear.Count != 0)
+            {
+                //Estraggo il progressivo corrente dell'ultimo ordine creato
+                var lastOrderNoProgress = ordersOfCurrentYear.Last().No.Substring(3, 4);
+                //Converto in int
+                var lastOrderNoProgressInt = Convert.ToInt32(lastOrderNoProgress);
+                //Genero il nuovo progressivo
+                var newOrderNo = lastOrderNoProgressInt.ToString().PadLeft(4, '0');
+                //Genero il nuovo protocollo
+                lastOrderNo = $"O{DateTime.Now.Year.ToString().Substring(2, 2)}{newOrderNo}";
+            }
+
+            return lastOrderNo;
+        }
+
         public async Task<Order> OrderAsync(string No)
         {
             var sqlCommand = new SqlCommand
@@ -707,7 +735,7 @@ namespace NewCo.Services
                               "[CustomerId] = @CustomerId " +
                               "WHERE [No] = @No"
             };
- 
+
             sqlCommand.Parameters.AddWithValue("@Date", itemToUpdate.Date);
             sqlCommand.Parameters.AddWithValue("@CustomerId", itemToUpdate.CustomerId);
             sqlCommand.Parameters.AddWithValue("@No", itemToUpdate.No);
@@ -914,7 +942,7 @@ namespace NewCo.Services
             return bundle;
         }
 
-        
+
 
         #endregion
     }

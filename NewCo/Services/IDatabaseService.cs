@@ -58,7 +58,7 @@ namespace NewCo.Services
         public Task<Bundle> InsertAsync(Order itemToAdd);
         public Task<Bundle> UpdateAsync(Order itemToUpdate);
         public Task<Bundle> DeleteAsync(Order itemToDelete);
-
+        public Task<string> GetLastOrderNoAsync();
 
         public Task<List<OrderLine>> OrderLinesAsync(string OrderNo);
         public Task<OrderLine> OrderLineAsync(string OrderNo, int LineNo);

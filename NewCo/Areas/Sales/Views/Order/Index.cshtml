@@ -4,7 +4,7 @@
     ViewData["Title"] = "Ordini";
 }
 
-<h1>View</h1>
+<h1>Ordini</h1>
 
 <p>
     <a asp-action="Create">Nuovo Ordine</a>
@@ -25,22 +25,23 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.No)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CustomerRef.Name)
-            </td>
-            <td>
-                @Html.ActionLink("Modifica", "Edit", new { id=item.No }) |
-                @Html.ActionLink("Elimina", "Delete", new { id=item.No })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.No)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerRef.Name)
+                </td>
+                <td>
+                    @Html.ActionLink("Modifica", "Edit", new { no = item.No }) |
+                    @Html.ActionLink("Elimina", "Delete", new { no = item.No })
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
