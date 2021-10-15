@@ -2,11 +2,13 @@
 using NewCo.Areas.PersonalData.Models;
 using NewCo.Areas.Sales.Models;
 using NewCo.Areas.Sales.ViewModels;
+using NewCo.Commons;
 using NewCo.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace NewCo.Areas.Sales.Controllers
 {
@@ -103,6 +105,11 @@ namespace NewCo.Areas.Sales.Controllers
         {
             var bundle = await _IDbService.InsertAsync(vmToInsert);
 
+            using(var scope=new TransactionScope())
+            {
+
+            }
+
             ViewBag.Error = false;
             ViewBag.ErrorMessage = "";
 
@@ -130,7 +137,38 @@ namespace NewCo.Areas.Sales.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteAsync(Order itemToDelete)
         {
-            var bundle = await _IDbService.DeleteAsync(itemToDelete);
+            var bundle = new Bundle
+            {
+                Result = true
+            };
+
+            //Il TransactionScope permette di raggruppare tutte le chiamate, anche async in una 
+            //unica transazione
+            using (var scope = new TransactionScope())
+            {
+                //Prima elimino le righe dell'ordine
+                foreach (var lineToDelete in itemToDelete.Lines)
+                {
+                    var bundleLines = await _IDbService.DeleteAsync(lineToDelete);
+                    bundle = bundleLines;
+
+                    //Se incontro un problema allora mi fermo nel ciclo
+                    if (!bundleLines.Result)
+                        break;
+                }
+
+                //Le righe sono state eliminate? Allora elimino la testata
+                if (bundle.Result)
+                {
+                    var bundleHeader = await _IDbService.DeleteAsync(itemToDelete);
+                    bundle = bundleHeader;
+                }
+
+                //Tutto è andato per il meglio, allora COMMIT
+                //altrimenti ROLLBACK automatico
+                if (bundle.Result)
+                    scope.Complete();
+            }
 
             ViewBag.Error = false;
             ViewBag.ErrorMessage = "";

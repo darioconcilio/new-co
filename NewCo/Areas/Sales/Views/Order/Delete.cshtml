@@ -1,0 +1,38 @@
+﻿@model NewCo.Areas.Sales.Models.Order
+
+@{
+    ViewData["Title"] = "Elimina";
+}
+
+<h1>Elimina</h1>
+
+<h3>Sei sicuro di voler eliminare questo ordine?</h3>
+<div>
+    <h4>Order</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.No)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.No)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CustomerId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CustomerId)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="submit" value="Elimina" class="btn btn-danger" /> |
+        <a asp-action="Index">Lista Ordini</a>
+    </form>
+</div>
