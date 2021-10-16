@@ -500,7 +500,7 @@ namespace NewCo.Services
             var sqlCommand = new SqlCommand
             {
                 Connection = _sqlConnection,
-                CommandText = "SELECT [Id], [Description], [UnitPrice], [Inventory] " +
+                CommandText = "SELECT [Id], [No], [Description], [UnitPrice], [Inventory] " +
                               "FROM [Item] WHERE [Id] = @Id"
             };
 
@@ -523,10 +523,11 @@ namespace NewCo.Services
             var sqlCommand = new SqlCommand
             {
                 Connection = _sqlConnection,
-                CommandText = "INSERT INTO [Item] ([Description], [UnitPrice], [Inventory]) " +
-                              "VALUES (@Description, @UnitPrice, @Inventory)"
+                CommandText = "INSERT INTO [Item] ([No], [Description], [UnitPrice], [Inventory]) " +
+                              "VALUES (@No, @Description, @UnitPrice, @Inventory)"
             };
 
+            sqlCommand.Parameters.AddWithValue("@No", itemToAdd.No);
             sqlCommand.Parameters.AddWithValue("@Description", itemToAdd.Description);
             sqlCommand.Parameters.AddWithValue("@UnitPrice", itemToAdd.UnitPrice);
             sqlCommand.Parameters.AddWithValue("@Inventory", itemToAdd.Inventory);
@@ -554,12 +555,14 @@ namespace NewCo.Services
                 Connection = _sqlConnection,
                 CommandText = "UPDATE [Item] " +
                               "SET [Description] = @Description, " +
+                              "[No] = @No, " +
                               "[UnitPrice] = @UnitPrice, " +
                               "[Inventory] = @Inventory " +
                               "WHERE[Id] = @Id"
             };
 
             sqlCommand.Parameters.AddWithValue("@Description", itemToUpdate.Description);
+            sqlCommand.Parameters.AddWithValue("@No", itemToUpdate.No);
             sqlCommand.Parameters.AddWithValue("@UnitPrice", itemToUpdate.UnitPrice);
             sqlCommand.Parameters.AddWithValue("@Inventory", itemToUpdate.Inventory);
             sqlCommand.Parameters.AddWithValue("@Id", itemToUpdate.Id);

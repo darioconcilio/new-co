@@ -57,7 +57,38 @@ namespace NewCo.Areas.Sales.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditAsync(OrderViewModel vmToUpdate)
         {
-            var bundle = await _IDbService.UpdateAsync(vmToUpdate);
+            var bundle = new Bundle
+            {
+                Result = true
+            };
+
+            //Il TransactionScope permette di raggruppare tutte le chiamate, anche async in una 
+            //unica transazione
+            using (var scope = new TransactionScope())
+            {
+                //Aggiorno la testata
+                var bundleHeader = await _IDbService.UpdateAsync(vmToUpdate);
+                bundle = bundleHeader;
+
+                if (bundle.Result)
+                {
+                    //Aggiorno le righe (da aggiornare)
+                    foreach (var lineToUpdate in vmToUpdate.UpdatedLines())
+                    {
+                        var bundleLines = await _IDbService.UpdateAsync(lineToUpdate);
+                        bundle = bundleLines;
+
+                        //Se incontro un problema allora mi fermo nel ciclo
+                        if (!bundleLines.Result)
+                            break;
+                    }
+                }
+
+                //Tutto è andato per il meglio, allora COMMIT
+                //altrimenti ROLLBACK automatico
+                if (bundle.Result)
+                    scope.Complete();
+            }
 
             ViewBag.Error = false;
             ViewBag.ErrorMessage = "";
@@ -103,11 +134,37 @@ namespace NewCo.Areas.Sales.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateAsync(OrderViewModel vmToInsert)
         {
-            var bundle = await _IDbService.InsertAsync(vmToInsert);
-
-            using(var scope=new TransactionScope())
+            var bundle = new Bundle
             {
+                Result = true
+            };
 
+            //Il TransactionScope permette di raggruppare tutte le chiamate, anche async in una 
+            //unica transazione
+            using (var scope = new TransactionScope())
+            {
+                //Inserisco la testata
+                var bundleHeader = await _IDbService.InsertAsync(vmToInsert);
+                bundle = bundleHeader;
+
+                if (bundle.Result)
+                {
+                    //Inserico le righe
+                    foreach (var lineToInsert in vmToInsert.Lines)
+                    {
+                        var bundleLines = await _IDbService.InsertAsync(lineToInsert);
+                        bundle = bundleLines;
+
+                        //Se incontro un problema allora mi fermo nel ciclo
+                        if (!bundleLines.Result)
+                            break;
+                    }
+                }
+
+                //Tutto è andato per il meglio, allora COMMIT
+                //altrimenti ROLLBACK automatico
+                if (bundle.Result)
+                    scope.Complete();
             }
 
             ViewBag.Error = false;

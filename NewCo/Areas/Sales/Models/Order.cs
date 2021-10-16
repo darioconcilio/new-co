@@ -36,6 +36,14 @@ namespace NewCo.Areas.Sales.Models
         public int CustomerId { get; set; }
         
         public List<OrderLine> Lines { get; set; }
+
+        [Display(Name = "Cliente")]
         public Customer CustomerRef { get; set; }
+
+        public List<OrderLine> UpdatedLines()
+        {
+            return Lines.Where(ol => ol.Updated == true).ToList();
+        }
+
     }
 }

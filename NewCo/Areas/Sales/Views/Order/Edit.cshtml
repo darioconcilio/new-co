@@ -9,32 +9,95 @@
 <h4>Ordine</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-12">
         <form asp-area="Sales"
               asp-controller="Order"
               asp-action="Edit"
               method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="No" class="control-label"></label>
-                <input asp-for="No" class="form-control" readonly/>
-                <span asp-validation-for="No" class="text-danger"></span>
+
+            <div class="col-md-4">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="No" class="control-label"></label>
+                    <input asp-for="No" class="form-control" readonly />
+                    <span asp-validation-for="No" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Date" class="control-label"></label>
+                    <input type="date" asp-for="Date" class="form-control" />
+                    <span asp-validation-for="Date" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CustomerId" class="control-label"></label>
+                    @Html.DropDownListFor(m => m.CustomerId, @Model.Customers.Select(c =>
+                                                                new SelectListItem()
+                                                                {
+                                                                    Text = c.Name,
+                                                                    Value = c.ID.ToString()
+                                                                }), new { @class = "form-control" })
+                    <span asp-validation-for="CustomerId" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Date" class="control-label"></label>
-                <input type="date" asp-for="Date" class="form-control" />
-                <span asp-validation-for="Date" class="text-danger"></span>
+
+            <div class="col-md-10">
+                <hr />
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>
+                                @Html.DisplayNameFor(model => model.Lines.FirstOrDefault().LineNo)
+                            </td>
+                            <td>
+                                @Html.DisplayNameFor(model => model.Lines.FirstOrDefault().ItemRef)
+                            </td>
+                            <td>
+                                @Html.DisplayNameFor(model => model.Lines.FirstOrDefault().Description)
+                            </td>
+                            <td>
+                                @Html.DisplayNameFor(model => model.Lines.FirstOrDefault().Quantity)
+                            </td>
+                            <td>
+                                @Html.DisplayNameFor(model => model.Lines.FirstOrDefault().UnitPrice)
+                            </td>
+                            <td>
+                                @Html.DisplayNameFor(model => model.Lines.FirstOrDefault().LineAmount)
+                            </td>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Lines)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(model => item.LineNo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => item.ItemRef.Description)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => item.Description)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => item.Quantity)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => item.UnitPrice)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => item.LineAmount)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Modifica", "Edit", new { orderNo = item.OrderNo, lineNo = item.LineNo }) |
+                                    @Html.ActionLink("Elimina", "Delete", new { orderNo = item.OrderNo, lineNo = item.LineNo })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <hr />
             </div>
-            <div class="form-group">
-                <label asp-for="CustomerId" class="control-label"></label>
-                @Html.DropDownListFor(m => m.CustomerId, @Model.Customers.Select(c =>
-                                                            new SelectListItem()
-                                                            {
-                                                                Text = c.Name,
-                                                                Value = c.ID.ToString()
-                                                            }), new { @class = "form-control" })
-                <span asp-validation-for="CustomerId" class="text-danger"></span>
-            </div>
+
             <div class="form-group">
                 <input type="submit" value="Salva" class="btn btn-primary" />
             </div>
