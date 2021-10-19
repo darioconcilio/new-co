@@ -19,19 +19,24 @@
                 <span asp-validation-for="Id" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="No" class="control-label"></label>
+                <input asp-for="No" class="form-control" maxlength="20" />
+                <span asp-validation-for="No" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
                 <input asp-for="Description" class="form-control" maxlength="50" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="UnitPrice" class="control-label"></label>
-                <input type="number" asp-for="UnitPrice" class="form-control" />
-                <span asp-validation-for="UnitPrice" class="text-danger"></span>
+                @Html.LabelFor(m => m.UnitPrice)
+                @Html.TextBoxFor(m => m.UnitPrice, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.UnitPrice, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
-                <label asp-for="Inventory" class="control-label"></label>
-                <input type="number" asp-for="Inventory" class="form-control" />
-                <span asp-validation-for="Inventory" class="text-danger"></span>
+                @Html.LabelFor(m => m.Inventory)
+                @Html.TextBoxFor(m => m.Inventory, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Inventory, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
                 <input type="submit" value="Salva" class="btn btn-primary" />

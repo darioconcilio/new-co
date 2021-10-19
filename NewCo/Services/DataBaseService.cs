@@ -476,7 +476,7 @@ namespace NewCo.Services
             var sqlCommand = new SqlCommand
             {
                 Connection = _sqlConnection,
-                CommandText = "SELECT [Id], [Description], [UnitPrice], [Inventory] " +
+                CommandText = "SELECT [Id], [No], [Description], [UnitPrice], [Inventory] " +
                               "FROM [Item]"
             };
 

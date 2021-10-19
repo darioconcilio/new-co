@@ -9,16 +9,19 @@
 <h3>Sei sicuro di voler eliminare questo articolo?</h3>
 <div>
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Id)
         </dt>
-        <dd class = "col-sm-10">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.No)
+        </dt>
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Description)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.UnitPrice)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Inventory)
         </dd>
     </dl>

@@ -18,8 +18,8 @@ namespace NewCo.Areas.PersonalData.Models
         {
             Id = Convert.ToInt32(reader["Id"]);
             Description = reader["Description"].ToString();
-            UnitPrice = Convert.ToDouble(reader["UnitPrice"]);
-            Inventory = Convert.ToDouble(reader["Inventory"]);
+            UnitPrice = Convert.ToDecimal(reader["UnitPrice"]);
+            Inventory = Convert.ToDecimal(reader["Inventory"]);
             No = reader["No"].ToString();
         }
 
@@ -29,10 +29,11 @@ namespace NewCo.Areas.PersonalData.Models
         public string Description { get; set; }
 
         [Display(Name = "Prezzo Unitario")]
-        public double UnitPrice { get; set; }
+        [DataType(DataType.Currency)]
+        public decimal UnitPrice { get; set; }
 
         [Display(Name = "Magazzino")]
-        public double Inventory { get; set; }
+        public decimal Inventory { get; set; }
 
         [Display(Name = "Codice")]
         public string No { get; set; }
