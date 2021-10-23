@@ -5,8 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="jquery-globalize" Version="1.4.2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
   </ItemGroup>
 
   <ItemGroup>

@@ -38,8 +38,8 @@
                     @Html.DisplayFor(modelItem => item.CustomerRef.Name)
                 </td>
                 <td>
-                    @Html.ActionLink("Modifica", "Edit", new { no = item.No }) |
-                    @Html.ActionLink("Elimina", "Delete", new { no = item.No })
+                    @Html.ActionLink("Modifica", "Edit", new { Area = "Sales", id = item.Id }) |
+                    @Html.ActionLink("Elimina", "Delete", new { Area = "Sales", id = item.Id })
                 </td>
             </tr>
         }

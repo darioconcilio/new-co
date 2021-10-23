@@ -1,0 +1,62 @@
+﻿@model NewCo.Areas.Sales.ViewModels.OrderLineViewModel
+
+@{
+    ViewData["Title"] = "Elimina Riga";
+}
+
+<h1>Elimina</h1>
+
+<h3>Sei sicuro di voler eliminare questa riga?</h3>
+<div>
+    <h4>Riga Ordine</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.OrderRef.No)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.OrderRef.No)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LineNo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LineNo)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ItemRef.No)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ItemRef.No)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.UnitPrice)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.UnitPrice)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LineAmount)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LineAmount)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="submit" value="Elimina" class="btn btn-danger" /> |
+        @Html.ActionLink("Annulla", "Edit", "Order", new { Area = "Sales", id = Model.OrderId, @class = "btn btn-secondary" })
+    </form>
+</div>

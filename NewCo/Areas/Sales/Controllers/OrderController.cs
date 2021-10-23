@@ -28,14 +28,16 @@ namespace NewCo.Areas.Sales.Controllers
             return View(context);
         }
 
-        public async Task<IActionResult> EditAsync(string no)
+        #region Order
+
+        public async Task<IActionResult> EditAsync(string id)
         {
-            Order item = await _IDbService.OrderAsync(no);
+            Order item = await _IDbService.OrderAsync(id);
 
             OrderViewModel vm = new OrderViewModel(item)
             {
                 //Caricamento delle righe
-                Lines = await _IDbService.OrderLinesAsync(no),
+                Lines = await _IDbService.OrderLinesAsync(id),
 
                 //Caricamento delle dropdown
                 Customers = await _IDbService.CustomersAsync()
@@ -139,33 +141,8 @@ namespace NewCo.Areas.Sales.Controllers
                 Result = true
             };
 
-            //Il TransactionScope permette di raggruppare tutte le chiamate, anche async in una 
-            //unica transazione
-            using (var scope = new TransactionScope())
-            {
-                //Inserisco la testata
-                var bundleHeader = await _IDbService.InsertAsync(vmToInsert);
-                bundle = bundleHeader;
-
-                if (bundle.Result)
-                {
-                    //Inserico le righe
-                    foreach (var lineToInsert in vmToInsert.Lines)
-                    {
-                        var bundleLines = await _IDbService.InsertAsync(lineToInsert);
-                        bundle = bundleLines;
-
-                        //Se incontro un problema allora mi fermo nel ciclo
-                        if (!bundleLines.Result)
-                            break;
-                    }
-                }
-
-                //Tutto è andato per il meglio, allora COMMIT
-                //altrimenti ROLLBACK automatico
-                if (bundle.Result)
-                    scope.Complete();
-            }
+            var bundleHeader = await _IDbService.InsertAsync(vmToInsert);
+            bundle = bundleHeader;
 
             ViewBag.Error = false;
             ViewBag.ErrorMessage = "";
@@ -177,12 +154,12 @@ namespace NewCo.Areas.Sales.Controllers
                 return View(vmToInsert);
             }
             else
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Edit", "Order", new { id = vmToInsert.Id });
         }
 
-        public async Task<IActionResult> DeleteAsync(string no)
+        public async Task<IActionResult> DeleteAsync(string id)
         {
-            var item = await _IDbService.OrderAsync(no);
+            var item = await _IDbService.OrderAsync(id);
 
             ViewBag.Error = false;
             ViewBag.ErrorMessage = "";
@@ -239,5 +216,7 @@ namespace NewCo.Areas.Sales.Controllers
             else
                 return RedirectToAction(nameof(Index));
         }
+
+        #endregion
     }
 }

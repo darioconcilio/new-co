@@ -13,6 +13,7 @@ namespace NewCo.Areas.Sales.Models
     {
         public Order()
         {
+            Id = Guid.NewGuid().ToString();
             Lines = new List<OrderLine>();
         }
 
@@ -20,10 +21,13 @@ namespace NewCo.Areas.Sales.Models
         {
             Lines = new List<OrderLine>();
 
+            Id = reader["Id"].ToString();
             No = reader["No"].ToString();
             Date = Convert.ToDateTime(reader["Date"]);
             CustomerId = Convert.ToInt32(reader["CustomerId"]);
         }
+
+        public string Id { get; set; }
 
         [Display(Name = "Nr. Ordine")]
         public string No { get; set; }

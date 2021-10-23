@@ -17,6 +17,7 @@ namespace NewCo.Areas.Sales.ViewModels
 
         public OrderViewModel(Order order) : base()
         {
+            Id = order.Id;
             No = order.No;
             Date = order.Date;
             CustomerId = order.CustomerId;

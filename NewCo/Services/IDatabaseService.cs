@@ -54,17 +54,19 @@ namespace NewCo.Services
         #region Orders
 
         public Task<List<Order>> OrdersAsync();
-        public Task<Order> OrderAsync(string No);
+        public Task<Order> OrderAsync(string id);
         public Task<Bundle> InsertAsync(Order itemToAdd);
         public Task<Bundle> UpdateAsync(Order itemToUpdate);
         public Task<Bundle> DeleteAsync(Order itemToDelete);
         public Task<string> GetLastOrderNoAsync();
 
-        public Task<List<OrderLine>> OrderLinesAsync(string OrderNo);
-        public Task<OrderLine> OrderLineAsync(string OrderNo, int LineNo);
+        public Task<List<OrderLine>> OrderLinesAsync(string id);
+        public Task<OrderLine> OrderLineAsync(string orderId, string id);
         public Task<Bundle> InsertAsync(OrderLine itemToAdd);
         public Task<Bundle> UpdateAsync(OrderLine itemToUpdate);
         public Task<Bundle> DeleteAsync(OrderLine itemToDelete);
+
+        public Task<int> GetLastOrderLineNoAsync(string orderId);
 
         #endregion
     }

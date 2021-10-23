@@ -28,10 +28,12 @@ namespace NewCo.Areas.PersonalData.Models
         [Display(Name = "Descrizione")]
         public string Description { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:c}")]
         [Display(Name = "Prezzo Unitario")]
         [DataType(DataType.Currency)]
         public decimal UnitPrice { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:N0}")]
         [Display(Name = "Magazzino")]
         public decimal Inventory { get; set; }
 

@@ -17,7 +17,9 @@ namespace NewCo.Areas.Sales.Models
 
         public OrderLine(SqlDataReader reader)
         {
-            OrderNo = reader["OrderNo"].ToString();
+            OrderId = reader["OrderId"].ToString();
+            Id = reader["Id"].ToString();
+
             LineNo = Convert.ToInt32(reader["LineNo"]);
             ItemId = Convert.ToInt32(reader["ItemId"]);
             Description = reader["Description"].ToString();
@@ -26,8 +28,15 @@ namespace NewCo.Areas.Sales.Models
             LineAmount = Convert.ToDouble(reader["LineAmount"]);
         }
 
-        [Display(Name = "Nr. Ordine")]
-        public string OrderNo { get; set; }
+        /// <summary>
+        /// Guid dell'ordine
+        /// </summary>
+        public string OrderId { get; set; }
+
+        /// <summary>
+        /// Guid della riga
+        /// </summary>
+        public string Id { get; set; }
 
         [Display(Name = "Nr. Riga")]
         public int LineNo { get; set; }
@@ -39,12 +48,17 @@ namespace NewCo.Areas.Sales.Models
         [Display(Name = "Descrizione")]
         public string Description { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:N0}")]
         [Display(Name = "Quantità")]
         public double Quantity { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:c}")]
+        [DataType(DataType.Currency)]
         [Display(Name = "Prezzo Unitario")]
         public double UnitPrice { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:c}")]
+        [DataType(DataType.Currency)]
         [Display(Name = "Importo Riga")]
         public double LineAmount { get; set; }
 

@@ -38,9 +38,11 @@
                     <span asp-validation-for="CustomerId" class="text-danger"></span>
                 </div>
             </div>
-
+            
             <div class="col-md-10">
                 <hr />
+                @Html.ActionLink("Nuova Riga", "Create", "OrderLine", new { Area = "Sales", orderId = Model.Id }, new { @class = "btn btn-primary" })
+                <br/>
                 <table class="table">
                     <thead>
                         <tr>
@@ -73,7 +75,7 @@
                                     @Html.DisplayFor(model => item.LineNo)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(model => item.ItemRef.Description)
+                                    @Html.DisplayFor(model => item.ItemRef.No)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(model => item.Description)
@@ -88,8 +90,8 @@
                                     @Html.DisplayFor(model => item.LineAmount)
                                 </td>
                                 <td>
-                                    @Html.ActionLink("Modifica", "Edit", new { orderNo = item.OrderNo, lineNo = item.LineNo }) |
-                                    @Html.ActionLink("Elimina", "Delete", new { orderNo = item.OrderNo, lineNo = item.LineNo })
+                                    @Html.ActionLink("Modifica", "Edit", new { Area = "Sales", orderId = item.OrderId, id = item.Id }) |
+                                    @Html.ActionLink("Elimina", "Delete", new { Area = "Sales", orderId = item.OrderId, id = item.Id })
                                 </td>
                             </tr>
                         }
