@@ -62,6 +62,9 @@ namespace NewCo.Areas.Sales.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateAsync(OrderLineViewModel vmToInsert)
         {
+            var selectedItem = await _IDbService.ItemAsync(vmToInsert.ItemId);
+            vmToInsert.Description = selectedItem.Description;
+
             var bundle = await _IDbService.InsertAsync(vmToInsert);
 
             ViewBag.Error = false;

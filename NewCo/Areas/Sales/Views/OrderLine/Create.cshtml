@@ -13,6 +13,7 @@
               asp-action="Create"
               method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @Html.HiddenFor(m => m.OrderId)
             <div class="form-group">
                 <label asp-for="OrderRef.No" class="control-label"></label>
                 <input asp-for="OrderRef.No" class="form-control" readonly />

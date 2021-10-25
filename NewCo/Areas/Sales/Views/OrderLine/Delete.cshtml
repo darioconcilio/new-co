@@ -10,6 +10,8 @@
 <div>
     <h4>Riga Ordine</h4>
     <hr />
+    @Html.HiddenFor(m => m.OrderId)
+    @Html.HiddenFor(m => m.Id)
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.OrderRef.No)

@@ -13,6 +13,8 @@
               asp-action="Edit"
               method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @Html.HiddenFor(m => m.OrderId)
+            @Html.HiddenFor(m => m.Id)
             <div class="form-group">
                 <label asp-for="OrderRef.No" class="control-label"></label>
                 <input asp-for="OrderRef.No" class="form-control" readonly />
@@ -40,7 +42,7 @@
             </div>
             <div class="form-group">
                 <input type="submit" value="Salva" class="btn btn-primary" />
-                @Html.ActionLink("Annulla", "Edit", "Order", new { Area="Sales", id = Model.OrderId, @class = "btn btn-secondary" })
+                @Html.ActionLink("Annulla", "Edit", "Order", new { Area = "Sales", id = Model.OrderId, @class = "btn btn-secondary" })
             </div>
         </form>
     </div>
