@@ -670,8 +670,11 @@ namespace NewCo.Services
             return lastOrderNo;
         }
 
-        public async Task<Order> OrderAsync(string id)
+        public async Task<Bundle> OrderAsync(string id)
         {
+            Bundle bundle = new Bundle();
+            bundle.Result = false;
+
             var sqlCommand = new SqlCommand
             {
                 Connection = _sqlConnection,
@@ -682,19 +685,28 @@ namespace NewCo.Services
 
             var sqlReader = await sqlCommand.ExecuteReaderAsync();
 
-            await sqlReader.ReadAsync();
-            var currentItem = new Order(sqlReader);
-
-            //Get Customer
-            if (currentItem.CustomerId != 0)
+            if (await sqlReader.ReadAsync())
             {
-                var customerItem = await CustomerAsync(currentItem.CustomerId);
-                currentItem.CustomerRef = customerItem;
-            }
+                var currentItem = new Order(sqlReader);
 
+                //Get Customer
+                if (currentItem.CustomerId != 0)
+                {
+                    var customerItem = await CustomerAsync(currentItem.CustomerId);
+                    currentItem.CustomerRef = customerItem;
+                }
+
+                bundle.Result = true;
+                bundle.Value = currentItem;
+            }
+            else
+            {
+                bundle.Message = $"Articolo {id} non trovato.";
+            }
+            
             sqlReader.Close();
 
-            return currentItem;
+            return bundle;
         }
 
         public async Task<Bundle> InsertAsync(Order itemToAdd)
@@ -903,10 +915,10 @@ namespace NewCo.Services
                 Connection = _sqlConnection,
                 CommandText = "UPDATE [OrderLine] " +
                               "SET [ItemId] = @ItemId, " +
-                              "[Description] = @Description " +
-                              "[Quantity] = @Quantity " +
-                              "[UnitPrice] = @UnitPrice " +
-                              "[LineAmount] = @LineAmount " +
+                              "[Description] = @Description, " +
+                              "[Quantity] = @Quantity, " +
+                              "[UnitPrice] = @UnitPrice, " +
+                              "[LineAmount] = @LineAmount, " +
                               "[LineNo] = @LineNo " +
                               "WHERE [OrderId] = @OrderId AND [Id] = @Id"
             };

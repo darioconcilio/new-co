@@ -39,11 +39,14 @@ namespace NewCo.Areas.Sales.Controllers
             //Assego il numero riga alla nuova riga
             item.LineNo = await _IDbService.GetLastOrderLineNoAsync(orderId);
 
+            var orderBundle = await _IDbService.OrderAsync(orderId);
+            var order = (Order)orderBundle.Value;
+
             OrderLineViewModel vm = new OrderLineViewModel(item)
             {
                 //Caricamento delle dropdown
                 Items = await _IDbService.ItemsAsync(),
-                OrderRef = await _IDbService.OrderAsync(orderId)
+                OrderRef = order
             };
 
             vm.Items.Insert(0, new Item()
@@ -84,11 +87,14 @@ namespace NewCo.Areas.Sales.Controllers
         {
             var item = await _IDbService.OrderLineAsync(orderId, id);
 
+            var orderBundle = await _IDbService.OrderAsync(orderId);
+            var order = (Order)orderBundle.Value;
+
             OrderLineViewModel vm = new OrderLineViewModel(item)
             {
                 //Caricamento delle dropdown
                 Items = await _IDbService.ItemsAsync(),
-                OrderRef = await _IDbService.OrderAsync(orderId)
+                OrderRef = order
             };
 
             vm.Items.Insert(0, new Item()
@@ -126,11 +132,14 @@ namespace NewCo.Areas.Sales.Controllers
         {
             var item = await _IDbService.OrderLineAsync(orderId, id);
 
+            var orderBundle = await _IDbService.OrderAsync(orderId);
+            var order = (Order)orderBundle.Value;
+
             OrderLineViewModel vm = new OrderLineViewModel(item)
             {
                 //Caricamento delle dropdown
                 //Items = await _IDbService.ItemsAsync(), //Questo riferimento nella Delete non mi serve
-                OrderRef = await _IDbService.OrderAsync(orderId)
+                OrderRef = order
             };
 
             ViewBag.Error = false;

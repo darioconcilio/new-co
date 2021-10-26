@@ -54,7 +54,7 @@ namespace NewCo.Services
         #region Orders
 
         public Task<List<Order>> OrdersAsync();
-        public Task<Order> OrderAsync(string id);
+        public Task<Bundle> OrderAsync(string id);
         public Task<Bundle> InsertAsync(Order itemToAdd);
         public Task<Bundle> UpdateAsync(Order itemToUpdate);
         public Task<Bundle> DeleteAsync(Order itemToDelete);

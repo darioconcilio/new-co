@@ -32,25 +32,37 @@ namespace NewCo.Areas.Sales.Controllers
 
         public async Task<IActionResult> EditAsync(string id)
         {
-            Order item = await _IDbService.OrderAsync(id);
-
-            OrderViewModel vm = new OrderViewModel(item)
-            {
-                //Caricamento delle righe
-                Lines = await _IDbService.OrderLinesAsync(id),
-
-                //Caricamento delle dropdown
-                Customers = await _IDbService.CustomersAsync()
-            };
-
-            vm.Customers.Insert(0, new Customer()
-            {
-                ID = 9999,
-                Name = "Seleziona una cliente"
-            });
-
             ViewBag.Error = false;
             ViewBag.ErrorMessage = "";
+
+            OrderViewModel vm = null;
+
+            var bundle = await _IDbService.OrderAsync(id);
+
+            if (bundle.Result)
+            {
+                var item = (Order)bundle.Value;
+
+                vm = new OrderViewModel(item)
+                {
+                    //Caricamento delle righe
+                    Lines = await _IDbService.OrderLinesAsync(id),
+
+                    //Caricamento delle dropdown
+                    Customers = await _IDbService.CustomersAsync()
+                };
+
+                vm.Customers.Insert(0, new Customer()
+                {
+                    ID = 9999,
+                    Name = "Seleziona una cliente"
+                });
+            }
+            else
+            {
+                ViewBag.Error = true;
+                ViewBag.ErrorMessage = bundle.Message;
+            }
 
             return View(vm);
         }

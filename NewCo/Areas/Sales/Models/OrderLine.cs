@@ -48,14 +48,32 @@ namespace NewCo.Areas.Sales.Models
         [Display(Name = "Descrizione")]
         public string Description { get; set; }
 
+        double quantity;
         [DisplayFormat(DataFormatString = "{0:N0}")]
         [Display(Name = "Quantità")]
-        public double Quantity { get; set; }
+        public double Quantity
+        {
+            get { return quantity; }
+            set
+            {
+                quantity = value;
+                LineAmount = quantity * unitPrice;
+            }
+        }
 
+        double unitPrice;
         [DisplayFormat(DataFormatString = "{0:c}")]
         [DataType(DataType.Currency)]
         [Display(Name = "Prezzo Unitario")]
-        public double UnitPrice { get; set; }
+        public double UnitPrice
+        {
+            get { return unitPrice; }
+            set
+            {
+                unitPrice = value;
+                LineAmount = quantity * unitPrice;
+            }
+        }
 
         [DisplayFormat(DataFormatString = "{0:c}")]
         [DataType(DataType.Currency)]
