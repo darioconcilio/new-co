@@ -65,9 +65,6 @@ namespace NewCo.Areas.Sales.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateAsync(OrderLineViewModel vmToInsert)
         {
-            var selectedItem = await _IDbService.ItemAsync(vmToInsert.ItemId);
-            vmToInsert.Description = selectedItem.Description;
-
             var bundle = await _IDbService.InsertAsync(vmToInsert);
 
             ViewBag.Error = false;
@@ -125,7 +122,7 @@ namespace NewCo.Areas.Sales.Controllers
                 return View(vmToUpdate);
             }
             else
-                return RedirectToAction("Edit", "Order", new { orderId = vmToUpdate.OrderId });
+                return RedirectToAction("Edit", "Order", new { id = vmToUpdate.OrderId });
         }
 
         public async Task<IActionResult> DeleteAsync(string orderId, string id)
@@ -138,8 +135,9 @@ namespace NewCo.Areas.Sales.Controllers
             OrderLineViewModel vm = new OrderLineViewModel(item)
             {
                 //Caricamento delle dropdown
-                //Items = await _IDbService.ItemsAsync(), //Questo riferimento nella Delete non mi serve
-                OrderRef = order
+                //Items = await _IDbService.ItemsAsync(), //Qui non server caricare gli articoli
+                OrderRef = order,
+                ItemRef = await _IDbService.ItemAsync(item.ItemId)
             };
 
             ViewBag.Error = false;
@@ -164,7 +162,7 @@ namespace NewCo.Areas.Sales.Controllers
                 return View(itemToDelete);
             }
             else
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Edit", "Order", new { id = itemToDelete.OrderId });
         }
 
         #endregion

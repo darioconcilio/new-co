@@ -30,15 +30,18 @@ namespace NewCo.Areas.Sales.Models
         public string Id { get; set; }
 
         [Display(Name = "Nr. Ordine")]
+        [Required]
         public string No { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:d}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yy}")]
         [Display(Name = "Data Ordine")]
+        [Required]
         public DateTime? Date { get; set; }
 
         [Display(Name = "Cliente")]
+        [Required]
         public int CustomerId { get; set; }
-        
+
         public List<OrderLine> Lines { get; set; }
 
         [Display(Name = "Cliente")]

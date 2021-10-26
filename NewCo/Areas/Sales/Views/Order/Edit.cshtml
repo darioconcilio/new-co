@@ -5,7 +5,10 @@
 }
 
 <h1>Modifica</h1>
-
+@if (ViewBag.Error)
+{
+    <p style="color:red; font-stretch:expanded">@ViewBag.ErrorMessage)</p>
+}
 <h4>Ordine</h4>
 <hr />
 <div class="row">
@@ -40,7 +43,7 @@
             </div>
 
             <div class="col-md-10">
-                <hr />
+                <br />
                 @Html.ActionLink("Nuova Riga", "Create", "OrderLine", new { Area = "Sales", orderId = Model.Id }, new { @class = "btn btn-primary" })
                 <br />
                 <table class="table">
@@ -50,25 +53,25 @@
                                 @Html.DisplayNameFor(model => model.Lines.FirstOrDefault().LineNo)
                             </td>
                             <td>
-                                @Html.DisplayNameFor(model => model.Lines.FirstOrDefault().ItemRef)
+                                @Html.DisplayNameFor(model => model.Lines.FirstOrDefault().ItemRef.No)
                             </td>
                             <td>
-                                @Html.DisplayNameFor(model => model.Lines.FirstOrDefault().Description)
+                                @Html.DisplayNameFor(model => model.Lines.FirstOrDefault().ItemRef.Description)
                             </td>
-                            <td>
+                            <td align="right">
                                 @Html.DisplayNameFor(model => model.Lines.FirstOrDefault().Quantity)
                             </td>
-                            <td>
+                            <td align="right">
                                 @Html.DisplayNameFor(model => model.Lines.FirstOrDefault().UnitPrice)
                             </td>
-                            <td>
+                            <td align="right">
                                 @Html.DisplayNameFor(model => model.Lines.FirstOrDefault().LineAmount)
                             </td>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model.Lines)
+                        @foreach (var item in Model.Lines.OrderBy(i => i.LineNo))
                         {
                             <tr>
                                 <td>
@@ -78,15 +81,15 @@
                                     @Html.DisplayFor(model => item.ItemRef.No)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(model => item.Description)
+                                    @Html.DisplayFor(model => item.ItemRef.Description)
                                 </td>
-                                <td>
+                                <td align="right">
                                     @Html.DisplayFor(model => item.Quantity)
                                 </td>
-                                <td>
+                                <td align="right">
                                     @Html.DisplayFor(model => item.UnitPrice)
                                 </td>
-                                <td>
+                                <td align="right">
                                     @Html.DisplayFor(model => item.LineAmount)
                                 </td>
                                 <td>
@@ -97,18 +100,30 @@
                         }
                     </tbody>
                 </table>
-                <hr />
+                <br />
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td align="right">
+                                <h2>
+                                    Totale Ordine @{
+                                        IFormatProvider formatProvider = new System.Globalization.CultureInfo("it-IT");
+                                        <span class="currency">@Model.Lines.Sum(i => i.LineAmount).ToString("C", formatProvider)</span>
+                                    }
+                                </h2>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br />
             </div>
 
             <div class="form-group">
                 <input type="submit" value="Salva" class="btn btn-primary" />
+                @Html.ActionLink("Annulla", "Index", "Order", new { Area = "Sales", id = Model.Id }, new { @class = "btn btn-secondary" })
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Lista Ordini</a>
 </div>
 
 @section Scripts {

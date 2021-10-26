@@ -71,38 +71,7 @@ namespace NewCo.Areas.Sales.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditAsync(OrderViewModel vmToUpdate)
         {
-            var bundle = new Bundle
-            {
-                Result = true
-            };
-
-            //Il TransactionScope permette di raggruppare tutte le chiamate, anche async in una 
-            //unica transazione
-            using (var scope = new TransactionScope())
-            {
-                //Aggiorno la testata
-                var bundleHeader = await _IDbService.UpdateAsync(vmToUpdate);
-                bundle = bundleHeader;
-
-                if (bundle.Result)
-                {
-                    //Aggiorno le righe (da aggiornare)
-                    foreach (var lineToUpdate in vmToUpdate.UpdatedLines())
-                    {
-                        var bundleLines = await _IDbService.UpdateAsync(lineToUpdate);
-                        bundle = bundleLines;
-
-                        //Se incontro un problema allora mi fermo nel ciclo
-                        if (!bundleLines.Result)
-                            break;
-                    }
-                }
-
-                //Tutto è andato per il meglio, allora COMMIT
-                //altrimenti ROLLBACK automatico
-                if (bundle.Result)
-                    scope.Complete();
-            }
+            var bundle = await _IDbService.UpdateAsync(vmToUpdate);
 
             ViewBag.Error = false;
             ViewBag.ErrorMessage = "";
@@ -172,11 +141,17 @@ namespace NewCo.Areas.Sales.Controllers
         public async Task<IActionResult> DeleteAsync(string id)
         {
             var item = await _IDbService.OrderAsync(id);
+            Order order = null;
 
             ViewBag.Error = false;
             ViewBag.ErrorMessage = "";
 
-            return View(item);
+            if (item.Result)
+                order = (Order)item.Value;
+            else
+                return RedirectToAction("Index", "Order");
+
+            return View(order);
         }
 
         [HttpPost]
@@ -190,7 +165,7 @@ namespace NewCo.Areas.Sales.Controllers
 
             //Il TransactionScope permette di raggruppare tutte le chiamate, anche async in una 
             //unica transazione
-            using (var scope = new TransactionScope())
+            using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
                 //Prima elimino le righe dell'ordine
                 foreach (var lineToDelete in itemToDelete.Lines)

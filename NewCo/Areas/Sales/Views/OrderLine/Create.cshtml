@@ -4,6 +4,10 @@
     ViewData["Title"] = "Nuova Riga";
 }
 
+@if (ViewBag.Error)
+{
+    <p style="color:red; font-stretch:expanded">@ViewBag.ErrorMessage)</p>
+}
 <h4>Riga Ordine</h4>
 <hr />
 <div class="row">
@@ -14,6 +18,7 @@
               method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             @Html.HiddenFor(m => m.OrderId)
+            @Html.HiddenFor(m => m.LineNo)
             <div class="form-group">
                 <label asp-for="OrderRef.No" class="control-label"></label>
                 <input asp-for="OrderRef.No" class="form-control" readonly />
@@ -39,6 +44,7 @@
                 <input asp-for="UnitPrice" class="form-control" />
                 <span asp-validation-for="UnitPrice" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group">
                 <input type="submit" value="Crea" class="btn btn-primary" />
                 @Html.ActionLink("Annulla", "Edit", "Order", new { Area = "Sales", id = Model.OrderId }, new { @class = "btn btn-secondary" })

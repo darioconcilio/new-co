@@ -653,7 +653,7 @@ namespace NewCo.Services
             var orders = await OrdersAsync();
             //Filtro gli ordini dell'anno corrente
             var ordersOfCurrentYear = orders.Where(o => o.No.Substring(1, 2) == year2).ToList();
-            
+
             //Verifico se ne esistono già
             if (ordersOfCurrentYear.Count != 0)
             {
@@ -703,7 +703,7 @@ namespace NewCo.Services
             {
                 bundle.Message = $"Articolo {id} non trovato.";
             }
-            
+
             sqlReader.Close();
 
             return bundle;
@@ -796,16 +796,16 @@ namespace NewCo.Services
             return bundle;
         }
 
-        public async Task<List<OrderLine>> OrderLinesAsync(string id)
+        public async Task<List<OrderLine>> OrderLinesAsync(string orderId)
         {
             var sqlCommand = new SqlCommand
             {
                 Connection = _sqlConnection,
-                CommandText = "SELECT [OrderId], [Id], [LineNo], [ItemId], [Description], [Quantity], [UnitPrice], [LineAmount] " +
+                CommandText = "SELECT [OrderId], [Id], [LineNo], [ItemId], [Quantity], [UnitPrice], [LineAmount] " +
                               "FROM [OrderLine] WHERE [OrderId] = @OrderId"
             };
 
-            sqlCommand.Parameters.AddWithValue("@OrderId", id);
+            sqlCommand.Parameters.AddWithValue("@OrderId", orderId);
 
             var OrderLinesFound = new List<OrderLine>();
 
@@ -829,12 +829,12 @@ namespace NewCo.Services
             return OrderLinesFound;
         }
 
-        public async Task<int> GetLastOrderLineNoAsync(string id)
+        public async Task<int> GetLastOrderLineNoAsync(string orderId)
         {
             //Recupero tutte le righe dell'ordine corrente
-            var orders = await OrderLinesAsync(id);
+            var orders = await OrderLinesAsync(orderId);
 
-            var lastOrderLineNo = orders.OrderBy(l => l.LineNo).LastOrDefault()?.LineNo ?? 1; //Coalesce operator
+            var lastOrderLineNo = orders.OrderBy(l => l.LineNo).LastOrDefault()?.LineNo + 1 ?? 1; //Coalesce operator
 
             return lastOrderLineNo;
         }
@@ -844,7 +844,7 @@ namespace NewCo.Services
             var sqlCommand = new SqlCommand
             {
                 Connection = _sqlConnection,
-                CommandText = "SELECT [OrderId], [Id], [LineNo], [ItemId], [Description], [Quantity], [UnitPrice], [LineAmount] " +
+                CommandText = "SELECT [OrderId], [Id], [LineNo], [ItemId], [Quantity], [UnitPrice], [LineAmount] " +
                               "FROM [OrderLine] WHERE [OrderId] = @OrderId AND [Id] = @Id"
             };
 
@@ -868,7 +868,7 @@ namespace NewCo.Services
             return currentItem;
         }
 
-        
+
 
         public async Task<Bundle> InsertAsync(OrderLine itemToAdd)
         {
@@ -877,17 +877,16 @@ namespace NewCo.Services
             var sqlCommand = new SqlCommand
             {
                 Connection = _sqlConnection,
-                CommandText = "INSERT INTO [OrderLine] ([OrderId], [Id], [LineNo], [ItemId], [Description], [Quantity], " +
+                CommandText = "INSERT INTO [OrderLine] ([OrderId], [Id], [LineNo], [ItemId], [Quantity], " +
                               "            [UnitPrice], [LineAmount]) " +
-                              "VALUES (@OrderId, @Id, @LineNo, @ItemId, @Description, @Quantity, " +
+                              "VALUES (@OrderId, @Id, @LineNo, @ItemId, @Quantity, " +
                               "            @UnitPrice, @LineAmount)"
             };
 
             sqlCommand.Parameters.AddWithValue("@OrderId", Guid.Parse(itemToAdd.OrderId));
             sqlCommand.Parameters.AddWithValue("@Id", Guid.NewGuid());
             sqlCommand.Parameters.AddWithValue("@LineNo", itemToAdd.LineNo);
-            sqlCommand.Parameters.AddWithValue("@ItemId", itemToAdd.ItemId);         
-            sqlCommand.Parameters.AddWithValue("@Description", itemToAdd.Description);
+            sqlCommand.Parameters.AddWithValue("@ItemId", itemToAdd.ItemId);
             sqlCommand.Parameters.AddWithValue("@Quantity", itemToAdd.Quantity);
             sqlCommand.Parameters.AddWithValue("@UnitPrice", itemToAdd.UnitPrice);
             sqlCommand.Parameters.AddWithValue("@LineAmount", itemToAdd.LineAmount);
@@ -915,7 +914,6 @@ namespace NewCo.Services
                 Connection = _sqlConnection,
                 CommandText = "UPDATE [OrderLine] " +
                               "SET [ItemId] = @ItemId, " +
-                              "[Description] = @Description, " +
                               "[Quantity] = @Quantity, " +
                               "[UnitPrice] = @UnitPrice, " +
                               "[LineAmount] = @LineAmount, " +
@@ -924,7 +922,6 @@ namespace NewCo.Services
             };
 
             sqlCommand.Parameters.AddWithValue("@ItemId", itemToUpdate.ItemId);
-            sqlCommand.Parameters.AddWithValue("@Description", itemToUpdate.Description);
             sqlCommand.Parameters.AddWithValue("@Quantity", itemToUpdate.Quantity);
             sqlCommand.Parameters.AddWithValue("@UnitPrice", itemToUpdate.UnitPrice);
             sqlCommand.Parameters.AddWithValue("@LineAmount", itemToUpdate.LineAmount);

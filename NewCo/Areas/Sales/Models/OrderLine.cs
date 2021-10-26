@@ -22,7 +22,6 @@ namespace NewCo.Areas.Sales.Models
 
             LineNo = Convert.ToInt32(reader["LineNo"]);
             ItemId = Convert.ToInt32(reader["ItemId"]);
-            Description = reader["Description"].ToString();
             Quantity = Convert.ToDouble(reader["Quantity"]);
             UnitPrice = Convert.ToDouble(reader["UnitPrice"]);
             LineAmount = Convert.ToDouble(reader["LineAmount"]);
@@ -44,9 +43,6 @@ namespace NewCo.Areas.Sales.Models
 
         [Display(Name = "Articolo")]
         public Item ItemRef { get; set; }
-
-        [Display(Name = "Descrizione")]
-        public string Description { get; set; }
 
         double quantity;
         [DisplayFormat(DataFormatString = "{0:N0}")]
