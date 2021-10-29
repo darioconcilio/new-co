@@ -141,17 +141,27 @@ namespace NewCo.Areas.Sales.Controllers
         public async Task<IActionResult> DeleteAsync(string id)
         {
             var item = await _IDbService.OrderAsync(id);
-            Order order = null;
+            OrderViewModel vm = null;
 
             ViewBag.Error = false;
             ViewBag.ErrorMessage = "";
 
             if (item.Result)
-                order = (Order)item.Value;
+            {
+                var order = (Order)item.Value;
+                vm = new OrderViewModel(order)
+                {
+                    //Caricamento delle righe
+                    Lines = await _IDbService.OrderLinesAsync(id),
+
+                    //Caricamento delle dropdown
+                    //Customers = await _IDbService.CustomersAsync() //Qui non serve
+                };
+            }
             else
                 return RedirectToAction("Index", "Order");
 
-            return View(order);
+            return View(vm);
         }
 
         [HttpPost]

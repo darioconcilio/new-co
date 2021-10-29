@@ -32,7 +32,7 @@
                     @Html.DisplayFor(modelItem => item.No)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Date)
+                    @Convert.ToDateTime(item.Date).ToString("dd/MM/yyyy")
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.CustomerRef.Name)
