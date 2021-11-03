@@ -1,4 +1,4 @@
-﻿@model IEnumerable<NewCo.Areas.Sales.Models.Order>
+﻿@model IEnumerable<NewCo.Areas.Sales.ViewModels.OrderViewModel>
 
 @{
     ViewData["Title"] = "Ordini";
@@ -21,27 +21,33 @@
             <th>
                 @Html.DisplayNameFor(model => model.CustomerId)
             </th>
+            <td align="right">
+                @Html.DisplayNameFor(model => model.TotalAmount)
+            </td>
             <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.No)
-                </td>
-                <td>
-                    @Convert.ToDateTime(item.Date).ToString("dd/MM/yyyy")
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CustomerRef.Name)
-                </td>
-                <td>
-                    @Html.ActionLink("Modifica", "Edit", new { Area = "Sales", id = item.Id }) |
-                    @Html.ActionLink("Elimina", "Delete", new { Area = "Sales", id = item.Id })
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.No)
+            </td>
+            <td>
+                @Convert.ToDateTime(item.Date).ToString("dd/MM/yyyy")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerRef.Name)
+            </td>
+            <td align="right">
+                @Html.DisplayFor(modelItem => item.TotalAmount)
+            </td>
+            <td>
+                @Html.ActionLink("Modifica", "Edit", new { Area = "Sales", id = item.Id }) |
+                @Html.ActionLink("Elimina", "Delete", new { Area = "Sales", id = item.Id })
+            </td>
+        </tr>
         }
     </tbody>
 </table>

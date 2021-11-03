@@ -48,9 +48,12 @@ namespace NewCo.Areas.Sales.Models
         [Display(Name = "Cliente")]
         public Customer CustomerRef { get; set; }
 
-        public List<OrderLine> UpdatedLines()
+        [Display(Name = "Totale")]
+        [DisplayFormat(DataFormatString = "{0:c}")]
+        [DataType(DataType.Currency)]
+        public double TotalAmount
         {
-            return Lines.Where(ol => ol.Updated == true).ToList();
+            get { return Lines.Sum(r => r.LineAmount); }
         }
 
     }

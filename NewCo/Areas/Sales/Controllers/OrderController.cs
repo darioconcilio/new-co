@@ -24,7 +24,7 @@ namespace NewCo.Areas.Sales.Controllers
 
         public async Task<IActionResult> IndexAsync()
         {
-            List<Order> context = await _IDbService.OrdersAsync();
+            List<OrderViewModel> context = await _IDbService.OrdersAsync();
             return View(context);
         }
 
@@ -166,7 +166,7 @@ namespace NewCo.Areas.Sales.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteAsync(Order itemToDelete)
+        public async Task<IActionResult> DeleteAsync(OrderViewModel itemToDelete)
         {
             var bundle = new Bundle
             {

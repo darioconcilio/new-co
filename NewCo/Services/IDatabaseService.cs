@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using NewCo.Areas.PersonalData.Models;
 using NewCo.Areas.Sales.Models;
+using NewCo.Areas.Sales.ViewModels;
 using NewCo.Commons;
 using System;
 using System.Collections.Generic;
@@ -53,7 +54,7 @@ namespace NewCo.Services
 
         #region Orders
 
-        public Task<List<Order>> OrdersAsync();
+        public Task<List<OrderViewModel>> OrdersAsync();
         public Task<Bundle> OrderAsync(string id);
         public Task<Bundle> InsertAsync(Order itemToAdd);
         public Task<Bundle> UpdateAsync(Order itemToUpdate);

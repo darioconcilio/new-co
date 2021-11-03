@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using NewCo.Areas.PersonalData.Models;
 using NewCo.Areas.Sales.Models;
+using NewCo.Areas.Sales.ViewModels;
 using NewCo.Commons;
 using System;
 using System.Collections.Generic;
@@ -611,7 +612,7 @@ namespace NewCo.Services
 
         #region Order
 
-        public async Task<List<Order>> OrdersAsync()
+        public async Task<List<OrderViewModel>> OrdersAsync()
         {
             var sqlCommand = new SqlCommand
             {
@@ -620,13 +621,13 @@ namespace NewCo.Services
                               "FROM [Order]"
             };
 
-            var OrdersFound = new List<Order>();
+            var OrdersFound = new List<OrderViewModel>();
 
             using (var sqlReader = await sqlCommand.ExecuteReaderAsync())
             {
                 while (await sqlReader.ReadAsync())
                 {
-                    var currentOrder = new Order(sqlReader);
+                    var currentOrder = new OrderViewModel(new Order(sqlReader));
 
                     //Get Customer
                     if (currentOrder.CustomerId != 0)
@@ -634,6 +635,10 @@ namespace NewCo.Services
                         var customerItem = await CustomerAsync(currentOrder.CustomerId);
                         currentOrder.CustomerRef = customerItem;
                     }
+
+                    //Lerighe mi serviranno per il totale
+                    currentOrder.Lines = await OrderLinesAsync(currentOrder.Id);
+                    
 
                     OrdersFound.Add(currentOrder);
                 }

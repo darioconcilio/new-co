@@ -24,7 +24,7 @@ namespace NewCo.Areas.Sales.Controllers
 
         public async Task<IActionResult> IndexAsync()
         {
-            List<Order> context = await _IDbService.OrdersAsync();
+            List<OrderViewModel> context = await _IDbService.OrdersAsync();
             return View(context);
         }
 
