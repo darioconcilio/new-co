@@ -177,6 +177,8 @@ namespace NewCo.Areas.Sales.Controllers
             //unica transazione
             using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
+                itemToDelete.Lines = await _IDbService.OrderLinesAsync(itemToDelete.Id);
+
                 //Prima elimino le righe dell'ordine
                 foreach (var lineToDelete in itemToDelete.Lines)
                 {
