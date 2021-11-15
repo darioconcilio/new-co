@@ -49,24 +49,24 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <td>
+                            <th>
                                 @Html.DisplayNameFor(model => model.Lines.FirstOrDefault().LineNo)
-                            </td>
-                            <td>
+                            </th>
+                            <th>
                                 @Html.DisplayNameFor(model => model.Lines.FirstOrDefault().ItemRef.No)
-                            </td>
-                            <td>
+                            </th>
+                            <th>
                                 @Html.DisplayNameFor(model => model.Lines.FirstOrDefault().ItemRef.Description)
-                            </td>
-                            <td align="right">
+                            </th>
+                            <th style="text-align:right">
                                 @Html.DisplayNameFor(model => model.Lines.FirstOrDefault().Quantity)
-                            </td>
-                            <td align="right">
+                            </th>
+                            <th style="text-align:right">
                                 @Html.DisplayNameFor(model => model.Lines.FirstOrDefault().UnitPrice)
-                            </td>
-                            <td align="right">
+                            </th>
+                            <th style="text-align:right">
                                 @Html.DisplayNameFor(model => model.Lines.FirstOrDefault().LineAmount)
-                            </td>
+                            </th>
                             <th></th>
                         </tr>
                     </thead>
@@ -92,7 +92,7 @@
                                 <td align="right">
                                     @Html.DisplayFor(model => item.LineAmount)
                                 </td>
-                                <td>
+                                <td>    
                                     @Html.ActionLink("Modifica", "Edit", "OrderLine", new { Area = "Sales", orderId = item.OrderId, id = item.Id }) |
                                     @Html.ActionLink("Elimina", "Delete", "OrderLine", new { Area = "Sales", orderId = item.OrderId, id = item.Id })
                                 </td>

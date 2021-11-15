@@ -40,17 +40,17 @@
             </div>
         </div>
     </div>
-     <div class="feature col">
-        <div class="feature-icon bg-primary bg-gradient">
-            <svg class="bi" width="1em" height="1em"><use xlink:href="#collection" /></svg>
+    <div class="col">
+        <div class="card" style="width: 18rem;">
+            <img src="~/img/product.png" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Articoli</h5>
+                <p class="card-text">
+                    Gestione degli articoli, è possibile creare, modificare ed eliminare gli articoli.
+                </p>
+                <a asp-area="PersonalData" asp-controller="Item" asp-action="Index" class="btn btn-primary">Entra</a>
+            </div>
         </div>
-        <h2>Articoli</h2>
-        <p>Gestione degli articoli, è possibile creare, modificare ed eliminare gli articoli.</p>
-        <a asp-area="PersonalData" asp-controller="Item" asp-action="Index" class="icon-link">
-            Entra
-            <svg class="bi" width="128" height="128" fill="currentColor">
-                <use xlink:href="bootstrap-icons.svg#archive" />
-            </svg>
-        </a>
     </div>
+
 </div>

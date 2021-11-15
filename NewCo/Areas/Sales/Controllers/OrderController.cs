@@ -173,35 +173,7 @@ namespace NewCo.Areas.Sales.Controllers
                 Result = true
             };
 
-            //Il TransactionScope permette di raggruppare tutte le chiamate, anche async in una 
-            //unica transazione
-            using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
-            {
-                itemToDelete.Lines = await _IDbService.OrderLinesAsync(itemToDelete.Id);
-
-                //Prima elimino le righe dell'ordine
-                foreach (var lineToDelete in itemToDelete.Lines)
-                {
-                    var bundleLines = await _IDbService.DeleteAsync(lineToDelete);
-                    bundle = bundleLines;
-
-                    //Se incontro un problema allora mi fermo nel ciclo
-                    if (!bundleLines.Result)
-                        break;
-                }
-
-                //Le righe sono state eliminate? Allora elimino la testata
-                if (bundle.Result)
-                {
-                    var bundleHeader = await _IDbService.DeleteAsync(itemToDelete);
-                    bundle = bundleHeader;
-                }
-
-                //Tutto è andato per il meglio, allora COMMIT
-                //altrimenti ROLLBACK automatico
-                if (bundle.Result)
-                    scope.Complete();
-            }
+            bundle = await _IDbService.DeleteCompleteAsync(itemToDelete);
 
             ViewBag.Error = false;
             ViewBag.ErrorMessage = "";

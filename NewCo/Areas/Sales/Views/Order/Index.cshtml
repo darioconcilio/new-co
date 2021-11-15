@@ -21,14 +21,18 @@
             <th>
                 @Html.DisplayNameFor(model => model.CustomerId)
             </th>
-            <td align="right">
+            <th style="text-align:right">
+                @Html.DisplayNameFor(model => model.LinesCount)
+            </th>
+            <th style="text-align:right">
                 @Html.DisplayNameFor(model => model.TotalAmount)
-            </td>
+            </th>
+            
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.OrderBy(o => o.No))
         {
         <tr>
             <td>
@@ -41,8 +45,12 @@
                 @Html.DisplayFor(modelItem => item.CustomerRef.Name)
             </td>
             <td align="right">
+                @Html.DisplayFor(modelItem => item.LinesCount)
+            </td>
+            <td align="right">
                 @Html.DisplayFor(modelItem => item.TotalAmount)
             </td>
+
             <td>
                 @Html.ActionLink("Modifica", "Edit", new { Area = "Sales", id = item.Id }) |
                 @Html.ActionLink("Elimina", "Delete", new { Area = "Sales", id = item.Id })

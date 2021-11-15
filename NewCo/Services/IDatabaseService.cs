@@ -5,6 +5,7 @@ using NewCo.Areas.Sales.ViewModels;
 using NewCo.Commons;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -58,14 +59,15 @@ namespace NewCo.Services
         public Task<Bundle> OrderAsync(string id);
         public Task<Bundle> InsertAsync(Order itemToAdd);
         public Task<Bundle> UpdateAsync(Order itemToUpdate);
-        public Task<Bundle> DeleteAsync(Order itemToDelete);
+        public Task<Bundle> DeleteAsync(Order itemToDelete, SqlConnection conn = null);
+        public Task<Bundle> DeleteCompleteAsync(Order itemToDelete);
         public Task<string> GetLastOrderNoAsync();
 
         public Task<List<OrderLine>> OrderLinesAsync(string id);
         public Task<OrderLine> OrderLineAsync(string orderId, string id);
         public Task<Bundle> InsertAsync(OrderLine itemToAdd);
         public Task<Bundle> UpdateAsync(OrderLine itemToUpdate);
-        public Task<Bundle> DeleteAsync(OrderLine itemToDelete);
+        public Task<Bundle> DeleteAsync(OrderLine itemToDelete, SqlConnection conn = null);
 
         public Task<int> GetLastOrderLineNoAsync(string orderId);
 

@@ -48,12 +48,19 @@ namespace NewCo.Areas.Sales.Models
         [Display(Name = "Cliente")]
         public Customer CustomerRef { get; set; }
 
-        [Display(Name = "Totale")]
+        [Display(Name = "Importo Totale")]
         [DisplayFormat(DataFormatString = "{0:c}")]
         [DataType(DataType.Currency)]
         public double TotalAmount
         {
             get { return Lines.Sum(r => r.LineAmount); }
+        }
+
+        [Display(Name = "Nr. Righe")]
+        [DisplayFormat(DataFormatString = "{0:N0}")]
+        public int LinesCount
+        {
+            get { return Lines.Count; }
         }
 
     }

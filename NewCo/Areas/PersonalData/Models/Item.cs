@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
@@ -23,6 +24,24 @@ namespace NewCo.Areas.PersonalData.Models
             No = reader["No"].ToString();
         }
 
+        public Item(DataRow dr)
+        {
+            Id = Convert.ToInt32(dr["Id"]);
+            Description = dr["Description"].ToString();
+            UnitPrice = Convert.ToDecimal(dr["UnitPrice"]);
+            Inventory = Convert.ToDecimal(dr["Inventory"]);
+            No = dr["No"].ToString();
+        }
+
+        public void UpdateDataRow(ref DataRow dr)
+        {
+            dr["Id"] = Id;
+            dr["Description"] = Description;
+            dr["UnitPrice"] = UnitPrice;
+            dr["Inventory"] = Inventory;
+            dr["No"] = No;
+        }
+
         public int Id { get; set; }
 
         [Display(Name = "Descrizione")]
@@ -40,4 +59,5 @@ namespace NewCo.Areas.PersonalData.Models
         [Display(Name = "Codice")]
         public string No { get; set; }
     }
+
 }

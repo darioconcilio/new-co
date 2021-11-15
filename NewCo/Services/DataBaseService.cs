@@ -5,9 +5,11 @@ using NewCo.Areas.Sales.ViewModels;
 using NewCo.Commons;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace NewCo.Services
 {
@@ -638,7 +640,7 @@ namespace NewCo.Services
 
                     //Lerighe mi serviranno per il totale
                     currentOrder.Lines = await OrderLinesAsync(currentOrder.Id);
-                    
+
 
                     OrdersFound.Add(currentOrder);
                 }
@@ -663,9 +665,9 @@ namespace NewCo.Services
             if (ordersOfCurrentYear.Count != 0)
             {
                 //Estraggo il progressivo corrente dell'ultimo ordine creato
-                var lastOrderNoProgress = ordersOfCurrentYear.Last().No.Substring(3, 4);
+                var lastOrderNoProgress = ordersOfCurrentYear.OrderBy(o=>o.No).Last().No.Substring(3, 4);
                 //Converto in int
-                var lastOrderNoProgressInt = Convert.ToInt32(lastOrderNoProgress);
+                var lastOrderNoProgressInt = Convert.ToInt32(lastOrderNoProgress) + 1;
                 //Genero il nuovo progressivo
                 var newOrderNo = lastOrderNoProgressInt.ToString().PadLeft(4, '0');
                 //Genero il nuovo protocollo
@@ -775,13 +777,68 @@ namespace NewCo.Services
             return bundle;
         }
 
-        public async Task<Bundle> DeleteAsync(Order itemToDelete)
+        public async Task<Bundle> DeleteCompleteAsync(Order itemToDelete)
+        {
+            var bundle = new Bundle
+            {
+                Result = true
+            };
+
+            /*var transaction = _sqlConnection.BeginTransaction();
+            //....operazioni CRUD
+            var comm = new SqlCommand("UPDATE----", _sqlConnection);
+            comm.Transaction = transaction;
+            comm.ExecuteNonQuery();
+
+            transaction.Commit();
+
+            //In caso di esito negativo
+            transaction.Rollback();*/
+
+            //Il TransactionScope permette di raggruppare tutte le chiamate, anche async in una 
+            //unica transazione
+            using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                using (var conn = new SqlConnection(_configuration.GetConnectionString("SQL")))
+                {
+                    await conn.OpenAsync();
+                    
+
+                    itemToDelete.Lines = await OrderLinesAsync(itemToDelete.Id);
+
+                    //Prima elimino le righe dell'ordine
+                    foreach (var lineToDelete in itemToDelete.Lines)
+                    {
+                        var bundleLines = await DeleteAsync(lineToDelete, conn);
+                        bundle = bundleLines;
+
+                        //Se incontro un problema allora mi fermo nel ciclo
+                        if (!bundleLines.Result)
+                            break;
+                    }
+
+                    //Le righe sono state eliminate? Allora elimino la testata
+                    if (bundle.Result)
+                    {
+                        var bundleHeader = await DeleteAsync(itemToDelete, conn);
+                        bundle = bundleHeader;
+                    }
+
+                    if (bundle.Result)
+                        scope.Complete();
+                }
+            }
+
+            return bundle;
+        }
+
+        public async Task<Bundle> DeleteAsync(Order itemToDelete, SqlConnection conn = null)
         {
             var bundle = new Bundle();
 
             var sqlCommand = new SqlCommand
             {
-                Connection = _sqlConnection,
+                Connection = conn != null ? conn : _sqlConnection,
                 CommandText = "DELETE FROM [Order] WHERE [Id] = @Id"
             };
 
@@ -948,13 +1005,13 @@ namespace NewCo.Services
             return bundle;
         }
 
-        public async Task<Bundle> DeleteAsync(OrderLine itemToDelete)
+        public async Task<Bundle> DeleteAsync(OrderLine itemToDelete, SqlConnection conn = null)
         {
             var bundle = new Bundle();
 
             var sqlCommand = new SqlCommand
             {
-                Connection = _sqlConnection,
+                Connection = conn != null ? conn : _sqlConnection,
                 CommandText = "DELETE FROM [OrderLine] WHERE [OrderId] = @OrderId AND [Id] = @Id"
             };
 
