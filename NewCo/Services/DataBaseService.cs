@@ -894,9 +894,9 @@ namespace NewCo.Services
         public async Task<int> GetLastOrderLineNoAsync(string orderId)
         {
             //Recupero tutte le righe dell'ordine corrente
-            var orders = await OrderLinesAsync(orderId);
+            var orderLines = await OrderLinesAsync(orderId);
 
-            var lastOrderLineNo = orders.OrderBy(l => l.LineNo).LastOrDefault()?.LineNo + 1 ?? 1; //Coalesce operator
+            var lastOrderLineNo = orderLines.OrderBy(l => l.LineNo).LastOrDefault()?.LineNo + 1 ?? 1; //Coalesce operator
 
             return lastOrderLineNo;
         }

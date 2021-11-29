@@ -33,8 +33,6 @@ namespace NewCo.Areas.Sales.Models
         [Required]
         public string No { get; set; }
 
-        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yy}")]
-        //[DataType(DataType.Date)]
         [Display(Name = "Data Ordine")]
         [Required]
         public DateTime? Date { get; set; }
