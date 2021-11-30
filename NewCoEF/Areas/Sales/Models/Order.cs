@@ -15,6 +15,7 @@ namespace NewCoEF.Areas.Sales.Models
             Lines = new HashSet<OrderLine>();
         }
 
+        [Key]
         public Guid Id { get; set; }
 
         [Display(Name = "Nr. Ordine")]
@@ -25,9 +26,12 @@ namespace NewCoEF.Areas.Sales.Models
         [Required]
         public DateTime Date { get; set; }
 
+        #region Navigation Property
+                
         public ICollection<OrderLine> Lines { get; set; }
 
         public Customer CustomerRef { get; set; }
 
+        #endregion
     }
 }

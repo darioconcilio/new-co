@@ -13,8 +13,12 @@ namespace NewCoEF.Areas.PersonalData.Models
 
         }
 
+        [Key]
         public Guid ID { get; set; }
 
+        [MaxLength(33)] //Property
+        [StringLength(22)] //Data Field
+        [Required]
         [Display(Name = "Paese")]
         public string Name { get; set; }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NewCoEF.Areas.Sales.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -10,8 +11,11 @@ namespace NewCoEF.Areas.PersonalData.Models
     {
         public Customer()
         {
-
+            Orders = new HashSet<Order>();
+            ItemsSales = new HashSet<Item>();
         }
+
+        [Key]
         public Guid ID { get; set; }
 
         [Display(Name = "Ragione Sociale")]
@@ -32,9 +36,16 @@ namespace NewCoEF.Areas.PersonalData.Models
         [Display(Name = "P. IVA")]
         public string VATRegistrationCode { get; set; }
 
+        #region Navigation Property
+
         public County CountyRef { get; set; }
 
         public Country CountryRef { get; set; }
 
+        public ICollection<Order> Orders { get; set; }
+
+        public ICollection<Item> ItemsSales { get; set; }
+
+        #endregion
     }
 }

@@ -35,5 +35,72 @@ namespace NewCoEF
         {
             
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            #region Personal Data
+
+            modelBuilder.Entity<County>(entity =>
+            {
+                entity.HasKey(c => c.ID);
+                entity.Property(c => c.Name).HasMaxLength(50);
+            });
+
+            //Il Country è stato definito con le DataAnnotation
+
+            modelBuilder.Entity<Customer>(entity =>
+            {
+                entity.HasIndex(c => c.Name)
+                    .HasName("Customer_Name_Index");
+            });
+
+            modelBuilder.Entity<Item>(entity =>
+            {
+                entity.HasIndex(c => c.Description)
+                    .HasName("Item Description Index");
+            });
+
+            #endregion
+
+            #region Sales
+
+            modelBuilder.Entity<Order>(entity =>
+            {
+                entity.Property(o => o.Date)
+                    .HasColumnType("datetime");
+
+                entity.Property(o => o.No)
+                    .HasColumnType("varchar")
+                    .HasMaxLength(20);
+            });
+
+            modelBuilder.Entity<OrderLine>(entity =>
+            {
+                //Chiave primaria multipla può essere definita solo con le API
+                entity.HasKey(ol => new { ol.OrderId, ol.Id });
+
+                //Definizione del tipo di campo per SQL Server e valore di default
+                entity.Property(ol => ol.Quantity)
+                    .HasColumnType("decimal(18,20)")
+                    .HasDefaultValue("((1))");
+
+                entity.Property(ol => ol.UnitPrice)
+                    .HasColumnType("currency")
+                    .HasDefaultValue("((0))")
+                    .HasColumnName("Unit Price");
+
+                entity.Property(ol => ol.LineAmount)
+                    .HasColumnType("currency")
+                    .HasDefaultValue("((0))")
+                    .HasColumnName("Line Amount");
+
+                entity.Property(ol => ol.LineNo)
+                    .HasColumnType("int")
+                    .HasDefaultValue("((0))")
+                    .HasColumnName("Line No");
+            });
+
+            #endregion
+        }
     }
 }

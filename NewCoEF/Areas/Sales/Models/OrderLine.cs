@@ -33,11 +33,12 @@ namespace NewCoEF.Areas.Sales.Models
         [Display(Name = "Nr. Riga")]
         public int LineNo { get; set; }
 
-        public Item ItemRef { get; set; }
+
 
         double quantity;
         [DisplayFormat(DataFormatString = "{0:N0}")]
         [Display(Name = "Quantità")]
+        [Required]
         public double Quantity
         {
             get { return quantity; }
@@ -48,6 +49,7 @@ namespace NewCoEF.Areas.Sales.Models
             }
         }
 
+        [Required]
         double unitPrice;
         [DisplayFormat(DataFormatString = "{0:c}")]
         [DataType(DataType.Currency)]
@@ -62,10 +64,18 @@ namespace NewCoEF.Areas.Sales.Models
             }
         }
 
+        [Required]
         [DisplayFormat(DataFormatString = "{0:c}")]
         [DataType(DataType.Currency)]
         [Display(Name = "Importo Riga")]
         public double LineAmount { get; set; }
 
+        #region Navigation Property
+
+        public Item ItemRef { get; set; }
+
+        public Order OrderRef { get; set; }
+
+        #endregion
     }
 }

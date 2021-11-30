@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NewCoEF.Areas.Sales.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -10,9 +11,12 @@ namespace NewCoEF.Areas.PersonalData.Models
     {
         public Item()
         {
-
+            Id = Guid.NewGuid();
+            Orders = new HashSet<Order>();
+            CustomersSales = new HashSet<Customer>();
         }
 
+        [Key]
         public Guid Id { get; set; }
 
         [Display(Name = "Descrizione")]
@@ -29,5 +33,13 @@ namespace NewCoEF.Areas.PersonalData.Models
 
         [Display(Name = "Codice")]
         public string No { get; set; }
+
+        #region Navigation Property
+
+        public ICollection<Order> Orders { get; set; }
+
+        public ICollection<Customer> CustomersSales { get; set; }
+
+        #endregion
     }
 }

@@ -13,6 +13,7 @@ namespace NewCoEF.Areas.PersonalData.Models
 
         }
 
+        //Le caratteristiche sono state definite nel model builder
         public Guid ID { get; set; }
 
         [Display(Name = "Provincia")]
