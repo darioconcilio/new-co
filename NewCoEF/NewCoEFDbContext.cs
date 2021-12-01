@@ -58,6 +58,16 @@ namespace NewCoEF
             {
                 entity.HasIndex(c => c.Description)
                     .HasName("Item Description Index");
+                entity.Property(c => c.Inventory)
+                    .HasColumnType("decimal(18,2)");
+                entity.Property(c => c.No)
+                    .HasColumnType("varchar(20)");
+                entity.Property(c => c.Description)
+                    .HasMaxLength(50)
+                    .HasColumnType("varchar(50)");
+                entity.Property(c => c.UnitPrice)
+                    .HasColumnType("money")
+                    .HasColumnName("Unit Price");
             });
 
             #endregion
@@ -70,7 +80,7 @@ namespace NewCoEF
                     .HasColumnType("datetime");
 
                 entity.Property(o => o.No)
-                    .HasColumnType("varchar")
+                    .HasColumnType("varchar(20)")
                     .HasMaxLength(20);
             });
 
@@ -81,22 +91,18 @@ namespace NewCoEF
 
                 //Definizione del tipo di campo per SQL Server e valore di default
                 entity.Property(ol => ol.Quantity)
-                    .HasColumnType("decimal(18,20)")
-                    .HasDefaultValue("((1))");
+                    .HasColumnType("decimal(18,2)");
 
                 entity.Property(ol => ol.UnitPrice)
-                    .HasColumnType("currency")
-                    .HasDefaultValue("((0))")
+                    .HasColumnType("money")
                     .HasColumnName("Unit Price");
 
                 entity.Property(ol => ol.LineAmount)
-                    .HasColumnType("currency")
-                    .HasDefaultValue("((0))")
+                    .HasColumnType("money")
                     .HasColumnName("Line Amount");
 
                 entity.Property(ol => ol.LineNo)
                     .HasColumnType("int")
-                    .HasDefaultValue("((0))")
                     .HasColumnName("Line No");
             });
 

@@ -12,7 +12,6 @@ namespace NewCoEF.Areas.PersonalData.Models
         public Customer()
         {
             Orders = new HashSet<Order>();
-            ItemsSales = new HashSet<Item>();
         }
 
         [Key]
@@ -43,8 +42,6 @@ namespace NewCoEF.Areas.PersonalData.Models
         public Country CountryRef { get; set; }
 
         public ICollection<Order> Orders { get; set; }
-
-        public ICollection<Item> ItemsSales { get; set; }
 
         #endregion
     }

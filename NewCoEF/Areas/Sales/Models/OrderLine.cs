@@ -52,7 +52,6 @@ namespace NewCoEF.Areas.Sales.Models
         [Required]
         double unitPrice;
         [DisplayFormat(DataFormatString = "{0:c}")]
-        [DataType(DataType.Currency)]
         [Display(Name = "Prezzo Unitario")]
         public double UnitPrice
         {
@@ -66,7 +65,6 @@ namespace NewCoEF.Areas.Sales.Models
 
         [Required]
         [DisplayFormat(DataFormatString = "{0:c}")]
-        [DataType(DataType.Currency)]
         [Display(Name = "Importo Riga")]
         public double LineAmount { get; set; }
 

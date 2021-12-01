@@ -20,6 +20,7 @@ namespace NewCoEF.Areas.PersonalData.Models
         public Guid Id { get; set; }
 
         [Display(Name = "Descrizione")]
+        [MaxLength(50)]
         public string Description { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:c}")]
