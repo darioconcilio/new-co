@@ -5,9 +5,11 @@ VisualStudioVersion = 16.0.31321.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewCo", "NewCo\NewCo.csproj", "{09349786-F271-4A33-BA74-7DDAA825E631}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDataSet", "TestDataSet\TestDataSet.csproj", "{8F8355EA-C9EB-47D2-B108-4806E14CBE67}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestDataSet", "TestDataSet\TestDataSet.csproj", "{8F8355EA-C9EB-47D2-B108-4806E14CBE67}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewCoEF", "NewCoEF\NewCoEF.csproj", "{37C3190E-7EB4-4086-8043-57219D88FBA7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewCoEF", "NewCoEF\NewCoEF.csproj", "{37C3190E-7EB4-4086-8043-57219D88FBA7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewCoEF.DbFirst", "NewCoEF.DbFirst\NewCoEF.DbFirst.csproj", "{C9E5B368-C9A4-476E-845A-790047579992}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{37C3190E-7EB4-4086-8043-57219D88FBA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37C3190E-7EB4-4086-8043-57219D88FBA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37C3190E-7EB4-4086-8043-57219D88FBA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9E5B368-C9A4-476E-845A-790047579992}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9E5B368-C9A4-476E-845A-790047579992}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9E5B368-C9A4-476E-845A-790047579992}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9E5B368-C9A4-476E-845A-790047579992}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

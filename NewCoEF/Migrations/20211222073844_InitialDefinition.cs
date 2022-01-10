@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace NewCoEF.Migrations
 {
-    public partial class Initial : Migration
+    public partial class InitialDefinition : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -37,10 +37,10 @@ namespace NewCoEF.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Description = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true),
                     UnitPrice = table.Column<decimal>(name: "Unit Price", type: "money", nullable: false),
                     Inventory = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    No = table.Column<string>(nullable: true)
+                    No = table.Column<string>(type: "varchar(20)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -90,7 +90,7 @@ namespace NewCoEF.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    No = table.Column<string>(type: "varchar", maxLength: 20, nullable: false),
+                    No = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false),
                     Date = table.Column<DateTime>(type: "datetime", nullable: false),
                     CustomerRefID = table.Column<Guid>(nullable: true),
                     ItemId = table.Column<Guid>(nullable: true)

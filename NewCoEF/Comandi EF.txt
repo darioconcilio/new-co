@@ -1,0 +1,20 @@
+Aggiornamento dei tool
+dotnet tool update --global dotnet-ef
+
+Versione dei tools
+dotnet ef
+
+Creazione di una nuova porzione di aggiornamento
+dotnet ef migrations add
+
+Rimozione dell'ultima porzione di aggiornamento
+dotnet ef migrations remove
+
+Rimozione dell'ultima porzione di aggiornamento anche su database
+dotnet ef migrations remove --force oppure -f
+
+Aggiorna database
+dotnet ef database update
+
+Scaffolding (Database first)
+dotnet ef dbcontext scaffold

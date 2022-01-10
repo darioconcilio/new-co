@@ -42,5 +42,6 @@ namespace NewCoEF.Areas.PersonalData.Models
         public ICollection<Customer> CustomersSales { get; set; }
 
         #endregion
+
     }
 }

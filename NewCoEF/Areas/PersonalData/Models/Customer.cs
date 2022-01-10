@@ -35,6 +35,13 @@ namespace NewCoEF.Areas.PersonalData.Models
         [Display(Name = "P. IVA")]
         public string VATRegistrationCode { get; set; }
 
+        #region aggiornamento
+        /*[Display(Name = "Codice Destinatario")]
+        [MaxLength(7)]
+        [Required]
+        public string SDICode { get; set; }*/
+        #endregion
+
         #region Navigation Property
 
         public County CountyRef { get; set; }

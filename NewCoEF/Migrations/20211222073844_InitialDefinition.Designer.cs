@@ -10,8 +10,8 @@ using NewCoEF;
 namespace NewCoEF.Migrations
 {
     [DbContext(typeof(NewCoEFDbContext))]
-    [Migration("20211130231650_FixItemNo")]
-    partial class FixItemNo
+    [Migration("20211222073844_InitialDefinition")]
+    partial class InitialDefinition
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -109,7 +109,8 @@ namespace NewCoEF.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<decimal>("Inventory")
                         .HasColumnType("decimal(18,2)");
