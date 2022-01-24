@@ -1,3 +1,2 @@
 Scaffolding (Database first)
-dotnet ef dbcontext scaffold name=Default Microsoft.EntityFrameworkCore.SqlServer 
-                             -o Models
+dotnet ef dbcontext scaffold name=Default Microsoft.EntityFrameworkCore.SqlServer -o Models
