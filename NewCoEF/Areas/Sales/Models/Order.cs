@@ -27,7 +27,7 @@ namespace NewCoEF.Areas.Sales.Models
         public DateTime Date { get; set; }
 
         #region Navigation Property
-                
+
         public ICollection<OrderLine> Lines { get; set; }
 
         public Customer CustomerRef { get; set; }
