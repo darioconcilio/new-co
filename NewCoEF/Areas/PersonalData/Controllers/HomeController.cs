@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace NewCoEF.Areas.PersonalData.Controllers
 {
     [Area("PersonalData")]
-    public class PersonalDataHomeController : Controller
+    public class HomeController : Controller
     {
         public IActionResult Index()
         {

@@ -13,8 +13,6 @@ namespace NewCoEF.Areas.PersonalData.Models
         public Item()
         {
             Id = Guid.NewGuid();
-            Orders = new HashSet<Order>();
-            CustomersSales = new HashSet<Customer>();
         }
 
         [Key]
@@ -35,16 +33,6 @@ namespace NewCoEF.Areas.PersonalData.Models
 
         [Display(Name = "Codice")]
         public string No { get; set; }
-
-        #region Navigation Property
-
-        [NotMapped]
-        public ICollection<Order> Orders { get; set; }
-
-        [NotMapped]
-        public ICollection<Customer> CustomersSales { get; set; }
-
-        #endregion
 
     }
 }
