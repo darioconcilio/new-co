@@ -34,10 +34,18 @@ namespace NewCoEF.Areas.PersonalData.Controllers
                 return NotFound();
             }
 
-            var item = await _context.Items
-                .FirstOrDefaultAsync(m => m.Id == id);
+            //Wizard style
+            var item = await _context.Items.FirstOrDefaultAsync(m => m.Id == id);
+
+            #region Linq style
+            //var item = await (from rec in _context.Items
+            //                      where rec.Id == id
+            //                      select rec).SingleOrDefaultAsync();
+            #endregion
+
             if (item == null)
             {
+                //Custom Error View https://www.prowaretech.com/Computer/AspNetCore/HandleViewNotFoundErrors
                 return NotFound();
             }
 
