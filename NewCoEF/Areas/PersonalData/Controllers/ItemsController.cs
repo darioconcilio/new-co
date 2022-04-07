@@ -91,17 +91,22 @@ namespace NewCoEF.Areas.PersonalData.Controllers
             return View(item);
         }
 
+
+
         // POST: PersonalData/Items/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //https://docs.microsoft.com/it-it/aspnet/core/security/anti-request-forgery?view=aspnetcore-3.1
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Description,UnitPrice,Inventory,No")] Item item)
+        //public async Task<IActionResult> Edit(Guid id, [Bind("Id,Description,UnitPrice,Inventory,No")] Item item)
+        //public async Task<IActionResult> Edit(Guid id, [Bind("Id,UnitPrice,Inventory,No")] Item item)
+        public async Task<IActionResult> Edit(Item item)
         {
-            if (id != item.Id)
+            /*if (id != item.Id)
             {
                 return NotFound();
-            }
+            }*/
 
             if (ModelState.IsValid)
             {
