@@ -35,6 +35,12 @@ namespace NewCoEF.Areas.PersonalData.Models
         [Display(Name = "P. IVA")]
         public string VATRegistrationCode { get; set; }
 
+        [Display(Name = "Provincia")]
+        public Guid? CountyRefId { get; set; }
+
+        [Display(Name = "Paese")]
+        public Guid? CountryRefId { get; set; }
+
         #region aggiornamento
         /*[Display(Name = "Codice Destinatario")]
         [MaxLength(7)]
@@ -44,11 +50,11 @@ namespace NewCoEF.Areas.PersonalData.Models
 
         #region Navigation Property
 
-        public County CountyRef { get; set; }
+        public virtual County CountyRef { get; set; }
 
-        public Country CountryRef { get; set; }
+        public virtual Country CountryRef { get; set; }
 
-        public ICollection<Order> Orders { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
 
         #endregion
     }

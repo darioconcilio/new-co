@@ -99,9 +99,9 @@ namespace NewCoEF.Areas.PersonalData.Controllers
         //https://docs.microsoft.com/it-it/aspnet/core/security/anti-request-forgery?view=aspnetcore-3.1
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(Guid id, [Bind("Id,Description,UnitPrice,Inventory,No")] Item item)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Description,UnitPrice,Inventory,No")] Item item)
         //public async Task<IActionResult> Edit(Guid id, [Bind("Id,UnitPrice,Inventory,No")] Item item)
-        public async Task<IActionResult> Edit(Item item)
+        //public async Task<IActionResult> Edit(Item item)
         {
             /*if (id != item.Id)
             {
@@ -155,7 +155,7 @@ namespace NewCoEF.Areas.PersonalData.Controllers
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             var item = await _context.Items.FindAsync(id);
-            _context.Items.Remove(item);
+            _context.Remove(item);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

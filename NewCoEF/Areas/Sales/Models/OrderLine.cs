@@ -7,73 +7,17 @@ using System.Threading.Tasks;
 
 namespace NewCoEF.Areas.Sales.Models
 {
-    public class OrderLine
+    public partial class OrderLines
     {
-        public OrderLine()
-        {
-            Id = Guid.NewGuid();
-        }
-
-        public OrderLine(Guid orderId)
-        {
-            Id = Guid.NewGuid();
-            OrderId = orderId;
-        }
-
-        /// <summary>
-        /// Guid dell'ordine
-        /// </summary>
         public Guid OrderId { get; set; }
-
-        /// <summary>
-        /// Guid della riga
-        /// </summary>
         public Guid Id { get; set; }
-
-        [Display(Name = "Nr. Riga")]
         public int LineNo { get; set; }
+        public decimal Quantity { get; set; }
+        public decimal UnitPrice { get; set; }
+        public decimal LineAmount { get; set; }
+        public Guid? ItemRefId { get; set; }
 
-
-
-        double quantity;
-        [DisplayFormat(DataFormatString = "{0:N0}")]
-        [Display(Name = "Quantità")]
-        [Required]
-        public double Quantity
-        {
-            get { return quantity; }
-            set
-            {
-                quantity = value;
-                LineAmount = quantity * unitPrice;
-            }
-        }
-
-        [Required]
-        double unitPrice;
-        [DisplayFormat(DataFormatString = "{0:c}")]
-        [Display(Name = "Prezzo Unitario")]
-        public double UnitPrice
-        {
-            get { return unitPrice; }
-            set
-            {
-                unitPrice = value;
-                LineAmount = quantity * unitPrice;
-            }
-        }
-
-        [Required]
-        [DisplayFormat(DataFormatString = "{0:c}")]
-        [Display(Name = "Importo Riga")]
-        public double LineAmount { get; set; }
-
-        #region Navigation Property
-
-        public Item ItemRef { get; set; }
-
-        public Order OrderRef { get; set; }
-
-        #endregion
+        public virtual Item ItemRef { get; set; }
+        public virtual Order Order { get; set; }
     }
 }

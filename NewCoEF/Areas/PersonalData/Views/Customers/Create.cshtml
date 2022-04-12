@@ -1,56 +1,82 @@
-﻿@model NewCoEF.Areas.PersonalData.Models.Customer
+﻿@model NewCoEF.Areas.PersonalData.ViewModels.CustomerViewModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Nuovo Cliente";
 }
 
-<h1>Create</h1>
+<h1>Nuovo Cliente</h1>
 
-<h4>Customer</h4>
-<hr />
+@if (ViewBag.Error)
+{
+    <p style="color:red; font-stretch:expanded">@ViewBag.ErrorMessage)</p>
+}
+
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-area="PersonalData"
+              asp-controller="Customer"
+              asp-action="Create"
+              method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
+                <input asp-for="Name" class="form-control" maxlength="50" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Code" class="control-label"></label>
-                <input asp-for="Code" class="form-control" />
+                <input asp-for="Code" class="form-control" maxlength="2" />
                 <span asp-validation-for="Code" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
+                <input asp-for="Address" class="form-control" maxlength="50" />
                 <span asp-validation-for="Address" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PostCode" class="control-label"></label>
-                <input asp-for="PostCode" class="form-control" />
-                <span asp-validation-for="PostCode" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="City" class="control-label"></label>
-                <input asp-for="City" class="form-control" />
+                <input asp-for="City" class="form-control" maxlength="50" />
                 <span asp-validation-for="City" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="PostCode" class="control-label"></label>
+                <input asp-for="PostCode" class="form-control" maxlength="10" />
+                <span asp-validation-for="PostCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="VATRegistrationCode" class="control-label"></label>
-                <input asp-for="VATRegistrationCode" class="form-control" />
+                <input asp-for="VATRegistrationCode" class="form-control" maxlength="20" />
                 <span asp-validation-for="VATRegistrationCode" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <label asp-for="CountryRef" class="control-label"></label>
+                @Html.DropDownListFor(m => m.CountryRef, @Model.Counties.Select(c =>
+                                                            new SelectListItem()
+                                                            {
+                                                                Text = c.Name,
+                                                                Value = c.ID.ToString()
+                                                            }), new { @class = "form-control" })
+                <span asp-validation-for="CountryRef" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CountyRef" class="control-label"></label>
+                @Html.DropDownListFor(m => m.CountyRef, @Model.Countries.Select(c =>
+                                                            new SelectListItem()
+                                                            {
+                                                                Text = c.Name,
+                                                                Value = c.ID.ToString()
+                                                            }), new { @class = "form-control" })
+                <span asp-validation-for="CountyRef" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Salva" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Lista Clienti</a>
 </div>
 
 @section Scripts {

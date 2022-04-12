@@ -7,31 +7,19 @@ using System.Threading.Tasks;
 
 namespace NewCoEF.Areas.Sales.Models
 {
-    public class Order
+    public partial class Order
     {
         public Order()
         {
-            Id = Guid.NewGuid();
-            Lines = new HashSet<OrderLine>();
+            OrderLines = new HashSet<OrderLines>();
         }
 
-        [Key]
         public Guid Id { get; set; }
-
-        [Display(Name = "Nr. Ordine")]
-        [Required]
         public string No { get; set; }
-
-        [Display(Name = "Data Ordine")]
-        [Required]
         public DateTime Date { get; set; }
+        public Guid? CustomerRefId { get; set; }
 
-        #region Navigation Property
-
-        public ICollection<OrderLine> Lines { get; set; }
-
-        public Customer CustomerRef { get; set; }
-
-        #endregion
+        public virtual Customer CustomerRef { get; set; }
+        public virtual ICollection<OrderLines> OrderLines { get; set; }
     }
 }

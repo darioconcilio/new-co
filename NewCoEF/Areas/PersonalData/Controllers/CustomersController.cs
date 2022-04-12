@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NewCoEF;
 using NewCoEF.Areas.PersonalData.Models;
+using NewCoEF.Areas.PersonalData.ViewModels;
 
 namespace NewCoEF.Areas.PersonalData.Controllers
 {
@@ -47,7 +48,13 @@ namespace NewCoEF.Areas.PersonalData.Controllers
         // GET: PersonalData/Customers/Create
         public IActionResult Create()
         {
-            return View();
+            var item = new Customer();
+            CustomerViewModel vm = new CustomerViewModel(item);
+
+            ViewBag.Error = false;
+            ViewBag.ErrorMessage = "";
+
+            return View(vm);
         }
 
         // POST: PersonalData/Customers/Create
@@ -70,17 +77,31 @@ namespace NewCoEF.Areas.PersonalData.Controllers
         // GET: PersonalData/Customers/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            Customer item = await _context.Customers.FindAsync(id);
 
-            var customer = await _context.Customers.FindAsync(id);
-            if (customer == null)
+            CustomerViewModel vm = new CustomerViewModel(item)
             {
-                return NotFound();
-            }
-            return View(customer);
+                //Caricamento delle dropdown
+                Countries = await _context.Countries.ToListAsync(),
+                Counties = await _context.Counties.ToListAsync()
+            };
+
+            vm.Counties.Insert(0, new County()
+            {
+                ID = new Guid(9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9),
+                Name = "Seleziona una provincia"
+            });
+
+            vm.Countries.Insert(0, new Country()
+            {
+                ID = new Guid(9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9),
+                Name = "Seleziona un paese"
+            });
+
+            ViewBag.Error = false;
+            ViewBag.ErrorMessage = "";
+
+            return View(vm);
         }
 
         // POST: PersonalData/Customers/Edit/5

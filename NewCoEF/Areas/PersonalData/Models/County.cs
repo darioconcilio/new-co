@@ -21,5 +21,7 @@ namespace NewCoEF.Areas.PersonalData.Models
 
         [Display(Name = "Codice")]
         public string Code { get; set; }
+
+        public virtual ICollection<Customer> Customers { get; set; }
     }
 }
