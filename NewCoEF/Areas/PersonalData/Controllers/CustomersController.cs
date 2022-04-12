@@ -24,7 +24,13 @@ namespace NewCoEF.Areas.PersonalData.Controllers
         // GET: PersonalData/Customers
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Customers.ToListAsync());
+            //return View(await _context.Customers.ToListAsync());
+
+            var customers = await (from rec in _context.Customers
+                                                      .Include("CountryRef")
+                                                      .Include("CountyRef")
+                                   select rec).ToListAsync();
+            return View(customers);
         }
 
         // GET: PersonalData/Customers/Details/5
@@ -77,7 +83,12 @@ namespace NewCoEF.Areas.PersonalData.Controllers
         // GET: PersonalData/Customers/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
-            Customer item = await _context.Customers.FindAsync(id);
+            Customer item = await (from rec in _context.Customers.Include("CountyRef").Include("CountryRef")
+                                   where rec.ID == id
+                                   select rec).SingleOrDefaultAsync();
+
+            if (item == null)
+                return NotFound();
 
             CustomerViewModel vm = new CustomerViewModel(item)
             {
@@ -109,7 +120,7 @@ namespace NewCoEF.Areas.PersonalData.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("ID,Name,Code,Address,PostCode,City,VATRegistrationCode")] Customer customer)
+        public async Task<IActionResult> Edit(Guid id, [Bind("ID,Name,Code,Address,PostCode,City,VATRegistrationCode,CountryRefId,CountyRefId")] Customer customer)
         {
             if (id != customer.ID)
             {

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NewCoEF;
 
 namespace NewCoEF.Migrations
 {
     [DbContext(typeof(NewCoEFDbContext))]
-    partial class NewCoEFDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220412062601_newdata")]
+    partial class newdata
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -94,29 +96,22 @@ namespace NewCoEF.Migrations
             modelBuilder.Entity("NewCoEF.Areas.PersonalData.Models.Item", b =>
                 {
                     b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
-                        .HasColumnType("varchar(50)")
-                        .HasMaxLength(50)
-                        .IsUnicode(false);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Inventory")
-                        .HasColumnType("decimal(18, 2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("No")
-                        .HasColumnType("varchar(20)")
-                        .HasMaxLength(20)
-                        .IsUnicode(false);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("UnitPrice")
-                        .HasColumnName("Unit Price")
-                        .HasColumnType("money");
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Description")
-                        .HasName("Item Description Index");
 
                     b.ToTable("Items");
                 });

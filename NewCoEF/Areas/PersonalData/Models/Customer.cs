@@ -50,11 +50,11 @@ namespace NewCoEF.Areas.PersonalData.Models
 
         #region Navigation Property
 
-        public virtual County CountyRef { get; set; }
+        public County CountyRef { get; set; }
 
-        public virtual Country CountryRef { get; set; }
+        public Country CountryRef { get; set; }
 
-        public virtual ICollection<Order> Orders { get; set; }
+        public ICollection<Order> Orders { get; set; }
 
         #endregion
     }

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NewCoEF;
 
 namespace NewCoEF.Migrations
 {
     [DbContext(typeof(NewCoEFDbContext))]
-    partial class NewCoEFDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220412061442_fix")]
+    partial class fix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,7 +24,7 @@ namespace NewCoEF.Migrations
             modelBuilder.Entity("NewCoEF.Areas.PersonalData.Models.Country", b =>
                 {
                     b.Property<Guid>("ID")
-                        .ValueGeneratedOnAdd()
+                        .HasColumnName("ID")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
@@ -38,14 +40,15 @@ namespace NewCoEF.Migrations
             modelBuilder.Entity("NewCoEF.Areas.PersonalData.Models.County", b =>
                 {
                     b.Property<Guid>("ID")
-                        .ValueGeneratedOnAdd()
+                        .HasColumnName("ID")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Code")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.HasKey("ID");
 
@@ -55,7 +58,7 @@ namespace NewCoEF.Migrations
             modelBuilder.Entity("NewCoEF.Areas.PersonalData.Models.Customer", b =>
                 {
                     b.Property<Guid>("ID")
-                        .ValueGeneratedOnAdd()
+                        .HasColumnName("ID")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Address")
@@ -68,18 +71,21 @@ namespace NewCoEF.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("CountryRefId")
+                        .HasColumnName("CountryRefID")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("CountyRefId")
+                        .HasColumnName("CountyRefID")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("PostCode")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("VATRegistrationCode")
+                        .HasColumnName("VATRegistrationCode")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
@@ -87,6 +93,9 @@ namespace NewCoEF.Migrations
                     b.HasIndex("CountryRefId");
 
                     b.HasIndex("CountyRefId");
+
+                    b.HasIndex("Name")
+                        .HasName("Customer_Name_Index");
 
                     b.ToTable("Customers");
                 });
@@ -124,19 +133,20 @@ namespace NewCoEF.Migrations
             modelBuilder.Entity("NewCoEF.Areas.Sales.Models.Order", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("CustomerRefId")
-                        .IsRequired()
+                        .HasColumnName("CustomerRefID")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("No")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(20)")
+                        .HasMaxLength(20)
+                        .IsUnicode(false);
 
                     b.HasKey("Id");
 
@@ -147,33 +157,33 @@ namespace NewCoEF.Migrations
 
             modelBuilder.Entity("NewCoEF.Areas.Sales.Models.OrderLines", b =>
                 {
+                    b.Property<Guid>("OrderId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("ItemRefId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<double>("LineAmount")
-                        .HasColumnType("float");
+                    b.Property<decimal>("LineAmount")
+                        .HasColumnName("Line Amount")
+                        .HasColumnType("money");
 
                     b.Property<int>("LineNo")
+                        .HasColumnName("Line No")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("OrderId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<decimal>("Quantity")
+                        .HasColumnType("decimal(18, 2)");
 
-                    b.Property<double>("Quantity")
-                        .HasColumnType("float");
+                    b.Property<decimal>("UnitPrice")
+                        .HasColumnName("Unit Price")
+                        .HasColumnType("money");
 
-                    b.Property<double>("UnitPrice")
-                        .HasColumnType("float");
-
-                    b.HasKey("Id");
+                    b.HasKey("OrderId", "Id");
 
                     b.HasIndex("ItemRefId");
-
-                    b.HasIndex("OrderId");
 
                     b.ToTable("OrderLines");
                 });
@@ -193,9 +203,7 @@ namespace NewCoEF.Migrations
                 {
                     b.HasOne("NewCoEF.Areas.PersonalData.Models.Customer", "CustomerRef")
                         .WithMany("Orders")
-                        .HasForeignKey("CustomerRefId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CustomerRefId");
                 });
 
             modelBuilder.Entity("NewCoEF.Areas.Sales.Models.OrderLines", b =>
@@ -205,7 +213,7 @@ namespace NewCoEF.Migrations
                         .HasForeignKey("ItemRefId");
 
                     b.HasOne("NewCoEF.Areas.Sales.Models.Order", "Order")
-                        .WithMany("Lines")
+                        .WithMany("OrderLines")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

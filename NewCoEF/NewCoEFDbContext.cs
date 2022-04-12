@@ -21,17 +21,17 @@ namespace NewCoEF
 
         #region Personal Data
 
-        public virtual DbSet<County> Counties { get; set; }
-        public virtual DbSet<Country> Countries { get; set; }
-        public virtual DbSet<Customer> Customers { get; set; }
-        public virtual DbSet<Item> Items { get; set; }
+        public DbSet<County> Counties { get; set; }
+        public DbSet<Country> Countries { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Item> Items { get; set; }
 
         #endregion
 
         #region Sales
 
-        public virtual DbSet<Order> Orders { get; set; }
-        public virtual DbSet<OrderLines> OrderLines { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderLines> OrderLines { get; set; }
 
         #endregion
 
@@ -44,6 +44,31 @@ namespace NewCoEF
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Item>(entity =>
+            {
+                entity.HasIndex(e => e.Description)
+                    .HasName("Item Description Index");
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Description)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Inventory).HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.No)
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.UnitPrice)
+                    .HasColumnName("Unit Price")
+                    .HasColumnType("money");
+            });
+        }
+
+        /*protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<County>(entity =>
             {
@@ -165,6 +190,6 @@ namespace NewCoEF
             OnModelCreatingPartial(modelBuilder);
         }
 
-        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);*/
     }
 }
