@@ -23,9 +23,9 @@ namespace NewCoEF.Areas.PersonalData.ViewModels
             Address = customer.Address;
             PostCode = customer.PostCode;
             City = customer.City;
-            //CountryId = customer.CountryId;
+            CountryId = customer.CountryId;
             CountryRef = customer.CountryRef;
-            //CountyId = customer.CountyId;
+            CountyId = customer.CountyId;
             CountyRef = customer.CountyRef;
             VATRegistrationCode = customer.VATRegistrationCode;
 

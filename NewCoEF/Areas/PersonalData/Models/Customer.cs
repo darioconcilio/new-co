@@ -36,10 +36,10 @@ namespace NewCoEF.Areas.PersonalData.Models
         public string VATRegistrationCode { get; set; }
 
         [Display(Name = "Provincia")]
-        public Guid? CountyRefId { get; set; }
+        public Guid? CountyId { get; set; }
 
         [Display(Name = "Paese")]
-        public Guid? CountryRefId { get; set; }
+        public Guid? CountryId { get; set; }
 
         #region aggiornamento
         /*[Display(Name = "Codice Destinatario")]
