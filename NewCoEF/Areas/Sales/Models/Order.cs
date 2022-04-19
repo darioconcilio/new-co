@@ -26,25 +26,10 @@ namespace NewCoEF.Areas.Sales.Models
 
         [Display(Name = "Cliente")]
         [Required]
-        public Guid? CustomerRefId { get; set; }
+        public Guid? CustomerId { get; set; }
 
         [Display(Name = "Cliente")]
         public Customer CustomerRef { get; set; }
-
-        [Display(Name = "Importo Totale")]
-        [DisplayFormat(DataFormatString = "{0:c}")]
-        [DataType(DataType.Currency)]
-        public double TotalAmount
-        {
-            get { return Lines.Sum(r => r.LineAmount); }
-        }
-
-        [Display(Name = "Nr. Righe")]
-        [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int LinesCount
-        {
-            get { return Lines.Count; }
-        }
 
         public List<OrderLines> Lines { get; set; }
     }

@@ -1,0 +1,61 @@
+﻿@model IEnumerable<NewCoEF.Areas.Sales.Models.Order>
+
+@{
+    ViewData["Title"] = "Ordini";
+}
+
+<h1>Ordini</h1>
+
+<p>
+    <a asp-action="Create">Nuovo Ordine</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.No)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerId)
+            </th>
+            <th style="text-align:right">
+                Nr. Righe
+            </th>
+            <th style="text-align:right">
+                Tot. Fattura
+            </th>
+            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.OrderBy(o => o.No))
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.No)
+            </td>
+            <td>
+                @Convert.ToDateTime(item.Date).ToString("dd/MM/yyyy")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerRef.Name)
+            </td>
+            <td align="right">
+                @Html.DisplayFor(modelItem => item.Lines.Count)
+            </td>
+            <td align="right">
+                @Html.DisplayFor(modelItem => item.Lines.Sum(l=>l.LineAmount))
+            </td>
+
+            <td>
+                @Html.ActionLink("Modifica", "Edit", new { Area = "Sales", id = item.Id }) |
+                @Html.ActionLink("Elimina", "Delete", new { Area = "Sales", id = item.Id })
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

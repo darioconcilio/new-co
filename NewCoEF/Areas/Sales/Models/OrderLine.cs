@@ -54,7 +54,7 @@ namespace NewCoEF.Areas.Sales.Models
         [Display(Name = "Importo Riga")]
         public double LineAmount { get; set; }
 
-        public Guid? ItemRefId { get; set; }
+        public Guid? ItemId { get; set; }
 
         public Item ItemRef { get; set; }
         public Order Order { get; set; }
