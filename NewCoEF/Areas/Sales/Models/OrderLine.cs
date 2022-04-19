@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NewCoEF.Areas.Sales.Models
 {
-    public partial class OrderLines
+    public class OrderLines
     {
         /// <summary>
         /// Guid dell'ordine
@@ -57,6 +57,6 @@ namespace NewCoEF.Areas.Sales.Models
         public Guid? ItemId { get; set; }
 
         public Item ItemRef { get; set; }
-        public Order Order { get; set; }
+        public Order OrderRef { get; set; }
     }
 }

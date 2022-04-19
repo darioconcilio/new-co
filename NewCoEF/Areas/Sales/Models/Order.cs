@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NewCoEF.Areas.Sales.Models
 {
-    public partial class Order
+    public class Order
     {
         public Order()
         {
@@ -32,5 +32,26 @@ namespace NewCoEF.Areas.Sales.Models
         public Customer CustomerRef { get; set; }
 
         public List<OrderLines> Lines { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:c}")]
+        [DataType(DataType.Currency)]
+        [Display(Name = "Importo Totale")]
+        public double TotalAmount
+        {
+            get
+            {
+                return Lines.Sum(r => r.LineAmount); 
+            }
+        }
+
+        [DisplayFormat(DataFormatString = "{0:N}")]
+        [Display(Name = "Nr .Righe")]
+        public int RowCount
+        {
+            get
+            {
+                return Lines.Count;
+            }
+        }
     }
 }

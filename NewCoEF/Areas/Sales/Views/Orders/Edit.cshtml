@@ -1,0 +1,131 @@
+﻿@model NewCoEF.Areas.Sales.ViewModels.OrderViewModel
+
+@{
+    ViewData["Title"] = "Modifica";
+}
+
+<h1>Modifica</h1>
+@if (ViewBag.Error)
+{
+    <p style="color:red; font-stretch:expanded">@ViewBag.ErrorMessage)</p>
+}
+<h4>Ordine</h4>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-area="Sales"
+              asp-controller="Order"
+              asp-action="Edit"
+              method="post">
+
+            <div class="col-md-4">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="No" class="control-label"></label>
+                    <input asp-for="No" class="form-control" readonly />
+                    <span asp-validation-for="No" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Date" class="control-label"></label>
+                    <input type="date" asp-for="Date" class="form-control" />
+                    <span asp-validation-for="Date" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CustomerId" class="control-label"></label>
+                    @Html.DropDownListFor(m => m.CustomerId, @Model.Customers.Select(c =>
+                                                                new SelectListItem()
+                                                                {
+                                                                    Text = c.Name,
+                                                                    Value = c.ID.ToString()
+                                                                }), new { @class = "form-control" })
+                    <span asp-validation-for="CustomerId" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="col-md-10">
+                <br />
+                @Html.ActionLink("Nuova Riga", "Create", "OrderLine", new { Area = "Sales", orderId = Model.Id }, new { @class = "btn btn-primary" })
+                <br />
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Lines.FirstOrDefault().LineNo)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Lines.FirstOrDefault().ItemRef.No)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Lines.FirstOrDefault().ItemRef.Description)
+                            </th>
+                            <th style="text-align:right">
+                                @Html.DisplayNameFor(model => model.Lines.FirstOrDefault().Quantity)
+                            </th>
+                            <th style="text-align:right">
+                                @Html.DisplayNameFor(model => model.Lines.FirstOrDefault().UnitPrice)
+                            </th>
+                            <th style="text-align:right">
+                                @Html.DisplayNameFor(model => model.Lines.FirstOrDefault().LineAmount)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Lines.OrderBy(i => i.LineNo))
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(model => item.LineNo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => item.ItemRef.No)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => item.ItemRef.Description)
+                                </td>
+                                <td align="right">
+                                    @Html.DisplayFor(model => item.Quantity)
+                                </td>
+                                <td align="right">
+                                    @Html.DisplayFor(model => item.UnitPrice)
+                                </td>
+                                <td align="right">
+                                    @Html.DisplayFor(model => item.LineAmount)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Modifica", "Edit", "OrderLine", new { Area = "Sales", orderId = item.OrderId, id = item.Id }) |
+                                    @Html.ActionLink("Elimina", "Delete", "OrderLine", new { Area = "Sales", orderId = item.OrderId, id = item.Id })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <br />
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td align="right">
+                                <h2>
+                                    Totale Ordine @{
+                                        IFormatProvider formatProvider = new System.Globalization.CultureInfo("it-IT");
+                                        <span class="currency">@Model.Lines.Sum(i => i.LineAmount).ToString("C", formatProvider)</span>
+                                    }
+                                </h2>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br />
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Salva" class="btn btn-primary" />
+                @Html.ActionLink("Annulla", "Index", "Orders", new { Area = "Sales"}, new { @class = "btn btn-secondary" })
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

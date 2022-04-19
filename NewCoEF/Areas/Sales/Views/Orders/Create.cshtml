@@ -1,0 +1,52 @@
+﻿@model NewCoEF.Areas.Sales.ViewModels.OrderViewModel
+
+@{
+    ViewData["Title"] = "Crea";
+}
+
+<h1>Crea</h1>
+@if (ViewBag.Error)
+{
+    <p style="color:red; font-stretch:expanded">@ViewBag.ErrorMessage)</p>
+}
+<h4>Ordine</h4>
+<hr />
+<div class="row">
+    <div class="col-md-8">
+        <form asp-area="Sales"
+              asp-controller="Orders"
+              asp-action="Create"
+              method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="No" class="control-label"></label>
+                <input asp-for="No" class="form-control" readonly />
+                <span asp-validation-for="No" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Date" class="control-label"></label>
+                <input type="date" asp-for="Date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CustomerId" class="control-label"></label>
+                @Html.DropDownListFor(m => m.CustomerId, @Model.Customers.Select(c =>
+                                                            new SelectListItem()
+                                                            {
+                                                                Text = c.Name,
+                                                                Value = c.ID.ToString()
+                                                            }), null, new { @class = "form-control" })
+                <span asp-validation-for="CustomerId" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Crea" class="btn btn-primary" />
+                @Html.ActionLink("Annulla", "Index", "Order", null, new { @class = "btn btn-secondary" })
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
