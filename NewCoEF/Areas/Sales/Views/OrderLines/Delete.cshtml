@@ -1,0 +1,74 @@
+﻿@model NewCoEF.Areas.Sales.ViewModels.OrderLineViewModel
+
+@{
+    ViewData["Title"] = "Elimina Riga";
+}
+
+<h1>Elimina</h1>
+@if (ViewBag.Error)
+{
+    <p style="color:red; font-stretch:expanded">@ViewBag.ErrorMessage)</p>
+}
+
+
+<h3>Sei sicuro di voler eliminare questa riga?</h3>
+<div>
+    <h4>Riga Ordine</h4>
+    <hr />
+    <form asp-area="Sales"
+          asp-controller="OrderLines"
+          asp-action="Delete"
+          method="post">
+
+        @Html.HiddenFor(m => m.OrderId)
+        @Html.HiddenFor(m => m.Id)
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.OrderRef.No)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.OrderRef.No)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.LineNo)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.LineNo)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ItemRef.No)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ItemRef.No)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ItemRef.Description)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ItemRef.Description)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Quantity)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Quantity)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.UnitPrice)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.UnitPrice)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.LineAmount)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.LineAmount)
+            </dd>
+        </dl>
+
+        <br />
+        <input type="submit" value="Elimina" class="btn btn-danger" />
+        @Html.ActionLink("Annulla", "Edit", "Orders", new { Area = "Sales", id = Model.OrderId }, new { @class = "btn btn-secondary" })
+    </form>
+</div>

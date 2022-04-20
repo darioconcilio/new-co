@@ -44,7 +44,7 @@
 
             <div class="col-md-10">
                 <br />
-                @Html.ActionLink("Nuova Riga", "Create", "OrderLine", new { Area = "Sales", orderId = Model.Id }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Nuova Riga", "Create", "OrderLines", new { Area = "Sales", orderId = Model.Id }, new { @class = "btn btn-primary" })
                 <br />
                 <table class="table">
                     <thead>
@@ -93,8 +93,8 @@
                                     @Html.DisplayFor(model => item.LineAmount)
                                 </td>
                                 <td>
-                                    @Html.ActionLink("Modifica", "Edit", "OrderLine", new { Area = "Sales", orderId = item.OrderId, id = item.Id }) |
-                                    @Html.ActionLink("Elimina", "Delete", "OrderLine", new { Area = "Sales", orderId = item.OrderId, id = item.Id })
+                                    @Html.ActionLink("Modifica", "Edit", "OrderLines", new { Area = "Sales", orderId = item.OrderId, id = item.Id }) |
+                                    @Html.ActionLink("Elimina", "Delete", "OrderLines", new { Area = "Sales", orderId = item.OrderId, id = item.Id })
                                 </td>
                             </tr>
                         }

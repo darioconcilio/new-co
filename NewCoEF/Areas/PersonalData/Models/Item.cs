@@ -12,7 +12,7 @@ namespace NewCoEF.Areas.PersonalData.Models
     {
         public Item()
         {
-            OrderLines = new HashSet<OrderLines>();
+            OrderLines = new HashSet<OrderLine>();
         }
 
         public Guid Id { get; set; }
@@ -32,6 +32,6 @@ namespace NewCoEF.Areas.PersonalData.Models
         [Display(Name = "Codice")]
         public string No { get; set; }
 
-        public virtual ICollection<OrderLines> OrderLines { get; set; }
+        public virtual ICollection<OrderLine> OrderLines { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace NewCoEF.Areas.Sales.Models
     {
         public Order()
         {
-            Lines = new List<OrderLines>();
+            Lines = new List<OrderLine>();
         }
 
         public Guid Id { get; set; }
@@ -31,7 +31,7 @@ namespace NewCoEF.Areas.Sales.Models
         [Display(Name = "Cliente")]
         public Customer CustomerRef { get; set; }
 
-        public List<OrderLines> Lines { get; set; }
+        public List<OrderLine> Lines { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:c}")]
         [DataType(DataType.Currency)]

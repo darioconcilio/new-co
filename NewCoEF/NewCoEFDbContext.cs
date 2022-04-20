@@ -31,7 +31,7 @@ namespace NewCoEF
         #region Sales
 
         public DbSet<Order> Orders { get; set; }
-        public DbSet<OrderLines> OrderLines { get; set; }
+        public DbSet<OrderLine> OrderLines { get; set; }
 
         #endregion
 
