@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using NewCoEF.Areas.PersonalData.Models;
 using NewCoEF.Areas.Sales.Models;
 using NewCoEF.Areas.Sales.ViewModels;
+using NewCoEF.Commons;
 using System;
 using System.Linq;
 using System.Text;
@@ -68,7 +69,9 @@ namespace NewCoEF.Areas.Sales.Controllers
         {
             try
             {
-                await _context.AddAsync(vmToInsert);
+                var orderToUpdate = await _context.Orders.FindAsync(vmToInsert.OrderId);
+
+                orderToUpdate.Lines.Add(vmToInsert);
                 await _context.SaveChangesAsync();
 
                 ViewBag.Error = false;
@@ -79,15 +82,7 @@ namespace NewCoEF.Areas.Sales.Controllers
             catch (Exception ex)
             {
                 ViewBag.Error = true;
-
-                StringBuilder sb = new StringBuilder(ex.Message);
-
-                if (ex.InnerException != null)
-                {
-                    sb.AppendLine(ex.InnerException.Message);
-                }
-
-                ViewBag.ErrorMessage = sb.ToString();
+                ViewBag.ErrorMessage = ErrorHelper.GetError(ex);
 
                 return View(vmToInsert);
             }
@@ -95,7 +90,9 @@ namespace NewCoEF.Areas.Sales.Controllers
 
         public async Task<IActionResult> EditAsync(Guid orderId, Guid id)
         {
-            var item = await _context.OrderLines.FindAsync(new { orderId, id });
+            var item = await (from rec in _context.OrderLines.Include(i => i.ItemRef)
+                              where rec.Id == id
+                              select rec).SingleOrDefaultAsync();
 
             var order = await _context.Orders.FindAsync(orderId);
 
@@ -120,11 +117,19 @@ namespace NewCoEF.Areas.Sales.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditAsync(OrderLineViewModel vmToUpdate)
+        public async Task<IActionResult> EditAsync([Bind("OrderId,Id,LineNo,ItemId,Quantity,UnitPrice,LineAmount")] OrderLineViewModel vmToUpdate)
         {
             try
             {
-                _context.Update(vmToUpdate);
+                var orderLineToUpdate = await _context.OrderLines.FindAsync(vmToUpdate.Id);
+
+                orderLineToUpdate.LineNo = vmToUpdate.LineNo;
+                orderLineToUpdate.ItemId = vmToUpdate.ItemId;
+                orderLineToUpdate.Quantity = vmToUpdate.Quantity;
+                orderLineToUpdate.UnitPrice = vmToUpdate.UnitPrice;
+                orderLineToUpdate.LineAmount = vmToUpdate.LineAmount;
+
+                _context.OrderLines.Update(orderLineToUpdate);
                 await _context.SaveChangesAsync();
 
                 ViewBag.Error = false;
@@ -135,14 +140,16 @@ namespace NewCoEF.Areas.Sales.Controllers
             catch (Exception ex)
             {
                 ViewBag.Error = true;
-                ViewBag.ErrorMessage = ex.Message;
+                ViewBag.ErrorMessage = ErrorHelper.GetError(ex);
                 return View(vmToUpdate);
             }
         }
 
         public async Task<IActionResult> DeleteAsync(Guid orderId, Guid id)
         {
-            var item = await _context.OrderLines.FindAsync(new { orderId, id });
+            var item = await (from rec in _context.OrderLines.Include(i => i.ItemRef)
+                              where rec.Id == id
+                              select rec).SingleOrDefaultAsync();
 
             var order = await _context.Orders.FindAsync(orderId);
 
@@ -175,7 +182,7 @@ namespace NewCoEF.Areas.Sales.Controllers
             catch (Exception ex)
             {
                 ViewBag.Error = true;
-                ViewBag.ErrorMessage = ex.Message;
+                ViewBag.ErrorMessage = ErrorHelper.GetError(ex);
                 return View(itemToDelete);
             }
         }

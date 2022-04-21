@@ -33,7 +33,7 @@ namespace NewCoEF.Areas.Sales.Models
 
         public List<OrderLine> Lines { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:c}")]
+        [DisplayFormat(DataFormatString = "{0:C2}")]
         [DataType(DataType.Currency)]
         [Display(Name = "Importo Totale")]
         public double TotalAmount
@@ -44,7 +44,7 @@ namespace NewCoEF.Areas.Sales.Models
             }
         }
 
-        [DisplayFormat(DataFormatString = "{0:N}")]
+        [DisplayFormat(DataFormatString = "{0:N0}")]
         [Display(Name = "Nr .Righe")]
         public int RowCount
         {

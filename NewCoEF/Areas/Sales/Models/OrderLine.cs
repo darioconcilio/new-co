@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,6 +18,7 @@ namespace NewCoEF.Areas.Sales.Models
         /// <summary>
         /// Guid della riga
         /// </summary>
+        [Key]
         public Guid Id { get; set; }
 
         [Display(Name = "Nr. Riga")]

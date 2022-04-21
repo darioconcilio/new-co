@@ -22,6 +22,8 @@ namespace NewCoEF.Areas.Sales.ViewModels
             CustomerId = order.CustomerId;
             CustomerRef = order.CustomerRef;
 
+            Lines = order.Lines;
+
             //Init collections for dropdown
             Customers = new List<Customer>();
         }

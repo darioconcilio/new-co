@@ -115,7 +115,7 @@ namespace NewCoEF.Areas.Sales.Controllers
 
             try
             {
-                var orderToFind = await (from rec in _context.Orders.Include("Lines")
+                var orderToFind = await (from rec in _context.Orders.Include(l => l.Lines).ThenInclude(i => i.ItemRef)
                                          where rec.Id == id
                                          select rec).SingleOrDefaultAsync();
 
