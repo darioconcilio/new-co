@@ -7,7 +7,9 @@
 <h1>@ViewData["Title"]</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="btn btn-primary" asp-action="Create">
+        <i class="bi bi-person-plus"></i>&nbsp;Nuovo
+    </a>
 </p>
 <table class="table">
     <thead>
@@ -67,11 +69,21 @@
                 @Html.DisplayFor(modelItem => item.CountyRef.Name)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.ID">
+                    <i class="bi bi-pen-fill"></i>&nbsp;Modifica
+                </a> &nbsp;
+                <a class="btn btn-info" asp-action="Details" asp-route-id="@item.ID">
+                    <i class="bi bi-card-list"></i>&nbsp;Scheda
+                </a> &nbsp;
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.ID">
+                    <i class="bi bi-file-earmark-x"></i>&nbsp;Elimina
+                </a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+
+<p class="lead">
+    Dai un occhio alle icone fornite da Bootstrab <a href="https://icons.getbootstrap.com/#icon-font" target="_blank">QUI</a>
+</p>
