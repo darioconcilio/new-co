@@ -42,6 +42,8 @@ namespace NewCoEF.Areas.PersonalData.Controllers
             }
 
             var customer = await _context.Customers
+                .Include(o => o.CountryRef)
+                .Include(o => o.CountyRef)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (customer == null)
             {
@@ -52,10 +54,25 @@ namespace NewCoEF.Areas.PersonalData.Controllers
         }
 
         // GET: PersonalData/Customers/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             var item = new Customer();
             CustomerViewModel vm = new CustomerViewModel(item);
+
+            vm.Countries = await _context.Countries.ToListAsync();
+            vm.Counties = await _context.Counties.ToListAsync();
+
+            vm.Counties.Insert(0, new County()
+            {
+                ID = new Guid(9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9),
+                Name = "Seleziona una provincia"
+            });
+
+            vm.Countries.Insert(0, new Country()
+            {
+                ID = new Guid(9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9),
+                Name = "Seleziona un paese"
+            });
 
             ViewBag.Error = false;
             ViewBag.ErrorMessage = "";
@@ -68,7 +85,7 @@ namespace NewCoEF.Areas.PersonalData.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Name,Code,Address,PostCode,City,VATRegistrationCode")] Customer customer)
+        public async Task<IActionResult> Create([Bind("ID,Name,Code,Address,PostCode,City,VATRegistrationCode,CountryId,CountyId")] Customer customer)
         {
             if (ModelState.IsValid)
             {
@@ -83,7 +100,9 @@ namespace NewCoEF.Areas.PersonalData.Controllers
         // GET: PersonalData/Customers/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
-            Customer item = await (from rec in _context.Customers.Include("CountyRef").Include("CountryRef")
+            Customer item = await (from rec in _context.Customers
+                                   .Include(o=>o.CountryRef)
+                                   .Include(o=>o.CountyRef)
                                    where rec.ID == id
                                    select rec).SingleOrDefaultAsync();
 
@@ -120,7 +139,7 @@ namespace NewCoEF.Areas.PersonalData.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("ID,Name,Code,Address,PostCode,City,VATRegistrationCode,CountryRefId,CountyRefId")] Customer customer)
+        public async Task<IActionResult> Edit(Guid id, [Bind("ID,Name,Code,Address,PostCode,City,VATRegistrationCode,CountryId,CountyId")] Customer customer)
         {
             if (id != customer.ID)
             {

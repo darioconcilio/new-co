@@ -18,27 +18,35 @@ namespace NewCoEF.Areas.PersonalData.Models
         public Guid ID { get; set; }
 
         [Display(Name = "Ragione Sociale")]
+        [Required]
         public string Name { get; set; }
 
         [Display(Name = "Codice")]
+        [Required]
         public string Code { get; set; }
 
         [Display(Name = "Indirizzo")]
+        [Required]
         public string Address { get; set; }
 
         [Display(Name = "CAP")]
+        [Required]
         public string PostCode { get; set; }
 
         [Display(Name = "Città")]
+        [Required]
         public string City { get; set; }
 
         [Display(Name = "P. IVA")]
+        [Required]
         public string VATRegistrationCode { get; set; }
 
         [Display(Name = "Provincia")]
+        [Required]
         public Guid? CountyId { get; set; }
 
         [Display(Name = "Paese")]
+        [Required]
         public Guid? CountryId { get; set; }
 
         #region aggiornamento
