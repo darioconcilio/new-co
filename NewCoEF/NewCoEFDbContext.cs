@@ -43,6 +43,7 @@ namespace NewCoEF
             }
         }
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Item>(entity =>
@@ -66,6 +67,7 @@ namespace NewCoEF
                     .HasColumnName("Unit Price")
                     .HasColumnType("money");
             });
+
         }
 
         /*protected override void OnModelCreating(ModelBuilder modelBuilder)
