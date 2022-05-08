@@ -23,7 +23,11 @@ namespace NewCoEF.Areas.Sales.Controllers
         // GET: Sales/Orders
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Orders.Include("CustomerRef").Include("Lines").ToListAsync());
+            /*return View(await _context.Orders
+                .Include("CustomerRef")
+                .Include("Lines").ToListAsync());*/
+
+            return View(await _context.Orders.ToListAsync());
         }
 
         // GET: Sales/Orders/Details/5
@@ -53,7 +57,7 @@ namespace NewCoEF.Areas.Sales.Controllers
             //Propongo la data di oggi
             newOrder.Date = DateTime.Today;
 
-            newOrder.No = await GetLastOrderNoAsync();
+            newOrder.No = await GetNewOrderNoAsync();
 
             OrderViewModel vm = new OrderViewModel(newOrder)
             {
@@ -64,7 +68,7 @@ namespace NewCoEF.Areas.Sales.Controllers
             vm.Customers.Insert(0, new Customer()
             {
                 ID = Guid.Empty,
-                Name = "Seleziona una cliente"
+                Name = "Seleziona un cliente"
             });
 
 
@@ -87,7 +91,6 @@ namespace NewCoEF.Areas.Sales.Controllers
             };
 
             try
-
             {
                 await _context.AddAsync(vmToInsert);
                 await _context.SaveChangesAsync();
@@ -95,13 +98,13 @@ namespace NewCoEF.Areas.Sales.Controllers
                 ViewBag.Error = false;
                 ViewBag.ErrorMessage = "";
 
-                return View(vmToInsert);
+                return RedirectToAction("Edit", "Orders", new { id = vmToInsert.Id });
             }
             catch (Exception ex)
             {
                 ViewBag.Error = true;
                 ViewBag.ErrorMessage = ex.Message;
-                return RedirectToAction("Edit", "Orders", new { id = vmToInsert.Id });
+                return View(vmToInsert);
             }
 
         }
@@ -115,9 +118,14 @@ namespace NewCoEF.Areas.Sales.Controllers
 
             try
             {
-                var orderToFind = await (from rec in _context.Orders.Include(l => l.Lines).ThenInclude(i => i.ItemRef)
+                var orderToFind = await (from rec in _context.Orders.Include(l => l.Lines)
+                                         .ThenInclude(i => i.ItemRef)
                                          where rec.Id == id
                                          select rec).SingleOrDefaultAsync();
+
+                /*var orderToFind = await (from rec in _context.Orders
+                                         where rec.Id == id
+                                         select rec).SingleOrDefaultAsync();*/
 
                 if (orderToFind != null)
                     vm = new OrderViewModel(orderToFind);
@@ -128,7 +136,7 @@ namespace NewCoEF.Areas.Sales.Controllers
                 vm.Customers.Insert(0, new Customer()
                 {
                     ID = Guid.Empty,
-                    Name = "Seleziona una cliente"
+                    Name = "Seleziona un cliente"
                 });
 
                 return View(vm);
@@ -147,7 +155,7 @@ namespace NewCoEF.Areas.Sales.Controllers
             return _context.Orders.Any(e => e.Id == id);
         }
 
-        public async Task<string> GetLastOrderNoAsync()
+        public async Task<string> GetNewOrderNoAsync()
         {
             //Anno corrente a 2 cifre
             var year2 = DateTime.Now.Year.ToString().Substring(2, 2);
@@ -205,13 +213,22 @@ namespace NewCoEF.Areas.Sales.Controllers
                 return NotFound();
             }
 
-            var county = await _context.Orders.FindAsync(id);
-            if (county == null)
-            {
-                return NotFound();
-            }
+            ViewBag.Error = false;
+            ViewBag.ErrorMessage = string.Empty;
 
-            return View(county);
+            OrderViewModel vm = null;
+
+            var orderToFind = await (from rec in _context.Orders.Include(l => l.Lines)
+                                         .ThenInclude(i => i.ItemRef)
+                                     where rec.Id == id
+                                     select rec).SingleOrDefaultAsync();
+
+            if (orderToFind != null)
+                vm = new OrderViewModel(orderToFind);
+            else
+                return RedirectToAction(nameof(Index));
+
+            return View(vm);
         }
 
         // POST: Sales/Orders/Delete/5
@@ -219,10 +236,22 @@ namespace NewCoEF.Areas.Sales.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var county = await _context.Orders.FindAsync(id);
-            _context.Orders.Remove(county);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            try
+
+            {
+                var county = await _context.Orders.FindAsync(id);
+                _context.Orders.Remove(county);
+
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = true;
+                ViewBag.ErrorMessage = ex.Message;
+                return View(id);
+            }
         }
     }
 }

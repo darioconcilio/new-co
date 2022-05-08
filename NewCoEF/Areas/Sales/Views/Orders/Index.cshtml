@@ -18,15 +18,15 @@
             <th>
                 @Html.DisplayNameFor(model => model.Date)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CustomerId)
-            </th>
-            <th style="text-align:right">
-                @Html.DisplayNameFor(model => model.RowCount)
-            </th>
-            <th style="text-align:right">
-                @Html.DisplayNameFor(model => model.TotalAmount)
-            </th>
+            <!--<th>
+        @*Html.DisplayNameFor(model => model.CustomerId)*@
+    </th>
+    <th style="text-align:right">
+        @*Html.DisplayNameFor(model => model.RowCount)*@
+    </th>
+    <th style="text-align:right">
+        @*Html.DisplayNameFor(model => model.TotalAmount)*@
+    </th>-->
 
             <th></th>
         </tr>
@@ -34,28 +34,28 @@
     <tbody>
         @foreach (var item in Model.OrderBy(o => o.No))
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.No)
-                </td>
-                <td>
-                    @Convert.ToDateTime(item.Date).ToString("dd/MM/yyyy")
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CustomerRef.Name)
-                </td>
-                <td align="right">
-                    @Html.DisplayFor(modelItem => item.RowCount)
-                </td>
-                <td align="right">
-                    @Html.DisplayFor(modelItem => item.TotalAmount)
-                </td>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.No)
+            </td>
+            <td>
+                @Convert.ToDateTime(item.Date).ToString("dd/MM/yyyy")
+            </td>
+            <!--<td>
+        @*Html.DisplayFor(modelItem => item.CustomerRef.Name)*@
+    </td>
+    <td align="right">
+        @*Html.DisplayFor(modelItem => item.RowCount)*@
+    </td>
+    <td align="right">
+        @*Html.DisplayFor(modelItem => item.TotalAmount)*@
+    </td>-->
 
-                <td>
-                    @Html.ActionLink("Modifica", "Edit", new { Area = "Sales", id = item.Id }) |
-                    @Html.ActionLink("Elimina", "Delete", new { Area = "Sales", id = item.Id })
-                </td>
-            </tr>
+            <td>
+                @Html.ActionLink("Modifica", "Edit", new { Area = "Sales", id = item.Id }) |
+                @Html.ActionLink("Elimina", "Delete", new { Area = "Sales", id = item.Id })
+            </td>
+        </tr>
         }
     </tbody>
 </table>

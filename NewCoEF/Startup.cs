@@ -28,6 +28,7 @@ namespace NewCoEF
 
             services.AddDbContext<NewCoEFDbContext>(o =>
             {
+                //o.UseLazyLoadingProxies();
                 var connectionString = Configuration.GetConnectionString("Default");
                 o.UseSqlServer(connectionString);
             });

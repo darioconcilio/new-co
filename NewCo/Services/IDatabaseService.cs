@@ -61,7 +61,7 @@ namespace NewCo.Services
         public Task<Bundle> UpdateAsync(Order itemToUpdate);
         public Task<Bundle> DeleteAsync(Order itemToDelete, SqlConnection conn = null);
         public Task<Bundle> DeleteCompleteAsync(Order itemToDelete);
-        public Task<string> GetLastOrderNoAsync();
+        public Task<string> GetNewOrderNoAsync();
 
         public Task<List<OrderLine>> OrderLinesAsync(string id);
         public Task<OrderLine> OrderLineAsync(string orderId, string id);

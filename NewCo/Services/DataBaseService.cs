@@ -649,7 +649,7 @@ namespace NewCo.Services
             return OrdersFound;
         }
 
-        public async Task<string> GetLastOrderNoAsync()
+        public async Task<string> GetNewOrderNoAsync()
         {
             //Anno corrente a 2 cifre
             var year2 = DateTime.Now.Year.ToString().Substring(2, 2);

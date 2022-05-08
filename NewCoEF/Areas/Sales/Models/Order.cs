@@ -29,9 +29,11 @@ namespace NewCoEF.Areas.Sales.Models
         public Guid? CustomerId { get; set; }
 
         [Display(Name = "Cliente")]
-        public Customer CustomerRef { get; set; }
+        //public Customer CustomerRef { get; set; }
+        public virtual Customer CustomerRef { get; set; }
 
-        public List<OrderLine> Lines { get; set; }
+        //public List<OrderLine> Lines { get; set; }
+        public virtual List<OrderLine> Lines { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:C2}")]
         [DataType(DataType.Currency)]

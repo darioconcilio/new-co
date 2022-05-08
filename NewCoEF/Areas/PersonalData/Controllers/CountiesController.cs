@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NewCoEF;
 using NewCoEF.Areas.PersonalData.Models;
+using NewCoEF.Areas.PersonalData.ViewModels;
 
 namespace NewCoEF.Areas.PersonalData.Controllers
 {
@@ -55,7 +56,7 @@ namespace NewCoEF.Areas.PersonalData.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Name,Code")] County county)
+        public async Task<IActionResult> Create(County county)
         {
             if (ModelState.IsValid)
             {
@@ -88,7 +89,7 @@ namespace NewCoEF.Areas.PersonalData.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("ID,Name,Code")] County county)
+        public async Task<IActionResult> Edit(Guid id, County county)
         {
             if (id != county.ID)
             {
@@ -150,6 +151,36 @@ namespace NewCoEF.Areas.PersonalData.Controllers
         private bool CountyExists(Guid id)
         {
             return _context.Counties.Any(e => e.ID == id);
+        }
+
+        public IActionResult RemoveDisconnectedMode()
+        {
+            return View(new CountyViewModel());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RemoveDisconnectedMode(CountyViewModel vm)
+        {
+            //Creazione dell'item da eliminare al di fuori del contesto
+            var countyToDelete = new County()
+            {
+                ID = vm.ID,
+                Name = vm.Name,
+                Code = vm.Code
+            };
+
+            var itemsToDeleteBefore = _context.ChangeTracker.Entries()
+                .Where(e => e.State == EntityState.Deleted);
+
+            _context.Attach(countyToDelete);
+            _context.Remove(countyToDelete);
+
+            var itemsToDeleteAfter = _context.ChangeTracker.Entries()
+                .Where(e => e.State == EntityState.Deleted);
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

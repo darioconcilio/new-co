@@ -91,7 +91,7 @@ namespace NewCo.Areas.Sales.Controllers
             var item = new Order();
 
             //Assego il numero protocollo al nuovo ordine
-            item.No = await _IDbService.GetLastOrderNoAsync();
+            item.No = await _IDbService.GetNewOrderNoAsync();
             //Propongo la data di oggi
             item.Date = DateTime.Today;
 

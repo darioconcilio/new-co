@@ -7,11 +7,16 @@
 <h1>@ViewData["Title"]</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Nuova provincia</a>
+    <br />
+    <a asp-action="RemoveDisconnectedMode">Elimina in modalità disconnessa</a>
 </p>
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ID)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
@@ -24,6 +29,9 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <th>
+                @Html.DisplayFor(model => item.ID)
+            </th>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>

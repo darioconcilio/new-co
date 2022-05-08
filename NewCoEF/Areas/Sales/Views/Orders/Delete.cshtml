@@ -1,5 +1,111 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model NewCoEF.Areas.Sales.ViewModels.OrderViewModel
+
 @{
+    ViewData["Title"] = "Elimina";
 }
+
+<h1>Elimina</h1>
+@if (ViewBag.Error)
+{
+    <p style="color:red; font-stretch:expanded">@ViewBag.ErrorMessage)</p>
+}
+<h3>Sei sicuro di voler eliminare questo ordine?</h3>
+<div>
+    <h4>Order</h4>
+    <hr />
+    <form asp-area="Sales" asp-controller="Orders" asp-action="Delete" method="post">
+        @Html.HiddenFor(m => m.Id)
+        @Html.HiddenFor(m => m.Lines)
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.No)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.No)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Date)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Date)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CustomerId)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CustomerRef.Name)
+            </dd>
+        </dl>
+        <br />
+        <div class="col-md-10">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.Lines.FirstOrDefault().LineNo)
+                        </td>
+                        <td>
+                            @Html.DisplayNameFor(model => model.Lines.FirstOrDefault().ItemRef.No)
+                        </td>
+                        <td>
+                            @Html.DisplayNameFor(model => model.Lines.FirstOrDefault().ItemRef.Description)
+                        </td>
+                        <td align="right">
+                            @Html.DisplayNameFor(model => model.Lines.FirstOrDefault().Quantity)
+                        </td>
+                        <td align="right">
+                            @Html.DisplayNameFor(model => model.Lines.FirstOrDefault().UnitPrice)
+                        </td>
+                        <td align="right">
+                            @Html.DisplayNameFor(model => model.Lines.FirstOrDefault().LineAmount)
+                        </td>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Lines.OrderBy(i => i.LineNo))
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(model => item.LineNo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => item.ItemRef.No)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => item.ItemRef.Description)
+                            </td>
+                            <td align="right">
+                                @Html.DisplayFor(model => item.Quantity)
+                            </td>
+                            <td align="right">
+                                @Html.DisplayFor(model => item.UnitPrice)
+                            </td>
+                            <td align="right">
+                                @Html.DisplayFor(model => item.LineAmount)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <br />
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td align="right">
+                            <h2>
+                                Totale Ordine @{
+                                    IFormatProvider formatProvider = new System.Globalization.CultureInfo("it-IT");
+                                    <span class="currency">@Model.Lines.Sum(i => i.LineAmount).ToString("C", formatProvider)</span>
+                                }
+                            </h2>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <br />
+        </div>
+        <input type="submit" value="Elimina" class="btn btn-danger" />
+        @Html.ActionLink("Annulla", "Index", "Orders", null, new { @class = "btn btn-secondary" })
+    </form>
+</div>

@@ -58,7 +58,11 @@ namespace NewCoEF.Areas.Sales.Models
 
         public Guid? ItemId { get; set; }
 
-        public Item ItemRef { get; set; }
-        public Order OrderRef { get; set; }
+        //public Item ItemRef { get; set; }
+        public virtual Item ItemRef { get; set; }
+
+
+        //public Order OrderRef { get; set; }
+        public virtual Order OrderRef { get; set; }
     }
 }
