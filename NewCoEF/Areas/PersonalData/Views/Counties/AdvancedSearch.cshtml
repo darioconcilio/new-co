@@ -1,0 +1,67 @@
+﻿@model NewCoEF.Areas.PersonalData.ViewModels.IndexByExtendedQueryViewModel
+
+
+<h1>Ricerca avanzata (dati esterni non manipolabili</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AdvancedSearch" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Filter" class="control-label"></label>
+                <input asp-for="Filter" class="form-control" placeholder="Inserisci criterio di ricerca" />
+                <span asp-validation-for="Filter" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Search" class="btn btn-info mt-2" />
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row">
+    @if (Model.CountiesFound.Count() > 0)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CountiesFound.First().ID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CountiesFound.First().Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CountiesFound.First().Code)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.CountiesFound)
+                {
+                    <tr>
+                        <th>
+                            @Html.DisplayFor(model => item.ID)
+                        </th>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Code)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>
+            Non sono state trovate provincie.
+        </p>
+    }
+
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

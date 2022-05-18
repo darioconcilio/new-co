@@ -164,23 +164,133 @@ namespace NewCoEF.Areas.PersonalData.Controllers
             //Creazione dell'item da eliminare al di fuori del contesto
             var countyToDelete = new County()
             {
-                ID = vm.ID,
-                Name = vm.Name,
-                Code = vm.Code
+                ID = vm.ID
             };
 
-            var itemsToDeleteBefore = _context.ChangeTracker.Entries()
+            //Esiste la collezione sotto Change Tracker?
+            var itemsToDelete = _context.ChangeTracker.Entries()
                 .Where(e => e.State == EntityState.Deleted);
+
+            //Esiste l'item che voglio eliminare?
+            var myCounty = _context.ChangeTracker.Entries()
+                .SingleOrDefault(e => (e.Entity as County).ID == vm.ID);
 
             _context.Attach(countyToDelete);
+
+            //Esiste la collezione sotto Change Tracker?
+            itemsToDelete = _context.ChangeTracker.Entries()
+                .Where(e => e.State == EntityState.Deleted);
+
+            //Esiste l'item che voglio eliminare?
+            myCounty = _context.ChangeTracker.Entries()
+                .SingleOrDefault(e => (e.Entity as County).ID == vm.ID);
+
             _context.Remove(countyToDelete);
 
-            var itemsToDeleteAfter = _context.ChangeTracker.Entries()
+            //Esiste la collezione sotto Change Tracker?
+            itemsToDelete = _context.ChangeTracker.Entries()
                 .Where(e => e.State == EntityState.Deleted);
+
+            //Esiste l'item che voglio eliminare?
+            myCounty = _context.ChangeTracker.Entries()
+                .SingleOrDefault(e => (e.Entity as County).ID == vm.ID);
 
             await _context.SaveChangesAsync();
 
+            //e dopo?
+
+            //Esiste la collezione sotto Change Tracker?
+            itemsToDelete = _context.ChangeTracker.Entries()
+                .Where(e => e.State == EntityState.Deleted);
+
+            //Esiste l'item che voglio eliminare?
+            myCounty = _context.ChangeTracker.Entries()
+                .SingleOrDefault(e => (e.Entity as County).ID == vm.ID);
+
             return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult UpdateDisconnectedMode()
+        {
+            return View(new CountyViewModel());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateDisconnectedMode(CountyViewModel vm)
+        {
+            //Creazione dell'item da eliminare al di fuori del contesto
+            var countyToUpdate = new County()
+            {
+                ID = vm.ID,
+                Code = vm.Code,
+                Name = vm.Name
+            };
+
+            //Esiste la collezione sotto Change Tracker?
+            var itemsToUpdate = _context.ChangeTracker.Entries()
+                .Where(e => e.State == EntityState.Modified);
+
+            //Esiste l'item che si vuole aggiornare?
+            var myCounty = _context.ChangeTracker.Entries()
+                .SingleOrDefault(e => (e.Entity as County).ID == vm.ID);
+
+            _context.Attach(countyToUpdate);
+
+            //Esiste la collezione sotto Change Tracker?
+            itemsToUpdate = _context.ChangeTracker.Entries()
+               .Where(e => e.State == EntityState.Modified);
+
+            //Esiste l'item che si vuole aggiornare?
+            myCounty = _context.ChangeTracker.Entries()
+               .SingleOrDefault(e => (e.Entity as County).ID == vm.ID);
+
+            _context.Update(countyToUpdate);
+
+            //Esiste la collezione sotto Change Tracker?
+            itemsToUpdate = _context.ChangeTracker.Entries()
+               .Where(e => e.State == EntityState.Modified);
+
+            //Esiste l'item che si vuole aggiornare?
+            myCounty = _context.ChangeTracker.Entries()
+               .SingleOrDefault(e => (e.Entity as County).ID == vm.ID);
+
+            await _context.SaveChangesAsync();
+
+            //e dopo?
+
+            //Esiste la collezione sotto Change Tracker?
+            itemsToUpdate = _context.ChangeTracker.Entries()
+               .Where(e => e.State == EntityState.Modified);
+
+            //Esiste l'item che si vuole aggiornare?
+            myCounty = _context.ChangeTracker.Entries()
+               .SingleOrDefault(e => (e.Entity as County).ID == vm.ID);
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult AdvancedSearch()
+        {
+            var vm = new IndexByExtendedQueryViewModel();
+            return View(vm);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AdvancedSearch(IndexByExtendedQueryViewModel vm)
+        {
+            var itemsFound = await _context.Counties
+                .FromSqlRaw("SELECT * FROM [dbo].[Provincie]({0})", vm.Filter)
+                .OrderBy(c => c.Name)
+                .ToListAsync();
+
+            /*var itemsFound = await _context.Counties
+                .FromSqlRaw("EXEC [dbo].[GetProvincie] {0}", filter)
+                .OrderBy(c => c.Name)
+                .ToListAsync();*/
+
+            vm.CountiesFound = itemsFound;
+
+            return View(vm);
         }
     }
 }
