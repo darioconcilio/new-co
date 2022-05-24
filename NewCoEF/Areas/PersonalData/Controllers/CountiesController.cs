@@ -278,17 +278,15 @@ namespace NewCoEF.Areas.PersonalData.Controllers
         [HttpPost]
         public async Task<IActionResult> AdvancedSearch(IndexByExtendedQueryViewModel vm)
         {
-            var itemsFound = await _context.Counties
-                .FromSqlRaw("SELECT * FROM [dbo].[Provincie]({0})", vm.Filter)
-                .OrderBy(c => c.Name)
-                .ToListAsync();
-
             /*var itemsFound = await _context.Counties
-                .FromSqlRaw("EXEC [dbo].[GetProvincie] {0}", filter)
+                .FromSqlRaw("SELECT * FROM [dbo].[Provincie]({0})", vm.Filter)
                 .OrderBy(c => c.Name)
                 .ToListAsync();*/
 
-            vm.CountiesFound = itemsFound;
+            var itemsFound = _context.Counties
+                .FromSqlRaw("[GetProvincie] {0}", vm.Filter).AsEnumerable();
+
+            vm.CountiesFound = itemsFound.ToList();
 
             return View(vm);
         }
