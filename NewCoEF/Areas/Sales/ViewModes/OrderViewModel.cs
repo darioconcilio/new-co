@@ -1,5 +1,5 @@
-﻿using NewCoEF.Areas.PersonalData.Models;
-using NewCoEF.Areas.Sales.Models;
+﻿using NewCoEF.Shared.Areas.PersonalData.Models;
+using NewCoEF.Shared.Areas.Sales.Models;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;

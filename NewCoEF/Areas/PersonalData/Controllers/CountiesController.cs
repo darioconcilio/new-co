@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NewCoEF;
-using NewCoEF.Areas.PersonalData.Models;
+using NewCoEF.Shared.Areas.PersonalData.Models;
 using NewCoEF.Areas.PersonalData.ViewModels;
 
 namespace NewCoEF.Areas.PersonalData.Controllers
@@ -278,13 +278,13 @@ namespace NewCoEF.Areas.PersonalData.Controllers
         [HttpPost]
         public async Task<IActionResult> AdvancedSearch(IndexByExtendedQueryViewModel vm)
         {
-            /*var itemsFound = await _context.Counties
+            var itemsFound = await _context.Counties
                 .FromSqlRaw("SELECT * FROM [dbo].[Provincie]({0})", vm.Filter)
                 .OrderBy(c => c.Name)
-                .ToListAsync();*/
+                .ToListAsync();
 
-            var itemsFound = _context.Counties
-                .FromSqlRaw("[GetProvincie] {0}", vm.Filter).AsEnumerable();
+            /*var itemsFound = _context.Counties
+                .FromSqlRaw("[GetProvincie] {0}", vm.Filter).AsEnumerable();*/
 
             vm.CountiesFound = itemsFound.ToList();
 

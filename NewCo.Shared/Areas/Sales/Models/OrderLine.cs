@@ -1,4 +1,4 @@
-﻿using NewCoEF.Areas.PersonalData.Models;
+﻿using NewCoEF.Shared.Areas.PersonalData.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NewCoEF.Areas.Sales.Models
+namespace NewCoEF.Shared.Areas.Sales.Models
 {
     public class OrderLine
     {

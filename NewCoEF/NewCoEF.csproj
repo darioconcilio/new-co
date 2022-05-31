@@ -24,4 +24,8 @@
     <Folder Include="Areas\Sales\Data\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\NewCo.Shared\NewCo.Shared.csproj" />
+  </ItemGroup>
+
 </Project>

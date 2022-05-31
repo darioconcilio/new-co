@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using NewCoEF.Areas.PersonalData.Models;
-using NewCoEF.Areas.Sales.Models;
+using NewCoEF.Shared.Areas.PersonalData.Models;
+using NewCoEF.Shared.Areas.Sales.Models;
 using NewCoEF.Areas.Sales.ViewModels;
 using NewCoEF.Commons;
 using System;

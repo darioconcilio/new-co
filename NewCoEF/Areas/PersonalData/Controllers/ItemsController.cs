@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using NewCoEF.Areas.PersonalData.Models;
+using NewCoEF.Shared.Areas.PersonalData.Models;
 
 namespace NewCoEF.Areas.PersonalData.Controllers
 {

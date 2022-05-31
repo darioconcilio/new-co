@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NewCoEF;
-using NewCoEF.Areas.PersonalData.Models;
+using NewCoEF.Shared.Areas.PersonalData.Models;
 using NewCoEF.Areas.PersonalData.ViewModels;
 
 namespace NewCoEF.Areas.PersonalData.Controllers

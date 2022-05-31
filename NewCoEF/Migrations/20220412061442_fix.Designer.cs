@@ -21,7 +21,7 @@ namespace NewCoEF.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("NewCoEF.Areas.PersonalData.Models.Country", b =>
+            modelBuilder.Entity("NewCoEF.Shared.Areas.PersonalData.Models.Country", b =>
                 {
                     b.Property<Guid>("ID")
                         .HasColumnName("ID")
@@ -37,7 +37,7 @@ namespace NewCoEF.Migrations
                     b.ToTable("Countries");
                 });
 
-            modelBuilder.Entity("NewCoEF.Areas.PersonalData.Models.County", b =>
+            modelBuilder.Entity("NewCoEF.Shared.Areas.PersonalData.Models.County", b =>
                 {
                     b.Property<Guid>("ID")
                         .HasColumnName("ID")
@@ -55,7 +55,7 @@ namespace NewCoEF.Migrations
                     b.ToTable("Counties");
                 });
 
-            modelBuilder.Entity("NewCoEF.Areas.PersonalData.Models.Customer", b =>
+            modelBuilder.Entity("NewCoEF.Shared.Areas.PersonalData.Models.Customer", b =>
                 {
                     b.Property<Guid>("ID")
                         .HasColumnName("ID")
@@ -100,7 +100,7 @@ namespace NewCoEF.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("NewCoEF.Areas.PersonalData.Models.Item", b =>
+            modelBuilder.Entity("NewCoEF.Shared.Areas.PersonalData.Models.Item", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
@@ -188,27 +188,27 @@ namespace NewCoEF.Migrations
                     b.ToTable("OrderLines");
                 });
 
-            modelBuilder.Entity("NewCoEF.Areas.PersonalData.Models.Customer", b =>
+            modelBuilder.Entity("NewCoEF.Shared.Areas.PersonalData.Models.Customer", b =>
                 {
-                    b.HasOne("NewCoEF.Areas.PersonalData.Models.Country", "CountryRef")
+                    b.HasOne("NewCoEF.Shared.Areas.PersonalData.Models.Country", "CountryRef")
                         .WithMany("Customers")
                         .HasForeignKey("CountryRefId");
 
-                    b.HasOne("NewCoEF.Areas.PersonalData.Models.County", "CountyRef")
+                    b.HasOne("NewCoEF.Shared.Areas.PersonalData.Models.County", "CountyRef")
                         .WithMany("Customers")
                         .HasForeignKey("CountyRefId");
                 });
 
             modelBuilder.Entity("NewCoEF.Areas.Sales.Models.Order", b =>
                 {
-                    b.HasOne("NewCoEF.Areas.PersonalData.Models.Customer", "CustomerRef")
+                    b.HasOne("NewCoEF.Shared.Areas.PersonalData.Models.Customer", "CustomerRef")
                         .WithMany("Orders")
                         .HasForeignKey("CustomerRefId");
                 });
 
             modelBuilder.Entity("NewCoEF.Areas.Sales.Models.OrderLines", b =>
                 {
-                    b.HasOne("NewCoEF.Areas.PersonalData.Models.Item", "ItemRef")
+                    b.HasOne("NewCoEF.Shared.Areas.PersonalData.Models.Item", "ItemRef")
                         .WithMany("OrderLines")
                         .HasForeignKey("ItemRefId");
 

@@ -1,6 +1,6 @@
 using System;
 
-namespace NewCoEF.Areas.PersonalData.Models
+namespace NewCoEF.Shared.Areas.PersonalData.Models
 {
     public class ErrorViewModel
     {
