@@ -13,6 +13,16 @@ using System.Threading.Tasks;
 
 namespace NewCoEF.Areas.PersonalData.Controllers
 {
+
+    //Specifiche dell'enum Microsoft.AspNetCore.Http.StatusCodes
+    //https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.http.statuscodes?view=aspnetcore-3.1
+
+    //Pagina principale di iana (Internet Assigned Numbers Authority
+    //https://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml
+
+    //RFC 9110 - HTTP Semantics
+    //https://www.rfc-editor.org/rfc/rfc9110.html#name-status-codes
+
     [Route("api/items")]
     [ApiController]
     public class ItemsApiController : ControllerBase
@@ -34,15 +44,20 @@ namespace NewCoEF.Areas.PersonalData.Controllers
             {
                 items = await (from rec in context.Items
                                select rec).ToListAsync();
+
+                //throw new Exception("Errore interno....");
             }
             catch (Exception ex)
             {
                 var response = new ErrorResponse(123, ex.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     JsonConvert.SerializeObject(response));
+                //return StatusCode(StatusCodes.Status500InternalServerError,
+                //    new JsonResult(response));
             }
 
             return Ok(JsonConvert.SerializeObject(items));
+            //return Ok(new JsonResult(items));
         }
 
         // GET api/items/00000000-0000-0000-0000-000000000000
