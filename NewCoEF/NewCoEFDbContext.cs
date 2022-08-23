@@ -49,7 +49,8 @@ namespace NewCoEF
             {
                 entity.HasIndex(e => e.Description)
                     .HasName("Item Description Index");
-
+                
+                entity.HasKey(e => e.Id);
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.Description)

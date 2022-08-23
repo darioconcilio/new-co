@@ -38,7 +38,7 @@ namespace NewCoEF.Areas.PersonalData.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var items = new List<Item>();
+            List<Item> items = null;
 
             try
             {
@@ -51,13 +51,13 @@ namespace NewCoEF.Areas.PersonalData.Controllers
             {
                 var response = new ErrorResponse(123, ex.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    JsonConvert.SerializeObject(response));
+                                  response);
                 //return StatusCode(StatusCodes.Status500InternalServerError,
                 //    new JsonResult(response));
             }
 
-            return Ok(JsonConvert.SerializeObject(items));
-            //return Ok(new JsonResult(items));
+            //return Ok(JsonConvert.SerializeObject(items));
+            return Ok(items);
         }
 
         // GET api/items/00000000-0000-0000-0000-000000000000
@@ -76,7 +76,7 @@ namespace NewCoEF.Areas.PersonalData.Controllers
                 {
                     var response = new ErrorResponse(1, $"Item {id} not found");
                     return StatusCode(StatusCodes.Status404NotFound,
-                                      JsonConvert.SerializeObject(response));
+                                      response);
                 }
 
             }
@@ -84,11 +84,12 @@ namespace NewCoEF.Areas.PersonalData.Controllers
             {
                 var response = new ErrorResponse(5, ex.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                                  JsonConvert.SerializeObject(response));
+                                  response);
             }
 
             //Status200OK
-            return Ok(JsonConvert.SerializeObject(itemFound));
+            //return Ok(JsonConvert.SerializeObject(itemFound));
+            return new JsonResult(itemFound);
         }
 
         // POST api/items
@@ -117,17 +118,17 @@ namespace NewCoEF.Areas.PersonalData.Controllers
                     {
                         response = new ErrorResponse(ex.HResult, message);
                         return StatusCode(StatusCodes.Status409Conflict,
-                                          JsonConvert.SerializeObject(response));
+                                          response);
                     }
                 }
 
                 response = new ErrorResponse(ex.HResult, message);
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                                  JsonConvert.SerializeObject(response));
+                                  response);
             }
 
             return StatusCode(StatusCodes.Status201Created,
-                              JsonConvert.SerializeObject(itemToCreate));
+                              itemToCreate);
         }
 
         // PUT api/items
@@ -138,6 +139,15 @@ namespace NewCoEF.Areas.PersonalData.Controllers
 
             try
             {
+                var itemFound = await context.Items.FindAsync(itemToUpdate.Id);
+
+                if (itemFound == null)
+                {
+                    response = new ErrorResponse(99, "Resource not found");
+                    return StatusCode(StatusCodes.Status404NotFound,
+                                      response);
+                }
+
                 context.Items.Attach(itemToUpdate);
                 context.Items.Update(itemToUpdate);
                 await context.SaveChangesAsync();
@@ -148,11 +158,11 @@ namespace NewCoEF.Areas.PersonalData.Controllers
 
                 response = new ErrorResponse(ex.HResult, message);
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                                  JsonConvert.SerializeObject(response));
+                                  response);
             }
 
             return StatusCode(StatusCodes.Status200OK,
-                              JsonConvert.SerializeObject(itemToUpdate));
+                              itemToUpdate);
         }
 
         // DELETE api/items/00000000-0000-0000-0000-000000000000
@@ -169,7 +179,7 @@ namespace NewCoEF.Areas.PersonalData.Controllers
                 {
                     response = new ErrorResponse(99, $"Item {id} not exists.");
                     return StatusCode(StatusCodes.Status404NotFound,
-                                      JsonConvert.SerializeObject(response));
+                                      response);
                 }
 
                 context.Items.Remove(itemToDelete);
@@ -181,7 +191,7 @@ namespace NewCoEF.Areas.PersonalData.Controllers
 
                 response = new ErrorResponse(ex.HResult, message);
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                                  JsonConvert.SerializeObject(response));
+                                  response);
             }
 
             return StatusCode(StatusCodes.Status204NoContent, null);
