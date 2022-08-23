@@ -60,8 +60,19 @@ namespace NewCoEF.Areas.PersonalData.Controllers
             return Ok(items);
         }
 
+
         // GET api/items/00000000-0000-0000-0000-000000000000
+        /// <summary>
+        /// Recupera uno specifico articolo
+        /// </summary>
+        /// <param name="id">Codice che identifica l'articolo in formato GUID</param>
+        /// <response code="200">Ritorna l'articolo cercato</response>
+        /// <response code="404">Se l'articolo non è stato trovato</response>
+        /// <returns></returns>
         [HttpGet("{id}")]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(Item), 200)]
+        [ProducesResponseType(typeof(ErrorResponse), 404)]
         public async Task<IActionResult> Get(Guid id)
         {
             var itemFound = new Item();
