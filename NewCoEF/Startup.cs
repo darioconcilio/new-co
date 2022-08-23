@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -35,6 +38,21 @@ namespace NewCoEF
                 o.UseSqlServer(connectionString);
             });
 
+            //Versioning
+            services.AddApiVersioning(config =>
+            {
+                config.DefaultApiVersion = new ApiVersion(1, 0);
+                config.AssumeDefaultVersionWhenUnspecified = true;
+                config.ReportApiVersions = true;
+                //config.ApiVersionReader = new HeaderApiVersionReader("api-version");
+            });
+
+            services.AddVersionedApiExplorer(setup =>
+            {
+                setup.GroupNameFormat = "'v'VVV";
+                setup.SubstituteApiVersionInUrl = true;
+            });
+
             //Inizializzazione del servizio Swagger
             services.AddSwaggerGen(c =>
             {
@@ -52,15 +70,35 @@ namespace NewCoEF
                     }
                 });
 
+                c.SwaggerDoc("v2", new Microsoft.OpenApi.Models.OpenApiInfo
+                {
+                    Version = "v2",
+                    Title = "Documentazione per la manipolazione dei dati di NewCoEF V2",
+                    Description = "Tool di supporto agli sviluppatori per poter utilizzare le Web API V2, <h2>in questa versione sono considerati solo i portatili!!!</h2>",
+                    TermsOfService = null,
+                    Contact = new Microsoft.OpenApi.Models.OpenApiContact
+                    {
+                        Name = "My Name V2",
+                        Email = "mymail__V2__@mail.com",
+                        Url = new Uri("https://myurl.com")
+                    }
+                });
+
+                c.EnableAnnotations();
+
                 //Gestione decumentazione aggiuntiva su XML
                 var xmlFile = $"{Assembly.GetEntryAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
+
+            
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, 
+            IApiVersionDescriptionProvider provider)
         {
             if (env.IsDevelopment())
             {
@@ -79,8 +117,13 @@ namespace NewCoEF
             app.UseSwagger();
             app.UseSwaggerUI(c=>
             {
+                foreach (var description in provider.ApiVersionDescriptions)
+                {
+                    c.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
+                }
+
                 //Personalizzazione dell'endpoint
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Versione 1.0");
+                //c.SwaggerEndpoint("/swagger/v1/swagger.json", "NewCoEF API v1.0");
             });
 
             app.UseRouting();

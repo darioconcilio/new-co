@@ -23,8 +23,11 @@ namespace NewCoEF.Areas.PersonalData.Controllers
     //RFC 9110 - HTTP Semantics
     //https://www.rfc-editor.org/rfc/rfc9110.html#name-status-codes
 
-    [Route("api/items")]
     [ApiController]
+    [ApiVersion("1.0")]
+    //[Route("api/items")]
+    [Route("api/v{version:apiVersion}/items")]
+    
     public class ItemsApiController : ControllerBase
     {
         private readonly NewCoEFDbContext context;
