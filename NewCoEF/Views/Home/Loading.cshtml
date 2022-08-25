@@ -1,0 +1,127 @@
+﻿<div class="container mt-3">
+    <div class="mb-4">
+        <button class="btn btn-primary" id="loadingButton">Carica Dati</button>
+        <input type="checkbox" class="m-2" id="simulateError"/>Simula Errore
+    </div>
+    <div class="progress">
+        <div id="synchProgressBar"
+             class="progress-bar progress-bar-info active progress-bar-animated"
+             role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
+    <div class="row" id="timePlaceHolder">
+        <div class="col">
+            Tempo trascorso: <span id="elapsedTimeLabel"></span>
+        </div>
+        <div class="col">
+            Tempo stimato:   <span id="etaTimeLabel"></span>
+        </div>
+    </div>
+
+    <div class="alert alert-danger alert-dismissible fade align-bottom" role="alert" id="alertHub" >
+        This is a danger alert—check it out!
+    </div>
+</div>
+
+<script>
+
+    "use strict";
+
+    var connection = new signalR.HubConnectionBuilder()
+        .withUrl("https://localhost:5001/loadingHub")
+        .configureLogging(signalR.LogLevel.Trace)
+        .build();
+
+    $(document).ready(function () {
+
+        var pb = $("#synchProgressBar");
+        var synchButton = $("#loadingButton");
+        var alertHub = $("#alertHub");
+        var simulateError = $("#simulateError");
+
+        $("#timePlaceHolder").hide();
+
+        //Receive start process notification
+        connection.on("SendStartProcessToCaller", (recordCount) => {
+
+            pb.attr('style', 'width:' + 0 + '%')
+                .attr('aria-valuemax', recordCount)
+                .attr('aria-valuemin', 0)
+                .attr('aria-valuenow', 0);
+            pb.text("0 %");
+
+            $("#timePlaceHolder").show();
+
+        }, String.class);
+
+        //Receive progress notification
+        connection.on("SendProgressToCaller", (progressValue, elapsed, eta) => {
+
+            //Progress loading
+            var recordCountToImport = pb.attr('aria-valuemax');
+
+            var valueProgress = Math.round((100 * progressValue) / recordCountToImport);
+            pb.attr('style', 'width:' + valueProgress + '%')
+                .attr('aria-valuenow', progressValue);
+            pb.text(valueProgress + " %");
+
+            $("#elapsedTimeLabel").text(elapsed);
+            $("#etaTimeLabel").text(eta);
+
+            console.log(progressValue + "|" + elapsed + "|" + eta);
+
+        }, String.class);
+
+        //Receive end process notification
+        connection.on("SendEndProcessToCaller", (completed) => {
+
+            synchButton.prop('disabled', false);
+            synchButton.removeClass('btn-secondary');
+            synchButton.addClass('btn-primary');
+            synchButton.html('Carica Dati');
+
+        }, String.class);
+
+        //Receive error notification
+        connection.on("SendErrorToCaller", (message) => {
+
+            console.error(message);
+
+            synchButton.prop('disabled', false);
+            synchButton.removeClass('btn-secondary');
+            synchButton.addClass('btn-primary');
+            synchButton.html('Carica Dati');
+
+            alertHub.html(message);
+            alertHub.addClass('show');
+            //alertHub.alert();
+
+        }, String.class);
+
+        connection.start().then(function () {
+
+            synchButton.prop('disabled', false);
+            synchButton.removeClass('btn-secondary');
+            synchButton.addClass('btn-primary');
+
+        }).catch(function (err) {
+            return console.error(err.toString());
+        });
+
+        synchButton.click(function () {
+
+            var synchButton = $("#loadingButton");
+            synchButton.prop('disabled', true);
+            synchButton.removeClass('btn-primary');
+            synchButton.addClass('btn-secondary');
+            synchButton.html('Caricamento...');
+            alertHub.removeClass('show');
+
+            connection.invoke("LoadData", "Current User", simulateError.is(":checked"))
+                .catch(err => console.error(err));
+            console.log("Invoke LoadData");
+
+        });
+
+    });
+
+</script>

@@ -23,6 +23,11 @@ namespace NewCoEF.Controllers
             return View();
         }
 
+        public IActionResult Loading()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();
