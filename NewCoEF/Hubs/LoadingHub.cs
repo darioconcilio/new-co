@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace NewCoEF.Hubs
 {
+    //loadingHub
     public class LoadingHub : Hub
     {
         public LoadingHub()
@@ -58,6 +59,7 @@ namespace NewCoEF.Hubs
             await Clients.Caller.SendAsync("SendErrorToCaller", message);
         }
 
+        //loadData
         public async Task LoadData(string user, bool simulateError)
         {
 
@@ -90,6 +92,7 @@ namespace NewCoEF.Hubs
             }
             catch (Exception ex)
             {
+                await SendEndProcessToCaller(false);
                 await SendErrorToCaller(ex.Message);
             }
 
