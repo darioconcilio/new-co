@@ -7,11 +7,12 @@ using NewCoEF.Commons;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using NewCoEF.Areas.Sales.Base;
 
 namespace NewCoEF.Areas.Sales.Controllers
 {
     [Area("Sales")]
-    public class OrdersController : Controller
+    public class OrdersController : ControllerCustom
     {
         private readonly NewCoEFDbContext _context;
 

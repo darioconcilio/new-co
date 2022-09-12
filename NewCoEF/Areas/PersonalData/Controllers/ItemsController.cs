@@ -1,14 +1,17 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NewCoEF.Areas.PersonalData.Base;
 using NewCoEF.Shared.Areas.PersonalData.Models;
 
 namespace NewCoEF.Areas.PersonalData.Controllers
 {
     [Area("PersonalData")]
-    public class ItemsController : Controller
+    public class ItemsController : ControllerCustom
     {
         private readonly NewCoEFDbContext _context;
 
@@ -62,13 +65,30 @@ namespace NewCoEF.Areas.PersonalData.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Description,UnitPrice,Inventory,No")] Item item)
         {
-            if (ModelState.IsValid)
+            try
             {
-                item.Id = Guid.NewGuid();
-                _context.Add(item);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    item.Id = Guid.NewGuid();
+
+                    _context.Add(item);
+
+                    await _context.SaveChangesAsync();
+
+                    return RedirectToAction(nameof(Index));
+                }
             }
+            catch (Exception ex)
+            {
+                StringBuilder sb = new StringBuilder(ex.Message);
+
+                if (ex.InnerException != null)
+                    sb.AppendLine(ex.InnerException.Message);
+
+                //Generic error model
+                ModelState.AddModelError("", sb.ToString());
+            }
+
             return View(item);
         }
 
@@ -160,6 +180,16 @@ namespace NewCoEF.Areas.PersonalData.Controllers
         private bool ItemExists(Guid id)
         {
             return _context.Items.Any(e => e.Id == id);
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel
+            {
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier,
+                ErrorMessage = ErrorMessage
+            });
         }
     }
 }

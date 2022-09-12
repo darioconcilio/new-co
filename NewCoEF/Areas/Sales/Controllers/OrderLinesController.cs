@@ -8,11 +8,12 @@ using System;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NewCoEF.Areas.Sales.Base;
 
 namespace NewCoEF.Areas.Sales.Controllers
 {
     [Area("Sales")]
-    public class OrderLinesController : Controller
+    public class OrderLinesController : ControllerCustom
     {
         private readonly NewCoEFDbContext _context;
 

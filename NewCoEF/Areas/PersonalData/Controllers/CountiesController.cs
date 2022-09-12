@@ -1,18 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using NewCoEF;
 using NewCoEF.Shared.Areas.PersonalData.Models;
 using NewCoEF.Areas.PersonalData.ViewModels;
+using NewCoEF.Areas.PersonalData.Base;
 
 namespace NewCoEF.Areas.PersonalData.Controllers
 {
     [Area("PersonalData")]
-    public class CountiesController : Controller
+    public class CountiesController : ControllerCustom
     {
         private readonly NewCoEFDbContext _context;
 

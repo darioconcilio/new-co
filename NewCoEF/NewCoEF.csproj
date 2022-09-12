@@ -9,7 +9,14 @@
     <OutputPath>bin\Debug\netcoreapp3.1\</OutputPath>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>bin\Release\netcoreapp3.1\</OutputPath>
+    <DocumentationFile>bin\Release\netcoreapp3.1\NewCoEF.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
+    <PackageReference Include="Abp" Version="7.3.0" />
+    <PackageReference Include="Abp.Zero.Common" Version="7.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="4.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="4.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.28" />
