@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NewCoEF.Areas.PersonalData.Base;
+using System;
 
 namespace NewCoEF.Areas.PersonalData.Controllers
 {
@@ -11,6 +12,10 @@ namespace NewCoEF.Areas.PersonalData.Controllers
             return View();
         }
 
-        
+        public IActionResult SimulateError()
+        {
+            throw new Exception("Errore simulato sotto l'area PersonalData dal controller");
+            return View();
+        }
     }
 }

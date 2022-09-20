@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Connections;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
@@ -11,6 +13,7 @@ using NewCoEF.Hubs;
 using System;
 using System.IO;
 using System.Reflection;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace NewCoEF
 {
@@ -108,11 +111,31 @@ namespace NewCoEF
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
-                /*app.UseWhen(x => x.Request.Path.Value.StartsWith("/Produces"), builder =>
+                //app.UseExceptionHandler("/Home/Error");
+
+                app.UseExceptionHandler(errorApp =>
                 {
-                    builder.UseExceptionHandler("/ProducesError");
-                });*/
+                    errorApp.Run(async context =>
+                    {
+                        context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+                        context.Response.ContentType = Text.Html;
+
+                        var exceptionHandlerPathFeature =
+                            context.Features.Get<IExceptionHandlerPathFeature>();
+
+                        // Use exceptionHandlerPathFeature to process the exception (for example, 
+                        // logging), but do NOT expose sensitive error information directly to 
+                        // the client.
+
+                        if (exceptionHandlerPathFeature.Path.Contains("/PersonalData/"))
+                        {
+                            context.Response.Redirect("/PersonalData/Home/Error");
+                        }
+                        else
+                            context.Response.Redirect("/Home/Error");
+                    });
+                });
+
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }

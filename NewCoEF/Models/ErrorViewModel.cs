@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Http;
+using System.Diagnostics;
 
 namespace NewCoEF.Models
 {
@@ -9,5 +10,6 @@ namespace NewCoEF.Models
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
 
         public string ErrorMessage { get; set; }
+
     }
 }

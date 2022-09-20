@@ -13,7 +13,8 @@ namespace NewCoEF.Base
         {
             return View(new ErrorViewModel
             {
-                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier,
+                ErrorMessage = this.ErrorMessage
             });
         }
 
@@ -33,6 +34,8 @@ namespace NewCoEF.Base
                     default:
                         return "Si è verificato un errore interno non previsto. Riprovare più tardi.";
                 }
+
+                //NOTIFICA ERRORE
             }
         }
     }

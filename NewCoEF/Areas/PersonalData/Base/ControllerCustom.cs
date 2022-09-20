@@ -13,7 +13,8 @@ namespace NewCoEF.Areas.PersonalData.Base
         {
             return View(new ErrorViewModel
             {
-                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier,
+                ErrorMessage = this.ErrorMessage
             });
         }
 
