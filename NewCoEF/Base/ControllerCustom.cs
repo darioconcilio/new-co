@@ -8,9 +8,29 @@ namespace NewCoEF.Base
 {
     public class ControllerCustom : Controller
     {
+        //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        //public IActionResult Error()
+        //{
+
+        //    return View(new ErrorViewModel
+        //    {
+        //        RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier,
+        //        ErrorMessage = this.ErrorMessage
+        //    });
+        //}
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult Error(int? statusCode = null)
         {
+            if (statusCode.HasValue)
+            {
+                if (statusCode == 404 || statusCode == 500)
+                {
+                    var viewName = statusCode.ToString();
+                    return View(viewName);
+                }
+            }
+
             return View(new ErrorViewModel
             {
                 RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier,
@@ -27,7 +47,7 @@ namespace NewCoEF.Base
             {
                 var exceptionHandlerFeature = HttpContext.Features.Get<IExceptionHandlerFeature>();
 
-                switch(exceptionHandlerFeature?.Error)
+                switch (exceptionHandlerFeature?.Error)
                 {
                     case WebException we:
                         return "Errore nella chiamata ai servizi. Riprovare più tardi.";

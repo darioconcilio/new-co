@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using NewCoEF.Shared.Areas.PersonalData.Models;
+using System;
 using System.Diagnostics;
 using System.Net;
 
@@ -30,9 +31,9 @@ namespace NewCoEF.Areas.PersonalData.Base
                 switch (exceptionHandlerFeature?.Error)
                 {
                     case WebException we:
-                        return "Errore nella chiamata ai servizi. Riprovare più tardi.";
+                        return $"{we.Message}\nErrore nella chiamata ai servizi. Riprovare più tardi.";
                     default:
-                        return "Si è verificato un errore interno non previsto. Riprovare più tardi.";
+                        return "Errore inaspettato, riprovare più tardi.";
                 }
             }
         }

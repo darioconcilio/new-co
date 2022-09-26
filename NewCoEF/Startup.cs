@@ -131,6 +131,10 @@ namespace NewCoEF
                         {
                             context.Response.Redirect("/PersonalData/Home/Error");
                         }
+                        else if (exceptionHandlerPathFeature.Path.Contains("/Sales/"))
+                        {
+                            context.Response.Redirect("/Sales/Home/Error");
+                        }
                         else
                             context.Response.Redirect("/Home/Error");
                     });
@@ -139,6 +143,14 @@ namespace NewCoEF
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            #region CodePages
+
+            //app.UseStatusCodePages();
+            //app.UseStatusCodePagesWithRedirects("");
+            app.UseStatusCodePagesWithReExecute("/Home/Error", "?statusCode={0}");
+
+            #endregion
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

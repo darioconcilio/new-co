@@ -37,12 +37,6 @@ namespace NewCoEF.Controllers
         //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult SimulateError()
         {
-            /*return View(new ErrorViewModel
-            {
-                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier,
-                ErrorMessage = ErrorMessage
-            });*/
-
             return View();
         }
 
