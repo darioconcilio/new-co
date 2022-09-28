@@ -8,19 +8,9 @@ namespace NewCoEF.Base
 {
     public class ControllerCustom : Controller
     {
-        //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        //public IActionResult Error()
-        //{
-
-        //    return View(new ErrorViewModel
-        //    {
-        //        RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier,
-        //        ErrorMessage = this.ErrorMessage
-        //    });
-        //}
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error(int? statusCode = null)
+        //public IActionResult Error()
         {
             if (statusCode.HasValue)
             {

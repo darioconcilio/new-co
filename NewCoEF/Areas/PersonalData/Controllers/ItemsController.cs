@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using NewCoEF.Areas.PersonalData.Base;
 using NewCoEF.Shared.Areas.PersonalData.Models;
 
@@ -14,21 +15,36 @@ namespace NewCoEF.Areas.PersonalData.Controllers
     public class ItemsController : ControllerCustom
     {
         private readonly NewCoEFDbContext _context;
+        private readonly ILogger<ItemsController> logger;
 
-        public ItemsController(NewCoEFDbContext context)
+        public ItemsController(NewCoEFDbContext context, ILogger<ItemsController> logger)
         {
             _context = context;
+            this.logger = logger;
+        }
+
+        private void dummyMethod(Exception ex)
+        {
+            logger.LogTrace("Dettaglio massimo con informazioni sensibili");
+            logger.LogDebug(1001, "Informazioni utili alla diagnostica");
+            logger.LogInformation("Informazioni descrittive e generiche");
+            logger.LogWarning("Attenzione ad un evento particolare ma non bloccante");
+            logger.LogError(5001, ex, "E' un errore bloccante!");
+            logger.LogCritical(ex, "Errore bloccante e catastrofico, possibili perdite di dati!");
         }
 
         // GET: PersonalData/Items
         public async Task<IActionResult> Index()
         {
+            logger.LogInformation("Request item list");
             return View(await _context.Items.ToListAsync());
         }
 
         // GET: PersonalData/Items/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
+            logger.LogInformation($"Request item details for {id}");
+
             if (id == null)
             {
                 return NotFound();
@@ -45,7 +61,8 @@ namespace NewCoEF.Areas.PersonalData.Controllers
 
             if (item == null)
             {
-                //Custom Error View https://www.prowaretech.com/Computer/AspNetCore/HandleViewNotFoundErrors
+                logger.LogError(5001, $"Item {id} not found");
+
                 return NotFound();
             }
 
@@ -55,6 +72,7 @@ namespace NewCoEF.Areas.PersonalData.Controllers
         // GET: PersonalData/Items/Create
         public IActionResult Create()
         {
+            logger.LogInformation("Request new item");
             return View();
         }
 
@@ -75,6 +93,9 @@ namespace NewCoEF.Areas.PersonalData.Controllers
 
                     await _context.SaveChangesAsync();
 
+                    //Assegnazione parametri posizionale
+                    logger.LogInformation($"Posted add item {item.Id} {item.Description}");
+
                     return RedirectToAction(nameof(Index));
                 }
             }
@@ -84,6 +105,8 @@ namespace NewCoEF.Areas.PersonalData.Controllers
 
                 if (ex.InnerException != null)
                     sb.AppendLine(ex.InnerException.Message);
+
+                logger.LogCritical($"Posting adding new item {item.Id} failed: {sb}");
 
                 //Generic error model
                 ModelState.AddModelError("", sb.ToString());
@@ -95,6 +118,8 @@ namespace NewCoEF.Areas.PersonalData.Controllers
         // GET: PersonalData/Items/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
+            logger.LogInformation($"Request edit item for {id}");
+
             if (id == null)
             {
                 return NotFound();
@@ -103,6 +128,7 @@ namespace NewCoEF.Areas.PersonalData.Controllers
             var item = await _context.Items.FindAsync(id);
             if (item == null)
             {
+                logger.LogError($"Request edit item {item.Id} not found");
                 return NotFound();
             }
             return View(item);
@@ -131,18 +157,26 @@ namespace NewCoEF.Areas.PersonalData.Controllers
                 {
                     _context.Update(item);
                     await _context.SaveChangesAsync();
+                    logger.LogInformation($"Posted edit item {item.Id} updated");
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateConcurrencyException ex)
                 {
                     if (!ItemExists(item.Id))
                     {
+                        logger.LogError($"Posting edit item {item.Id} not found");
                         return NotFound();
                     }
                     else
                     {
+                        logger.LogError($"Posting edit item {item.Id}, error: {ex.Message}");
                         throw;
                     }
                 }
+                catch(Exception ex)
+                {
+                    logger.LogCritical($"Posting edit item {item.Id} failed, error: {ex.Message}");
+                }
+
                 return RedirectToAction(nameof(Index));
             }
             return View(item);
@@ -151,6 +185,8 @@ namespace NewCoEF.Areas.PersonalData.Controllers
         // GET: PersonalData/Items/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
         {
+            logger.LogInformation($"Request delete item for {id}");
+
             if (id == null)
             {
                 return NotFound();
@@ -160,6 +196,7 @@ namespace NewCoEF.Areas.PersonalData.Controllers
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (item == null)
             {
+                logger.LogError($"Requesting delete item {id} non found");
                 return NotFound();
             }
 
@@ -172,8 +209,18 @@ namespace NewCoEF.Areas.PersonalData.Controllers
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             var item = await _context.Items.FindAsync(id);
-            _context.Remove(item);
-            await _context.SaveChangesAsync();
+            try
+            {
+                _context.Remove(item);
+                await _context.SaveChangesAsync();
+
+                logger.LogInformation($"Posted deleting item {id}");
+            }
+            catch(Exception ex)
+            {
+                logger.LogCritical($"Requesting delete item {id} failed, error {ex.Message}");
+            }
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -182,7 +229,7 @@ namespace NewCoEF.Areas.PersonalData.Controllers
             return _context.Items.Any(e => e.Id == id);
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        /*[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel
@@ -190,6 +237,6 @@ namespace NewCoEF.Areas.PersonalData.Controllers
                 RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier,
                 ErrorMessage = ErrorMessage
             });
-        }
+        }*/
     }
 }

@@ -1,11 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace NewCoEF
 {
@@ -21,6 +16,11 @@ namespace NewCoEF
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                });
+                })
+            .ConfigureLogging(log=>
+            {
+                //log.AddTraceSource("NewCoSwitch"); // Eventi con System.Diagnostics.Trace
+                log.AddLog4Net(); //Eventi gestiti con pacchetto di terze parti, per es. Log4Net
+            });
     }
 }
