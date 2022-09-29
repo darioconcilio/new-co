@@ -17,10 +17,14 @@ namespace NewCoEF
                 {
                     webBuilder.UseStartup<Startup>();
                 })
-            .ConfigureLogging(log=>
+            .ConfigureLogging(log =>
             {
-                //log.AddTraceSource("NewCoSwitch"); // Eventi con System.Diagnostics.Trace
-                log.AddLog4Net(); //Eventi gestiti con pacchetto di terze parti, per es. Log4Net
+                log.AddEventLog();
+                log.AddEventSourceLogger();
+                log.AddTraceSource("NewCoSwitch"); // Eventi con System.Diagnostics.Trace
+
+                //https://logging.apache.org/log4net/release/config-examples.html
+                //log.AddLog4Net(); //Eventi gestiti con pacchetto di terze parti, per es. Log4Net
             });
     }
 }
