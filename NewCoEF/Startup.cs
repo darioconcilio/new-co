@@ -106,8 +106,6 @@ namespace NewCoEF
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, 
             IApiVersionDescriptionProvider provider, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddLog4Net();
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -146,6 +144,8 @@ namespace NewCoEF
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            loggerFactory.AddLog4Net();
 
             #region CodePages
 

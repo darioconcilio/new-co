@@ -23,6 +23,10 @@ namespace NewCoEF.Areas.PersonalData.Controllers
             this.logger = logger;
         }
 
+        /// <summary>
+        /// Trace = 0, Debug = 1, Information = 2, Warning = 3, Error = 4, Critical = 5, and None = 6.
+        /// </summary>
+        /// <param name="ex"></param>
         private void dummyMethod(Exception ex)
         {
             logger.LogTrace("Dettaglio massimo con informazioni sensibili");
@@ -37,6 +41,9 @@ namespace NewCoEF.Areas.PersonalData.Controllers
         public async Task<IActionResult> Index()
         {
             logger.LogInformation("Request item list");
+
+            dummyMethod(new Exception("Errore generico"));
+
             return View(await _context.Items.ToListAsync());
         }
 
