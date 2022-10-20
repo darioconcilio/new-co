@@ -145,8 +145,6 @@ namespace NewCoEF
                 app.UseHsts();
             }
 
-            loggerFactory.AddLog4Net();
-
             #region CodePages
 
             //app.UseStatusCodePages();
