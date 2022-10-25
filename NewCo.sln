@@ -11,9 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewCoEF.DbFirst", "NewCoEF.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewCoEF", "NewCoEF\NewCoEF.csproj", "{360DF721-6B88-4F24-8585-8B7BE324A060}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewCo.ApiTest", "NewCo.ApiTest\NewCo.ApiTest.csproj", "{3615C107-FEE0-448D-B39A-2F48D34C6FCD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewCo.ApiTest", "NewCo.ApiTest\NewCo.ApiTest.csproj", "{3615C107-FEE0-448D-B39A-2F48D34C6FCD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewCo.Shared", "NewCo.Shared\NewCo.Shared.csproj", "{E3586128-F66A-486B-8C96-BF737D83E577}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewCo.Shared", "NewCo.Shared\NewCo.Shared.csproj", "{E3586128-F66A-486B-8C96-BF737D83E577}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestGlobalization", "TestGlobalization\TestGlobalization.csproj", "{C079D3E8-8DC0-4BA0-B537-DF7ACC02CA0B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{E3586128-F66A-486B-8C96-BF737D83E577}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E3586128-F66A-486B-8C96-BF737D83E577}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E3586128-F66A-486B-8C96-BF737D83E577}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C079D3E8-8DC0-4BA0-B537-DF7ACC02CA0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C079D3E8-8DC0-4BA0-B537-DF7ACC02CA0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C079D3E8-8DC0-4BA0-B537-DF7ACC02CA0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C079D3E8-8DC0-4BA0-B537-DF7ACC02CA0B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
