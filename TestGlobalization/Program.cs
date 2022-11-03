@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 
 namespace TestGlobalization
 {
@@ -11,7 +13,7 @@ namespace TestGlobalization
 
             #region simple example
 
-            Console.ForegroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("Current culture");
             Console.WriteLine(CultureInfo.CurrentCulture.Name);
             Console.WriteLine(CultureInfo.CurrentUICulture.DisplayName);
@@ -19,9 +21,9 @@ namespace TestGlobalization
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("Setting current culture");
 
-            CultureInfo italianCultureInfo = new CultureInfo("de-DE");
-            CultureInfo.CurrentCulture = italianCultureInfo;
-            CultureInfo.CurrentUICulture = italianCultureInfo;
+            CultureInfo deCultureInfo = new CultureInfo("de-DE");
+            CultureInfo.CurrentCulture = deCultureInfo;
+            CultureInfo.CurrentUICulture = deCultureInfo;
 
             Console.WriteLine(CultureInfo.CurrentCulture.Name);
             Console.WriteLine(CultureInfo.CurrentUICulture.DisplayName);
@@ -36,8 +38,8 @@ namespace TestGlobalization
             #region change culture
 
             Console.WriteLine("Change culture\n");
-            Console.WriteLine($"Cultura\t\tValuta\t\tData");
-         
+            Console.WriteLine($"Culture\t\tCurrency\tDate");
+
 
             Console.ForegroundColor = ConsoleColor.Green;
             CultureInfo.CurrentCulture = new CultureInfo("en-US");
@@ -47,11 +49,59 @@ namespace TestGlobalization
             CultureInfo.CurrentCulture = new CultureInfo("it-IT");
             CurrencyTest();
 
-            Console.ForegroundColor = ConsoleColor.Red;
+            Console.ForegroundColor = ConsoleColor.Cyan;
             CultureInfo.CurrentCulture = new CultureInfo("de-DE");
             CurrencyTest();
 
             Console.ResetColor();
+            Console.ReadLine();
+
+            #endregion
+
+            #region parent
+
+            Console.ResetColor();
+            Console.WriteLine("Current culture:");
+            Console.ForegroundColor = ConsoleColor.Green;
+            CultureInfo.CurrentCulture = new CultureInfo("en-US");
+            CultureInfo.CurrentUICulture = new CultureInfo("en-US");
+            Console.WriteLine(CultureInfo.CurrentCulture.Name);
+            Console.WriteLine(CultureInfo.CurrentUICulture.DisplayName);
+
+            Console.ResetColor();
+            Console.WriteLine("Relative Parent:");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(CultureInfo.CurrentCulture.Parent.Name);
+            Console.WriteLine(CultureInfo.CurrentUICulture.Parent.DisplayName);
+
+            Console.ResetColor();
+            Console.WriteLine("\n\nCurrent culture:");
+            Console.ForegroundColor = ConsoleColor.Blue;
+            CultureInfo.CurrentCulture = new CultureInfo("en-GB");
+            CultureInfo.CurrentUICulture = new CultureInfo("en-GB");
+            Console.WriteLine(CultureInfo.CurrentCulture.Name);
+            Console.WriteLine(CultureInfo.CurrentUICulture.DisplayName);
+
+            Console.ResetColor();
+            Console.WriteLine("Relative Parent:");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(CultureInfo.CurrentCulture.Parent.Name);
+            Console.WriteLine(CultureInfo.CurrentUICulture.Parent.DisplayName);
+
+            Console.ResetColor();
+            Console.WriteLine("\n\nCurrent culture:");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            CultureInfo.CurrentCulture = new CultureInfo("en-AU");
+            CultureInfo.CurrentUICulture = new CultureInfo("en-AU");
+            Console.WriteLine(CultureInfo.CurrentCulture.Name);
+            Console.WriteLine(CultureInfo.CurrentUICulture.DisplayName);
+
+            Console.ResetColor();
+            Console.WriteLine("Relative Parent:");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(CultureInfo.CurrentCulture.Parent.Name);
+            Console.WriteLine(CultureInfo.CurrentUICulture.Parent.DisplayName);
+
             Console.ReadLine();
 
             #endregion
@@ -72,5 +122,6 @@ namespace TestGlobalization
             DateTime date = DateTime.Parse(dateAsString, new CultureInfo(cultureCode));
             Console.WriteLine($"\t\t{date:D}");
         }
+
     }
 }
