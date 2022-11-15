@@ -15,6 +15,7 @@ using System;
 using System.IO;
 using System.Reflection;
 using static System.Net.Mime.MediaTypeNames;
+using Microsoft.AspNetCore.Mvc.Razor;
 
 namespace NewCoEF
 {
@@ -99,7 +100,10 @@ namespace NewCoEF
                     options.PayloadSerializerOptions.PropertyNamingPolicy = null;
                 });
 
-            
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
+            services.AddMvc()
+                    .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+                    .AddDataAnnotationsLocalization();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -189,6 +193,13 @@ namespace NewCoEF
                         HttpTransportType.LongPolling;
                 });
             });
+
+            var supportedCultures = new[] { "en", "fr", "it" };
+            var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture(supportedCultures[0])
+                .AddSupportedCultures(supportedCultures)
+                .AddSupportedUICultures(supportedCultures);
+
+            app.UseRequestLocalization(localizationOptions);
         }
     }
 }
