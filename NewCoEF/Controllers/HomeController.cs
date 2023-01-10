@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using NewCoEF.Base;
 using NewCoEF.Models;
@@ -13,14 +14,19 @@ namespace NewCoEF.Controllers
     public class HomeController : ControllerCustom
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IStringLocalizer<HomeController> _localizer;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IStringLocalizer<HomeController> localizer)
         {
             _logger = logger;
+            _localizer = localizer;
         }
 
         public IActionResult Index()
         {
+            var subTitle = _localizer["SubTitle"].Value;
+
+            ViewData["SubTitle"] = subTitle;
             return View();
         }
 

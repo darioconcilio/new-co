@@ -103,22 +103,32 @@ namespace NewCoEF
                     options.PayloadSerializerOptions.PropertyNamingPolicy = null;
                 });
 
+            #region Localization
+
             services.Configure<RequestLocalizationOptions>(options =>
             {
-                options.SupportedUICultures = new List<CultureInfo>()
+                var supportedCultures = new[]
                 {
                     new CultureInfo("it"),
                     new CultureInfo("en"),
                     new CultureInfo("fr")
                 };
+                options.SupportedCultures = supportedCultures;
+                options.SupportedUICultures = supportedCultures;
                 options.FallBackToParentUICultures = true;
                 options.DefaultRequestCulture = new RequestCulture("en");
             });
 
+            //Identifica il percorso della cartella delle risorse
             services.AddLocalization(options => options.ResourcesPath = "Resources");
+            //Indica che le risorse delle view saranno gestite con il suffisso della localizzazione
+            //attivando anche la logica sulle DataAnnotation
             services.AddMvc()
                     .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+                    .AddMvcLocalization()
                     .AddDataAnnotationsLocalization();
+
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
