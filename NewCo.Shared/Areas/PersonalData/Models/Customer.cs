@@ -1,4 +1,5 @@
-﻿using NewCoEF.Shared.Areas.Sales.Models;
+﻿using NewCo.Shared;
+using NewCoEF.Shared.Areas.Sales.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -17,35 +18,35 @@ namespace NewCoEF.Shared.Areas.PersonalData.Models
         [Key]
         public Guid ID { get; set; }
 
-        [Display(Name = "Ragione Sociale")]
+        [Display(Name = "Customer_Name", ResourceType = typeof(ErrorsResource))]
         [Required]
         public string Name { get; set; }
 
-        [Display(Name = "Codice")]
+        [Display(Name = "Customer_Code", ResourceType = typeof(ErrorsResource))]
         [Required]
         public string Code { get; set; }
 
-        [Display(Name = "Indirizzo")]
+        [Display(Name = "Customer_Address", ResourceType = typeof(ErrorsResource))]
         [Required]
         public string Address { get; set; }
 
-        [Display(Name = "CAP")]
+        [Display(Name = "Customer_PostCode", ResourceType = typeof(ErrorsResource))]
         [Required]
         public string PostCode { get; set; }
 
-        [Display(Name = "Città")]
+        [Display(Name = "Customer_City", ResourceType = typeof(ErrorsResource))]
         [Required]
         public string City { get; set; }
 
-        [Display(Name = "P. IVA")]
+        [Display(Name = "Customer_VATRegistrationCode", ResourceType = typeof(ErrorsResource))]
         [Required]
         public string VATRegistrationCode { get; set; }
 
-        [Display(Name = "Provincia")]
+        [Display(Name = "Customer_CountyId", ResourceType = typeof(ErrorsResource))]
         [Required]
         public Guid? CountyId { get; set; }
 
-        [Display(Name = "Paese")]
+        [Display(Name = "Customer_CountryId", ResourceType = typeof(ErrorsResource))]
         [Required]
         public Guid? CountryId { get; set; }
 

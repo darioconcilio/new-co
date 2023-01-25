@@ -1,11 +1,9 @@
-﻿using NewCoEF.Shared.Areas.Sales.Models;
+﻿using NewCo.Shared;
+using NewCoEF.Shared.Areas.Sales.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace NewCoEF.Shared.Areas.PersonalData.Models
 {
@@ -21,22 +19,22 @@ namespace NewCoEF.Shared.Areas.PersonalData.Models
         public Guid Id { get; set; }
 
 
-        [Display(Name = "Descrizione")]
+        [Display(Name = "Item_Description", ResourceType = typeof(ItemResource))]
         [JsonProperty("description")]
         public string Description { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:c}")]
-        [Display(Name = "Prezzo Unitario")]
+        [Display(Name = "Item_UnitPrice", ResourceType = typeof(ItemResource))]
         [DataType(DataType.Currency)]
         [JsonProperty("unitPrice")]
         public decimal UnitPrice { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:N0}")]
-        [Display(Name = "Magazzino")]
+        [Display(Name = "Item_Inventory", ResourceType = typeof(ItemResource))]
         [JsonProperty("inventory")]
         public decimal Inventory { get; set; }
 
-        [Display(Name = "Codice")]
+        [Display(Name = "Item_No", ResourceType = typeof(ItemResource))]
         [JsonProperty("no")]
         public string No { get; set; }
 

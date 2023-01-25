@@ -1,8 +1,7 @@
-﻿using System;
+﻿using NewCo.Shared;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace NewCoEF.Shared.Areas.PersonalData.Models
 {
@@ -16,10 +15,14 @@ namespace NewCoEF.Shared.Areas.PersonalData.Models
         [Key]
         public Guid ID { get; set; }
 
-        [MaxLength(33)] //Property
-        [StringLength(22)] //Data Field
-        [Required]
-        [Display(Name = "Paese")]
+        //Lunghezza massima e minima: si possono utilizzare il placeholder in questo modo
+        //{0} Nome della proprietà
+        //{1} Lunghezza massima
+        //{2} Lunghezza minima
+        [MaxLength(50, ErrorMessageResourceName = "MaxLengthErrorMessage", ErrorMessageResourceType = typeof(ErrorsResource))] //Property
+        [StringLength(50)] //Data Field
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ErrorsResource))]
+        [Display(Name = "Country_Name", ResourceType = typeof(ErrorsResource))]
         public string Name { get; set; }
 
         public virtual ICollection<Customer> Customers { get; set; }
