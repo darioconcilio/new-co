@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace NewCo.Shared {
+namespace NewCoEF.Resources.Areas.PersonalData.Models {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace NewCo.Shared {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class ItemResource {
+    public class SalesAgent {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ItemResource() {
+        internal SalesAgent() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace NewCo.Shared {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("NewCo.Shared.ItemResource", typeof(ItemResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("NewCoEF.Resources.Areas.PersonalData.Models.SalesAgent", typeof(SalesAgent).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,38 +61,20 @@ namespace NewCo.Shared {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Description.
+        ///   Cerca una stringa localizzata simile a E-Mail.
         /// </summary>
-        public static string Item_Description {
+        public static string Agent_Mail {
             get {
-                return ResourceManager.GetString("Item_Description", resourceCulture);
+                return ResourceManager.GetString("Agent_Mail", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Inventory.
+        ///   Cerca una stringa localizzata simile a Name.
         /// </summary>
-        public static string Item_Inventory {
+        public static string Agent_Name {
             get {
-                return ResourceManager.GetString("Item_Inventory", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Cerca una stringa localizzata simile a No.
-        /// </summary>
-        public static string Item_No {
-            get {
-                return ResourceManager.GetString("Item_No", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Cerca una stringa localizzata simile a Unit Price.
-        /// </summary>
-        public static string Item_UnitPrice {
-            get {
-                return ResourceManager.GetString("Item_UnitPrice", resourceCulture);
+                return ResourceManager.GetString("Agent_Name", resourceCulture);
             }
         }
     }

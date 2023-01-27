@@ -18,6 +18,7 @@ using static System.Net.Mime.MediaTypeNames;
 using Microsoft.AspNetCore.Mvc.Razor;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
+using NewCoEF.Resources;
 
 namespace NewCoEF
 {
@@ -125,14 +126,13 @@ namespace NewCoEF
             services.AddMvc()
                     .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
                     .AddMvcLocalization()
-                    .AddDataAnnotationsLocalization();
-                    /*.AddDataAnnotationsLocalization(options =>
+                    .AddDataAnnotationsLocalization(options =>
                     {
                         options.DataAnnotationLocalizerProvider = (type, factory) =>
                           {
                               return factory.Create(typeof(ErrorsResource));
                           };
-                    });*/
+                    });
 
             #endregion
         }
