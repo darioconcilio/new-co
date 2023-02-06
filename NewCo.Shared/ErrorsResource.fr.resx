@@ -117,37 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Country_Name" xml:space="preserve">
-    <value>Pais</value>
-  </data>
-  <data name="Customer_Address" xml:space="preserve">
-    <value>Adresse</value>
-  </data>
-  <data name="Customer_City" xml:space="preserve">
-    <value>Ville</value>
-  </data>
-  <data name="Customer_Code" xml:space="preserve">
-    <value>Code</value>
-  </data>
-  <data name="Customer_CountryId" xml:space="preserve">
-    <value>Village</value>
-  </data>
-  <data name="Customer_CountyId" xml:space="preserve">
-    <value>Province</value>
-  </data>
-  <data name="Customer_Name" xml:space="preserve">
-    <value>Nom de l'entreprise</value>
-  </data>
-  <data name="Customer_PostCode" xml:space="preserve">
-    <value>CAP</value>
-  </data>
-  <data name="Customer_VATRegistrationCode" xml:space="preserve">
-    <value>Numéro de TVA</value>
-  </data>
   <data name="MaxLengthErrorMessage" xml:space="preserve">
-    <value>0} doit comporter jusqu'à {1} caractères</value>
+    <value>0} doit comporter jusqu'à {1} caractères  (from ErrorsResource FR)</value>
   </data>
   <data name="RequiredField" xml:space="preserve">
-    <value>Champs requis</value>
+    <value>Champs requis (from ErrorsResource FR)</value>
   </data>
 </root>

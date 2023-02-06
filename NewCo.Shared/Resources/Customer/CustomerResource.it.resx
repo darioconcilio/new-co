@@ -117,10 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="MaxLengthErrorMessage" xml:space="preserve">
-    <value>{0} must has max {1} characters</value>
+  <data name="Customer_Address" xml:space="preserve">
+    <value>Indirizzo</value>
   </data>
-  <data name="RequiredField" xml:space="preserve">
-    <value>Required Field</value>
+  <data name="Customer_City" xml:space="preserve">
+    <value>Città</value>
+  </data>
+  <data name="Customer_Code" xml:space="preserve">
+    <value>Codice</value>
+  </data>
+  <data name="Customer_CountryId" xml:space="preserve">
+    <value>Paese</value>
+  </data>
+  <data name="Customer_CountyId" xml:space="preserve">
+    <value>Provincia</value>
+  </data>
+  <data name="Customer_Name" xml:space="preserve">
+    <value>Ragione Sociale</value>
+  </data>
+  <data name="Customer_PostCode" xml:space="preserve">
+    <value>CAP</value>
+  </data>
+  <data name="Customer_VATRegistrationCode" xml:space="preserve">
+    <value>Partita IVA</value>
   </data>
 </root>

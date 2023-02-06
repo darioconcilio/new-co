@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NewCoEF.Resources;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -17,14 +18,14 @@ namespace NewCoEF.Areas.PersonalData.Models
         [Key]
         public Guid Id { get; set; }
 
-        [Display(Name = "Agent_Name")]
-        [MaxLength(50, ErrorMessageResourceName = "MaxLengthErrorMessage")]
-        [StringLength(80)]
-        [Required(ErrorMessageResourceName = "Required")]
+        [Display(Name = "SalesAgent.Name", ResourceType = typeof(SharedResource))]
+        [MaxLength(50, ErrorMessageResourceName = "MaxLengthErrorMessage", ErrorMessageResourceType = typeof(SharedResource))]
+        [StringLength(50)]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(SharedResource))]
         public string Name { get; set; }
 
-        [Display(Name = "Agent_Mail")]
-        [MaxLength(80, ErrorMessageResourceName = "MaxLengthErrorMessage")]
+        [Display(Name="SalesAgent.Mail", ResourceType =typeof(SharedResource))]
+        [MaxLength(80, ErrorMessageResourceName = "MaxLengthErrorMessage", ErrorMessageResourceType = typeof(SharedResource))]
         [StringLength(80)]
         public string Mail { get; set; }
 

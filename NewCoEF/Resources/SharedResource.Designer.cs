@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace NewCoEF.Resources.Areas.PersonalData.Models {
+namespace NewCoEF.Resources {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace NewCoEF.Resources.Areas.PersonalData.Models {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class SalesAgent {
+    public class SharedResource {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal SalesAgent() {
+        internal SharedResource() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace NewCoEF.Resources.Areas.PersonalData.Models {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("NewCoEF.Resources.Areas.PersonalData.Models.SalesAgent", typeof(SalesAgent).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("NewCoEF.Resources.SharedResource", typeof(SharedResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,20 +61,38 @@ namespace NewCoEF.Resources.Areas.PersonalData.Models {
         }
         
         /// <summary>
+        ///   Cerca una stringa localizzata simile a {0} must has max {1} characters (from SharedResource EN - DEFAULT).
+        /// </summary>
+        public static string MaxLengthErrorMessage {
+            get {
+                return ResourceManager.GetString("MaxLengthErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a Required Field (from SharedResource EN - DEFAULT).
+        /// </summary>
+        public static string RequiredField {
+            get {
+                return ResourceManager.GetString("RequiredField", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Cerca una stringa localizzata simile a E-Mail.
         /// </summary>
-        public static string Agent_Mail {
+        public static string SalesAgent_Mail {
             get {
-                return ResourceManager.GetString("Agent_Mail", resourceCulture);
+                return ResourceManager.GetString("SalesAgent.Mail", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Cerca una stringa localizzata simile a Name.
         /// </summary>
-        public static string Agent_Name {
+        public static string SalesAgent_Name {
             get {
-                return ResourceManager.GetString("Agent_Name", resourceCulture);
+                return ResourceManager.GetString("SalesAgent.Name", resourceCulture);
             }
         }
     }

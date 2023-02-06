@@ -9,7 +9,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="ItemResource.Designer.cs">
+    <Compile Update="Resources\Country\CountryResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CountryResource.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Customer\CustomerResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CustomerResource.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Item\ItemResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>ItemResource.resx</DependentUpon>
@@ -27,15 +37,23 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="ItemResource.fr.resx">
+    <EmbeddedResource Update="Resources\Country\CountryResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CountryResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Customer\CustomerResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CustomerResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Item\ItemResource.fr.resx">
       <LastGenOutput>ItemResource.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="ItemResource.it.resx">
+    <EmbeddedResource Update="Resources\Item\ItemResource.it.resx">
       <LastGenOutput>ItemResource.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="ItemResource.resx">
+    <EmbeddedResource Update="Resources\Item\ItemResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ItemResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>

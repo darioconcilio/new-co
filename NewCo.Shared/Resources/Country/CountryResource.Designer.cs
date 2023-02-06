@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace NewCo.Shared {
+namespace NewCo.Shared.Resources.Country {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace NewCo.Shared {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class ErrorsResource {
+    public class CountryResource {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ErrorsResource() {
+        internal CountryResource() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace NewCo.Shared {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("NewCo.Shared.ErrorsResource", typeof(ErrorsResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("NewCo.Shared.Resources.Country.CountryResource", typeof(CountryResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,20 +61,11 @@ namespace NewCo.Shared {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a {0} must has max {1} characters (from ErrorsResource EN - DEFAULT).
+        ///   Cerca una stringa localizzata simile a Country.
         /// </summary>
-        public static string MaxLengthErrorMessage {
+        public static string Country_Name {
             get {
-                return ResourceManager.GetString("MaxLengthErrorMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Cerca una stringa localizzata simile a Required Field (from ErrorsResource EN - DEFAULT).
-        /// </summary>
-        public static string RequiredField {
-            get {
-                return ResourceManager.GetString("RequiredField", resourceCulture);
+                return ResourceManager.GetString("Country_Name", resourceCulture);
             }
         }
     }

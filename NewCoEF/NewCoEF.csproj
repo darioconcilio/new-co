@@ -48,26 +48,25 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Resources\Areas\PersonalData\Models\SalesAgent.Designer.cs">
+    <Compile Update="Resources\SharedResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>SalesAgent.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Resources\ErrorsResource.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>ErrorsResource.resx</DependentUpon>
+      <DependentUpon>SharedResource.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Resources\Areas\PersonalData\Models\SalesAgent.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>SalesAgent.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\ErrorsResource.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
+    <EmbeddedResource Update="Resources\SharedResource.fr.resx">
       <LastGenOutput>ErrorsResource.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\SharedResource.it.resx">
+      <LastGenOutput>ErrorsResource.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\SharedResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SharedResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 

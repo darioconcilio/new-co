@@ -1,4 +1,5 @@
 ﻿using NewCo.Shared;
+using NewCo.Shared.Resources.Item;
 using NewCoEF.Shared.Areas.Sales.Models;
 using Newtonsoft.Json;
 using System;
@@ -21,6 +22,7 @@ namespace NewCoEF.Shared.Areas.PersonalData.Models
 
         [Display(Name = "Item_Description", ResourceType = typeof(ItemResource))]
         [JsonProperty("description")]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ErrorsResource))]
         public string Description { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:c}")]
@@ -36,6 +38,7 @@ namespace NewCoEF.Shared.Areas.PersonalData.Models
 
         [Display(Name = "Item_No", ResourceType = typeof(ItemResource))]
         [JsonProperty("no")]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ErrorsResource))]
         public string No { get; set; }
 
         [JsonIgnore]

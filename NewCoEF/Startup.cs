@@ -130,7 +130,7 @@ namespace NewCoEF
                     {
                         options.DataAnnotationLocalizerProvider = (type, factory) =>
                           {
-                              return factory.Create(typeof(ErrorsResource));
+                              return factory.Create(typeof(SharedResource));
                           };
                     });
 

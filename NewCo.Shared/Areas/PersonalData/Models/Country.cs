@@ -1,4 +1,5 @@
 ﻿using NewCo.Shared;
+using NewCo.Shared.Resources.Country;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -22,7 +23,7 @@ namespace NewCoEF.Shared.Areas.PersonalData.Models
         [MaxLength(50, ErrorMessageResourceName = "MaxLengthErrorMessage", ErrorMessageResourceType = typeof(ErrorsResource))] //Property
         [StringLength(50)] //Data Field
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ErrorsResource))]
-        [Display(Name = "Country_Name", ResourceType = typeof(ErrorsResource))]
+        [Display(Name = "Country_Name", ResourceType = typeof(CountryResource))]
         public string Name { get; set; }
 
         public virtual ICollection<Customer> Customers { get; set; }

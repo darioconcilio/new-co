@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace NewCo.Shared {
+namespace NewCo.Shared.Resources.Item {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace NewCo.Shared {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("NewCo.Shared.ItemResource", typeof(ItemResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("NewCo.Shared.Resources.Item.ItemResource", typeof(ItemResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

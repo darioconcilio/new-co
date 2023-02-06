@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace NewCoEF.Resources {
+namespace NewCo.Shared.Resources.Customer {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace NewCoEF.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class ErrorsResource {
+    public class CustomerResource {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ErrorsResource() {
+        internal CustomerResource() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace NewCoEF.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("NewCoEF.Resources.ErrorsResource", typeof(ErrorsResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("NewCo.Shared.Resources.Customer.CustomerResource", typeof(CustomerResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,20 +61,83 @@ namespace NewCoEF.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a {0} must has max {1} characters.
+        ///   Cerca una stringa localizzata simile a Country.
         /// </summary>
-        public static string MaxLengthErrorMessage {
+        public static string Country_Name {
             get {
-                return ResourceManager.GetString("MaxLengthErrorMessage", resourceCulture);
+                return ResourceManager.GetString("Country_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Required Field.
+        ///   Cerca una stringa localizzata simile a Address.
         /// </summary>
-        public static string RequiredField {
+        public static string Customer_Address {
             get {
-                return ResourceManager.GetString("RequiredField", resourceCulture);
+                return ResourceManager.GetString("Customer_Address", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a City.
+        /// </summary>
+        public static string Customer_City {
+            get {
+                return ResourceManager.GetString("Customer_City", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a Code.
+        /// </summary>
+        public static string Customer_Code {
+            get {
+                return ResourceManager.GetString("Customer_Code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a Country.
+        /// </summary>
+        public static string Customer_CountryId {
+            get {
+                return ResourceManager.GetString("Customer_CountryId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a County.
+        /// </summary>
+        public static string Customer_CountyId {
+            get {
+                return ResourceManager.GetString("Customer_CountyId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a Name.
+        /// </summary>
+        public static string Customer_Name {
+            get {
+                return ResourceManager.GetString("Customer_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a Post Code.
+        /// </summary>
+        public static string Customer_PostCode {
+            get {
+                return ResourceManager.GetString("Customer_PostCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a VAT Reg. No..
+        /// </summary>
+        public static string Customer_VATRegistrationCode {
+            get {
+                return ResourceManager.GetString("Customer_VATRegistrationCode", resourceCulture);
             }
         }
     }
