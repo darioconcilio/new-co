@@ -118,9 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="MaxLengthErrorMessage" xml:space="preserve">
-    <value>0} doit comporter jusqu'à {1} caractères  (from ErrorsResource FR)</value>
+    <value>0} doit comporter jusqu'à {1} caractères (from ErrorsResource.fr - NewCo.Shared)</value>
   </data>
   <data name="RequiredField" xml:space="preserve">
-    <value>Champs requis (from ErrorsResource FR)</value>
+    <value>Champs requis (from ErrorsResource.fr - NewCo.Shared)</value>
   </data>
 </root>

@@ -61,16 +61,7 @@ namespace NewCo.Shared.Resources.Customer {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Country.
-        /// </summary>
-        public static string Country_Name {
-            get {
-                return ResourceManager.GetString("Country_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Cerca una stringa localizzata simile a Address.
+        ///   Cerca una stringa localizzata simile a Address (from CustomerResource - NewCo.Shared).
         /// </summary>
         public static string Customer_Address {
             get {
@@ -79,7 +70,7 @@ namespace NewCo.Shared.Resources.Customer {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a City.
+        ///   Cerca una stringa localizzata simile a City (from CustomerResource - NewCo.Shared).
         /// </summary>
         public static string Customer_City {
             get {
@@ -88,7 +79,7 @@ namespace NewCo.Shared.Resources.Customer {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Code.
+        ///   Cerca una stringa localizzata simile a Code (from CustomerResource - NewCo.Shared).
         /// </summary>
         public static string Customer_Code {
             get {
@@ -97,7 +88,7 @@ namespace NewCo.Shared.Resources.Customer {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Country.
+        ///   Cerca una stringa localizzata simile a Country (from CustomerResource - NewCo.Shared).
         /// </summary>
         public static string Customer_CountryId {
             get {
@@ -106,7 +97,7 @@ namespace NewCo.Shared.Resources.Customer {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a County.
+        ///   Cerca una stringa localizzata simile a County (from CustomerResource - NewCo.Shared).
         /// </summary>
         public static string Customer_CountyId {
             get {
@@ -115,7 +106,7 @@ namespace NewCo.Shared.Resources.Customer {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Name.
+        ///   Cerca una stringa localizzata simile a Name (from CustomerResource - NewCo.Shared).
         /// </summary>
         public static string Customer_Name {
             get {
@@ -124,7 +115,7 @@ namespace NewCo.Shared.Resources.Customer {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Post Code.
+        ///   Cerca una stringa localizzata simile a Post Code (from CustomerResource - NewCo.Shared).
         /// </summary>
         public static string Customer_PostCode {
             get {
@@ -133,7 +124,7 @@ namespace NewCo.Shared.Resources.Customer {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a VAT Reg. No..
+        ///   Cerca una stringa localizzata simile a VAT Reg. No. (from CustomerResource - NewCo.Shared).
         /// </summary>
         public static string Customer_VATRegistrationCode {
             get {

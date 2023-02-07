@@ -118,27 +118,27 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Customer_Address" xml:space="preserve">
-    <value>Adresse</value>
+    <value>Adresse (from CustomerResource.fr - NewCo.Shared)</value>
   </data>
   <data name="Customer_City" xml:space="preserve">
-    <value>Ville</value>
+    <value>Ville (from CustomerResource.fr - NewCo.Shared)</value>
   </data>
   <data name="Customer_Code" xml:space="preserve">
-    <value>Code</value>
+    <value>Code (from CustomerResource.fr - NewCo.Shared)</value>
   </data>
   <data name="Customer_CountryId" xml:space="preserve">
-    <value>Village</value>
+    <value>Village (from CustomerResource.fr - NewCo.Shared)</value>
   </data>
   <data name="Customer_CountyId" xml:space="preserve">
-    <value>Province</value>
+    <value>Province (from CustomerResource.fr - NewCo.Shared)</value>
   </data>
   <data name="Customer_Name" xml:space="preserve">
-    <value>Nom de l'entreprise</value>
+    <value>Nom de l'entreprise (from CustomerResource.fr - NewCo.Shared)</value>
   </data>
   <data name="Customer_PostCode" xml:space="preserve">
-    <value>CAP</value>
+    <value>CAP (from CustomerResource.fr - NewCo.Shared)</value>
   </data>
   <data name="Customer_VATRegistrationCode" xml:space="preserve">
-    <value>Numéro de TVA</value>
+    <value>Numéro de TVA (from CustomerResource.fr - NewCo.Shared)</value>
   </data>
 </root>

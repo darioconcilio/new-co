@@ -61,7 +61,7 @@ namespace NewCo.Shared {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a {0} must has max {1} characters (from ErrorsResource EN - DEFAULT).
+        ///   Cerca una stringa localizzata simile a {0} must has max {1} characters (from ErrorsResource - NewCo.Shared).
         /// </summary>
         public static string MaxLengthErrorMessage {
             get {
@@ -70,7 +70,7 @@ namespace NewCo.Shared {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Required Field (from ErrorsResource EN - DEFAULT).
+        ///   Cerca una stringa localizzata simile a Required Field (from ErrorsResource - NewCo.Shared).
         /// </summary>
         public static string RequiredField {
             get {

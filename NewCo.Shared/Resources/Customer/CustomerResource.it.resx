@@ -118,27 +118,27 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Customer_Address" xml:space="preserve">
-    <value>Indirizzo</value>
+    <value>Indirizzo (from CustomerResource.it - NewCo.Shared)</value>
   </data>
   <data name="Customer_City" xml:space="preserve">
-    <value>Città</value>
+    <value>Città (from CustomerResource.it - NewCo.Shared)</value>
   </data>
   <data name="Customer_Code" xml:space="preserve">
-    <value>Codice</value>
+    <value>Codice (from CustomerResource.it - NewCo.Shared)</value>
   </data>
   <data name="Customer_CountryId" xml:space="preserve">
-    <value>Paese</value>
+    <value>Paese (from CustomerResource.it - NewCo.Shared)</value>
   </data>
   <data name="Customer_CountyId" xml:space="preserve">
-    <value>Provincia</value>
+    <value>Provincia (from CustomerResource.it - NewCo.Shared)</value>
   </data>
   <data name="Customer_Name" xml:space="preserve">
-    <value>Ragione Sociale</value>
+    <value>Ragione Sociale (from CustomerResource.it - NewCo.Shared)</value>
   </data>
   <data name="Customer_PostCode" xml:space="preserve">
-    <value>CAP</value>
+    <value>CAP (from CustomerResource.it - NewCo.Shared)</value>
   </data>
   <data name="Customer_VATRegistrationCode" xml:space="preserve">
-    <value>Partita IVA</value>
+    <value>Partita IVA (from CustomerResource.it - NewCo.Shared)</value>
   </data>
 </root>

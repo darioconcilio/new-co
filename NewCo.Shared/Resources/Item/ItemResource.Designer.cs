@@ -61,7 +61,7 @@ namespace NewCo.Shared.Resources.Item {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Description.
+        ///   Cerca una stringa localizzata simile a Description (from ItemResource - NewCo.Shared).
         /// </summary>
         public static string Item_Description {
             get {
@@ -70,7 +70,7 @@ namespace NewCo.Shared.Resources.Item {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Inventory.
+        ///   Cerca una stringa localizzata simile a Inventory (from ItemResource - NewCo.Shared).
         /// </summary>
         public static string Item_Inventory {
             get {
@@ -79,7 +79,7 @@ namespace NewCo.Shared.Resources.Item {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a No.
+        ///   Cerca una stringa localizzata simile a No (from ItemResource - NewCo.Shared).
         /// </summary>
         public static string Item_No {
             get {
@@ -88,7 +88,7 @@ namespace NewCo.Shared.Resources.Item {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Unit Price.
+        ///   Cerca una stringa localizzata simile a Unit Price (from ItemResource - NewCo.Shared).
         /// </summary>
         public static string Item_UnitPrice {
             get {

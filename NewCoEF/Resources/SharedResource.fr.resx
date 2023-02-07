@@ -118,15 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="MaxLengthErrorMessage" xml:space="preserve">
-    <value>{0} doit comporter jusqu'à {1} caractères  (from SharedResource FR)</value>
+    <value>{0} doit comporter jusqu'à {1} caractères (from SharedResource.fr - NewCo)</value>
   </data>
   <data name="RequiredField" xml:space="preserve">
-    <value>Champs requis (from SharedResource FR)</value>
+    <value>Champs requis (from SharedResource.fr - NewCo)</value>
   </data>
-  <data name="SalesAgent.Mail" xml:space="preserve">
-    <value>Posta Elettronica</value>
+  <data name="SalesAgent_Mail" xml:space="preserve">
+    <value>E-Mail (from SharedResource.fr - NewCo)</value>
   </data>
-  <data name="SalesAgent.Name" xml:space="preserve">
-    <value>Nome</value>
+  <data name="SalesAgent_Name" xml:space="preserve">
+    <value>Nome (from SharedResource.fr - NewCo)</value>
   </data>
 </root>

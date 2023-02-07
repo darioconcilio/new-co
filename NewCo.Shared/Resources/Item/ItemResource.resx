@@ -118,15 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Item_Description" xml:space="preserve">
-    <value>Description</value>
+    <value>Description (from ItemResource - NewCo.Shared)</value>
   </data>
   <data name="Item_Inventory" xml:space="preserve">
-    <value>Inventory</value>
+    <value>Inventory (from ItemResource - NewCo.Shared)</value>
   </data>
   <data name="Item_No" xml:space="preserve">
-    <value>No</value>
+    <value>No (from ItemResource - NewCo.Shared)</value>
   </data>
   <data name="Item_UnitPrice" xml:space="preserve">
-    <value>Unit Price</value>
+    <value>Unit Price (from ItemResource - NewCo.Shared)</value>
   </data>
 </root>

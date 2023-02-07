@@ -118,6 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="SubTitle" xml:space="preserve">
-    <value>Ceci est le sous-titre de la langue</value>
+    <value>Ceci est le sous-titre de la langue (from HomeController.fr - Resources.Controlles.HomeController)</value>
   </data>
 </root>

@@ -18,13 +18,13 @@ namespace NewCoEF.Areas.PersonalData.Models
         [Key]
         public Guid Id { get; set; }
 
-        [Display(Name = "SalesAgent.Name", ResourceType = typeof(SharedResource))]
+        [Display(Name = "SalesAgent_Name", ResourceType = typeof(SharedResource))]
         [MaxLength(50, ErrorMessageResourceName = "MaxLengthErrorMessage", ErrorMessageResourceType = typeof(SharedResource))]
         [StringLength(50)]
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(SharedResource))]
         public string Name { get; set; }
 
-        [Display(Name="SalesAgent.Mail", ResourceType =typeof(SharedResource))]
+        [Display(Name="SalesAgent_Mail", ResourceType =typeof(SharedResource))]
         [MaxLength(80, ErrorMessageResourceName = "MaxLengthErrorMessage", ErrorMessageResourceType = typeof(SharedResource))]
         [StringLength(80)]
         public string Mail { get; set; }

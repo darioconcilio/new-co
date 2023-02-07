@@ -61,7 +61,7 @@ namespace NewCoEF.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a {0} must has max {1} characters (from SharedResource EN - DEFAULT).
+        ///   Cerca una stringa localizzata simile a {0} must has max {1} characters (from SharedResource - NewCo).
         /// </summary>
         public static string MaxLengthErrorMessage {
             get {
@@ -70,7 +70,7 @@ namespace NewCoEF.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Required Field (from SharedResource EN - DEFAULT).
+        ///   Cerca una stringa localizzata simile a Required Field (from SharedResource - NewCo).
         /// </summary>
         public static string RequiredField {
             get {
@@ -79,20 +79,20 @@ namespace NewCoEF.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a E-Mail.
+        ///   Cerca una stringa localizzata simile a E-Mail (from SharedResource - NewCo).
         /// </summary>
         public static string SalesAgent_Mail {
             get {
-                return ResourceManager.GetString("SalesAgent.Mail", resourceCulture);
+                return ResourceManager.GetString("SalesAgent_Mail", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Name.
+        ///   Cerca una stringa localizzata simile a Name (from SharedResource - NewCo).
         /// </summary>
         public static string SalesAgent_Name {
             get {
-                return ResourceManager.GetString("SalesAgent.Name", resourceCulture);
+                return ResourceManager.GetString("SalesAgent_Name", resourceCulture);
             }
         }
     }
