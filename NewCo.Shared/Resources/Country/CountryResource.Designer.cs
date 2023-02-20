@@ -61,7 +61,7 @@ namespace NewCo.Shared.Resources.Country {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Country (from CustomerResource - NewCo.Shared).
+        ///   Cerca una stringa localizzata simile a Country (from CountryResource - NewCo.Shared).
         /// </summary>
         public static string Country_Name {
             get {

@@ -19,11 +19,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>CustomerResource.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\Item\ItemResource.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>ItemResource.resx</DependentUpon>
-    </Compile>
     <Compile Update="ErrorsResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -33,6 +28,11 @@
       <DependentUpon>ErrorsResource.Designer.cs</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Resources\Item\ItemResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ItemResource.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 
@@ -46,12 +46,10 @@
       <LastGenOutput>CustomerResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Item\ItemResource.fr.resx">
-      <LastGenOutput>ItemResource.Designer.cs</LastGenOutput>
-      <Generator>PublicResXFileCodeGenerator</Generator>
+      <Generator></Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Item\ItemResource.it.resx">
-      <LastGenOutput>ItemResource.Designer.cs</LastGenOutput>
-      <Generator>PublicResXFileCodeGenerator</Generator>
+      <Generator></Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Item\ItemResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

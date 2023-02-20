@@ -21,13 +21,13 @@ namespace NewCoEF.Controllers
             _logger = logger;
             _localizer = localizer;
         }
-
+                
         public IActionResult Index()
         {
             var subTitle = _localizer["SubTitle"].Value;
 
             ViewData["SubTitle"] = subTitle;
-            return View();
+            return View(new HomeViewModel());
         }
 
         public IActionResult Loading()

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NewCoEF.Areas.PersonalData.Base;
+using NewCoEF.Models;
 using System;
 
 namespace NewCoEF.Areas.PersonalData.Controllers

@@ -57,12 +57,10 @@
 
   <ItemGroup>
     <EmbeddedResource Update="Resources\SharedResource.fr.resx">
-      <LastGenOutput>ErrorsResource.Designer.cs</LastGenOutput>
-      <Generator>PublicResXFileCodeGenerator</Generator>
+      <Generator></Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\SharedResource.it.resx">
-      <LastGenOutput>ErrorsResource.Designer.cs</LastGenOutput>
-      <Generator>PublicResXFileCodeGenerator</Generator>
+      <Generator></Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\SharedResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

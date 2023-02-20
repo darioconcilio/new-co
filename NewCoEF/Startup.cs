@@ -126,13 +126,14 @@ namespace NewCoEF
             services.AddMvc()
                     .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
                     .AddMvcLocalization()
-                    .AddDataAnnotationsLocalization(options =>
-                    {
-                        options.DataAnnotationLocalizerProvider = (type, factory) =>
-                          {
-                              return factory.Create(typeof(SharedResource));
-                          };
-                    });
+                    .AddDataAnnotationsLocalization();
+                    //.AddDataAnnotationsLocalization(options =>
+                    //{
+                    //    options.DataAnnotationLocalizerProvider = (type, factory) =>
+                    //      {
+                    //          return factory.Create(typeof(SharedResource));
+                    //      };
+                    //});
 
             #endregion
         }

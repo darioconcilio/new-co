@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NewCoEF.Areas.PersonalData.Models;
 using NewCoEF.Shared.Areas.PersonalData.Models;
 using NewCoEF.Shared.Areas.Sales.Models;
 
@@ -22,7 +21,6 @@ namespace NewCoEF
         public DbSet<Country> Countries { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Item> Items { get; set; }
-        public DbSet<SalesAgent> SalesAgents { get; set; }
 
         #endregion
 
@@ -64,11 +62,6 @@ namespace NewCoEF
                 entity.Property(e => e.UnitPrice)
                     .HasColumnName("Unit Price")
                     .HasColumnType("money");
-            });
-
-            modelBuilder.Entity<SalesAgent>(entity =>
-            {
-                entity.Property(x => x.Id).HasDefaultValueSql("NEWID()");
             });
         }
 
