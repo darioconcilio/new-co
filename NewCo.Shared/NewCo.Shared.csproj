@@ -37,6 +37,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="ErrorsResource.fr.resx">
+      <SubType>Designer</SubType>
+      <LastGenOutput>ModelsResource.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Country\CountryResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CountryResource.Designer.cs</LastGenOutput>

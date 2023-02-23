@@ -1,11 +1,13 @@
 ﻿using NewCo.Shared;
 using NewCo.Shared.Resources.Country;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace NewCoEF.Shared.Areas.PersonalData.Models
 {
+    [JsonObject]
     public class Country
     {
         public Country()
@@ -13,6 +15,7 @@ namespace NewCoEF.Shared.Areas.PersonalData.Models
 
         }
 
+        [JsonProperty("id")]
         [Key]
         public Guid ID { get; set; }
 
@@ -20,10 +23,11 @@ namespace NewCoEF.Shared.Areas.PersonalData.Models
         //{0} Nome della proprietà
         //{1} Lunghezza massima
         //{2} Lunghezza minima
+        [Display(Name = "Country_Name", ResourceType = typeof(CountryResource))]
+        [JsonProperty("name")]
         [MaxLength(50, ErrorMessageResourceName = "MaxLengthErrorMessage", ErrorMessageResourceType = typeof(ErrorsResource))] //Property
         [StringLength(50)] //Data Field
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ErrorsResource))]
-        [Display(Name = "Country_Name", ResourceType = typeof(CountryResource))]
         public string Name { get; set; }
 
         public virtual ICollection<Customer> Customers { get; set; }

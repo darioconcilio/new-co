@@ -110,8 +110,8 @@ namespace NewCoEF
                 var supportedCultures = new[]
                 {
                     new CultureInfo("it"),
-                    new CultureInfo("en"),
-                    new CultureInfo("fr")
+                    new CultureInfo("fr"),
+                    new CultureInfo("en")
                 };
                 options.SupportedCultures = supportedCultures;
                 options.SupportedUICultures = supportedCultures;
@@ -193,6 +193,8 @@ namespace NewCoEF
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseRequestLocalization();
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
