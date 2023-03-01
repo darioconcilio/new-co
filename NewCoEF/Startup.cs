@@ -127,13 +127,6 @@ namespace NewCoEF
                     .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
                     .AddMvcLocalization()
                     .AddDataAnnotationsLocalization();
-                    //.AddDataAnnotationsLocalization(options =>
-                    //{
-                    //    options.DataAnnotationLocalizerProvider = (type, factory) =>
-                    //      {
-                    //          return factory.Create(typeof(SharedResource));
-                    //      };
-                    //});
 
             #endregion
         }
@@ -193,8 +186,6 @@ namespace NewCoEF
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
-            app.UseRequestLocalization();
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>

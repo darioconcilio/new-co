@@ -1,6 +1,8 @@
 ﻿@model NewCoEF.Shared.Areas.PersonalData.Models.Country
 
-<h1>Create</h1>
+@inject IViewLocalizer Localizer
+
+<h1>@ViewData["CreateNew"]</h1>
 
 <h4>Country</h4>
 <hr />
@@ -21,7 +23,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">@ViewData["BackToList"]</a>
 </div>
 
 @section Scripts {

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 using NewCoEF.Areas.PersonalData.Base;
 using NewCoEF.Shared.Areas.PersonalData.Models;
 
@@ -13,7 +14,7 @@ namespace NewCoEF.Areas.PersonalData.Controllers
     {
         private readonly NewCoEFDbContext _context;
 
-        public CountriesController(NewCoEFDbContext context)
+        public CountriesController(NewCoEFDbContext context, IStringLocalizer<ControllerCustom> localizer) : base(localizer)
         {
             _context = context;
         }
@@ -21,6 +22,7 @@ namespace NewCoEF.Areas.PersonalData.Controllers
         // GET: PersonalData/Countries
         public async Task<IActionResult> Index()
         {
+            GetTranslations();
             return View(await _context.Countries.ToListAsync());
         }
 

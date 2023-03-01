@@ -48,6 +48,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Resources\Controllers\ControllerCustom - Copia.Designer.cs">
+      <DependentUpon>ControllerCustom.Designer.cs</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Update="Resources\SharedResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -56,6 +61,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Resources\Controllers\ControllerCustom.it.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Controllers\ControllerCustom.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\SharedResource.fr.resx">
       <Generator></Generator>
     </EmbeddedResource>
