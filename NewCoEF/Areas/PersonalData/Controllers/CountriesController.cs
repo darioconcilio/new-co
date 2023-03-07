@@ -10,11 +10,11 @@ using NewCoEF.Shared.Areas.PersonalData.Models;
 namespace NewCoEF.Areas.PersonalData.Controllers
 {
     [Area("PersonalData")]
-    public class CountriesController : ControllerCustom
+    public class CountriesController : BaseController
     {
         private readonly NewCoEFDbContext _context;
 
-        public CountriesController(NewCoEFDbContext context, IStringLocalizer<ControllerCustom> localizer) : base(localizer)
+        public CountriesController(NewCoEFDbContext context, IStringLocalizer<BaseController> localizer) : base(localizer)
         {
             _context = context;
         }

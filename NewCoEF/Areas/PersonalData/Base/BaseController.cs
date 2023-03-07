@@ -8,13 +8,13 @@ using System.Net;
 
 namespace NewCoEF.Areas.PersonalData.Base
 {
-    public class ControllerCustom : Controller
+    public class BaseController : Controller
     {
-        private readonly IStringLocalizer<ControllerCustom> _localizer;
+        private readonly IStringLocalizer<BaseController> _localizer;
 
-        public ControllerCustom()
+        public BaseController()
         {
-
+            var prova = "";
         }
 
         public void GetTranslations()
@@ -26,7 +26,7 @@ namespace NewCoEF.Areas.PersonalData.Base
             ViewData["Edit"] = _localizer["Edit"].Value;
         }
 
-        public ControllerCustom(IStringLocalizer<ControllerCustom> localizer)
+        public BaseController(IStringLocalizer<BaseController> localizer)
         {
             _localizer = localizer;
         }

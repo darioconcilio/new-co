@@ -61,10 +61,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Resources\Controllers\ControllerCustom.it.resx">
+    <EmbeddedResource Update="Resources\Areas\PersonalData\Base\BaseController.it.resx">
       <Generator></Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Controllers\ControllerCustom.resx">
+    <EmbeddedResource Update="Resources\Areas\PersonalData\Base\BaseController.resx">
       <Generator></Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\SharedResource.fr.resx">

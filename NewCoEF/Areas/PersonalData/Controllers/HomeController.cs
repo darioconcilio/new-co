@@ -6,7 +6,7 @@ using System;
 namespace NewCoEF.Areas.PersonalData.Controllers
 {
     [Area("PersonalData")]
-    public class HomeController : ControllerCustom
+    public class HomeController : BaseController
     {
         public IActionResult Index()
         {

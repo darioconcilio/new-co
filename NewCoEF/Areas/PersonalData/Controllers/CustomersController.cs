@@ -10,7 +10,7 @@ using NewCoEF.Areas.PersonalData.Base;
 namespace NewCoEF.Areas.PersonalData.Controllers
 {
     [Area("PersonalData")]
-    public class CustomersController : ControllerCustom
+    public class CustomersController : BaseController
     {
         private readonly NewCoEFDbContext _context;
 

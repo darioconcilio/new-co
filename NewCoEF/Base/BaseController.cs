@@ -6,7 +6,7 @@ using System.Net;
 
 namespace NewCoEF.Base
 {
-    public class ControllerCustom : Controller
+    public class BaseController : Controller
     {
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error(int? statusCode = null)

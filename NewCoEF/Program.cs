@@ -17,7 +17,7 @@ namespace NewCoEF
                 .ConfigureLogging(logging =>
                 {
                     logging.ClearProviders();
-                    //logging.AddConsole();
+                    logging.AddConsole();
                     //logging.AddDebug();
 
                     //logging.AddEventLog(new EventLogSettings()

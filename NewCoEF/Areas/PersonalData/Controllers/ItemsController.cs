@@ -12,7 +12,7 @@ using NewCoEF.Shared.Areas.PersonalData.Models;
 namespace NewCoEF.Areas.PersonalData.Controllers
 {
     [Area("PersonalData")]
-    public class ItemsController : ControllerCustom
+    public class ItemsController : BaseController
     {
         private readonly NewCoEFDbContext _context;
         private readonly ILogger<ItemsController> logger;

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace NewCoEF.Controllers
 {
-    public class HomeController : ControllerCustom
+    public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IStringLocalizer<HomeController> _localizer;

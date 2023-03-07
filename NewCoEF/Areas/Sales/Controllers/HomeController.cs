@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace NewCoEF.Areas.Sales.Controllers
 {
     [Area("Sales")]
-    public class HomeController : ControllerCustom
+    public class HomeController : BaseController
     {
         public IActionResult Index()
         {
