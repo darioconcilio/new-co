@@ -29,6 +29,8 @@ namespace NewCoEF.Areas.PersonalData.Controllers
         // GET: PersonalData/Countries/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
+            GetTranslations();
+
             if (id == null)
             {
                 return NotFound();
@@ -47,6 +49,7 @@ namespace NewCoEF.Areas.PersonalData.Controllers
         // GET: PersonalData/Countries/Create
         public IActionResult Create()
         {
+            GetTranslations();
             return View();
         }
 

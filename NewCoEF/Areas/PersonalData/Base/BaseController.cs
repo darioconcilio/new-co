@@ -14,7 +14,7 @@ namespace NewCoEF.Areas.PersonalData.Base
 
         public BaseController()
         {
-            var prova = "";
+            //var prova = "";
         }
 
         public void GetTranslations()

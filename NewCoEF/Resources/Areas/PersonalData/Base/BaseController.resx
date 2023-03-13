@@ -118,18 +118,18 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BackToList" xml:space="preserve">
-    <value>Back to List</value>
+    <value>Back to List (BaseController.en)</value>
   </data>
   <data name="CreateNew" xml:space="preserve">
-    <value>Create New</value>
+    <value>Create New (BaseController.en)</value>
   </data>
   <data name="Delete" xml:space="preserve">
-    <value>Delete</value>
+    <value>Delete (BaseController.en)</value>
   </data>
   <data name="Details" xml:space="preserve">
-    <value>Details</value>
+    <value>Details (BaseController.en)</value>
   </data>
   <data name="Edit" xml:space="preserve">
-    <value>Edit</value>
+    <value>Edit (BaseController.en)</value>
   </data>
 </root>
