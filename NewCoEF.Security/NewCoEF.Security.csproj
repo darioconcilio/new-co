@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <UserSecretsId>aspnet-NewCoEF.Security-5B8B5500-68B0-4637-8B20-D46FF1AC64A6</UserSecretsId>
+    <UserSecretsId>aspnet-NewCoEF.Security-9AFA73D0-D064-43EE-BC00-DD2B1D62CDAC</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

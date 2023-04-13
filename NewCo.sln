@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewCo.Shared", "NewCo.Share
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestGlobalization", "TestGlobalization\TestGlobalization.csproj", "{C079D3E8-8DC0-4BA0-B537-DF7ACC02CA0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewCoEF.Security", "NewCoEF.Security\NewCoEF.Security.csproj", "{2ED62CA3-9824-4C37-A707-862F9CD92EA1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewCoEF.Security", "NewCoEF.Security\NewCoEF.Security.csproj", "{933CDEBA-113B-4A9D-BBE7-8E7E32A44072}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,10 +53,10 @@ Global
 		{C079D3E8-8DC0-4BA0-B537-DF7ACC02CA0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C079D3E8-8DC0-4BA0-B537-DF7ACC02CA0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C079D3E8-8DC0-4BA0-B537-DF7ACC02CA0B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2ED62CA3-9824-4C37-A707-862F9CD92EA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2ED62CA3-9824-4C37-A707-862F9CD92EA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2ED62CA3-9824-4C37-A707-862F9CD92EA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2ED62CA3-9824-4C37-A707-862F9CD92EA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{933CDEBA-113B-4A9D-BBE7-8E7E32A44072}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{933CDEBA-113B-4A9D-BBE7-8E7E32A44072}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{933CDEBA-113B-4A9D-BBE7-8E7E32A44072}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{933CDEBA-113B-4A9D-BBE7-8E7E32A44072}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
