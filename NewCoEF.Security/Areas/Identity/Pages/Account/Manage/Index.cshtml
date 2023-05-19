@@ -37,6 +37,42 @@
             </div>
             <button id="update-profile-button" type="submit" class="btn btn-primary">Save</button>
         </form>
+        <br/>
+        <div>
+            <h4>Claims</h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Type
+                        </th>
+                        <th>
+                            Value
+                        </th>
+                        <th>
+                            Issuer
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in User.Claims)
+                    {
+                        <tr>
+                            <th>
+                                @Html.DisplayFor(model => item.Type)
+                            </th>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Value)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Issuer)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 

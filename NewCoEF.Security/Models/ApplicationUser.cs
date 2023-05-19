@@ -9,6 +9,11 @@ namespace NewCoEF.Security.Models
 {
     public class ApplicationUser : IdentityUser
     {
+        public ApplicationUser()
+        {
+
+        }
+
         [Required]
         [DataType(DataType.Text)]
         [Display(Name = "Full name")]
@@ -26,5 +31,15 @@ namespace NewCoEF.Security.Models
         [Display(Name = "Address")]
         [MaxLength(100)]
         public string Address { get; set; }
+
+        [Required]
+        [Display(Name = "IsAdmin")]
+        public bool IsAdmin { get; set; } = false;
+
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "Language")]
+        [MaxLength(2)]
+        public string LanguageCode { get; set; } = "IT";
     }
 }

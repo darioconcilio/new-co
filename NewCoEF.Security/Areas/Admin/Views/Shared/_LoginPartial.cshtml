@@ -9,8 +9,10 @@
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
+        //Controllo dell'appartenenza della policy chiamata AdminPolicy
         @if ((await AuthorizationService.AuthorizeAsync(User, "AdminPolicy")).Succeeded)
         {
+            //La policy è attiva secondo le regole
             <a class="nav-link text-dark ml-2" asp-area="Identity" asp-page="/Account/Manage/Index"
                title="Manage">@User.Identity.Name</a>
             <a class="nav-link text-dark text-uppercase" asp-area="Admin" asp-controller="ApplicationUserRoles"
@@ -20,6 +22,7 @@
         }
         else
         {
+            //La policy NON è attiva secondo le regole
             <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index"
                title="Manage">Hello @User.Identity.Name!</a>
         }

@@ -1,3 +1,4 @@
+using IdentityModel;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -32,9 +33,31 @@ namespace NewCoEF.Security
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddRoles<IdentityRole>() //Supporto al RoleManager<IdentityRole>
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                
+                //Aggiunge i generatori di token predefiniti utilizzati per generare i token per le operazioni
+                //di reimpostazione della password, modifica dell'e-mail e del numero di telefono e 
+                //per la generazione di token per l'autenticazione a due fattori.
+                .AddDefaultTokenProviders();
+
+            //Gestione policy
+            services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, AdditionalUserClaimsPrincipalFactory>();
+
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            #region gestione policy
+            List<string> claimsForAdmin = new List<string>();
+            claimsForAdmin.Add("admin");
+            claimsForAdmin.Add("director");
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AdminPolicy", policy => policy.RequireClaim(JwtClaimTypes.Role, claimsForAdmin));
+            });
+            #endregion
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,10 +85,15 @@ namespace NewCoEF.Security
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
+                    name: "areas",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+
         }
     }
 }

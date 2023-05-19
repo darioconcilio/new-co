@@ -4,6 +4,7 @@ using NewCoEF.Security.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using NewCoEF.Security.Areas.Admin.Models;
 
 namespace NewCoEF.Security.Data
 {
@@ -18,5 +19,8 @@ namespace NewCoEF.Security.Data
         {
             base.OnModelCreating(builder);
         }
+
+        public DbSet<ApplicationUserRoles> ApplicationUserRoles { get; set; }
+
     }
 }
