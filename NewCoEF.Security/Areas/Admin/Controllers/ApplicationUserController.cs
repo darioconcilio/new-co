@@ -24,21 +24,16 @@ namespace NewCoEF.Security.Areas.Admin.Controllers
             _context = context;
         }
 
-        private string decodeRole(IEnumerable<IdentityRole> rj)
-        {
-            return rj.Equals(null) ? string.Empty : string.Join(", ", rj.SelectMany(o => o.Name).ToArray());
-        }
-
         public IActionResult Index()
         {
             //Recupero tutti i binomi utente-ruolo
             var result = (from u in _context.Users
 
-                              //LEFT OUTER JOIN
+                          //LEFT OUTER JOIN
                           join ur in _context.UserRoles on u.Id equals ur.UserId into urj
                           from subUr in urj.DefaultIfEmpty()
 
-                              //LEFT OUTER JOIN
+                          //LEFT OUTER JOIN
                           join r in _context.Roles on subUr.RoleId equals r.Id into rj
                           from subR in rj.DefaultIfEmpty()
 
@@ -72,6 +67,80 @@ namespace NewCoEF.Security.Areas.Admin.Controllers
             return View(usersWithRolesInfo);
         }
 
+        #region Edit
 
+        // GET: Admin/ApplicationUser/Edit/506f1c8d-7aeb-424b-a026-e5d36ffb3993
+        public async Task<IActionResult> Edit(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var userToEdit = await _context.Users.FindAsync(id);
+            if (userToEdit == null)
+            {
+                return NotFound();
+            }
+
+            //Contesto necessario alla view Edit
+            var output = new UserViewModel(userToEdit);
+
+            //Carico i ruoli esistenti
+            var allRoles = from rec in _context.ApplicationUserRoles
+                           select rec;
+
+            foreach (var role in allRoles)
+                output.ExistRoles.Add(new SelectedRole(role));
+
+            //Recupero i ruoli dell'utente richiesto
+            var rolesOfCurrentUser = from rec in _context.UserRoles
+                                     where rec.UserId == id
+                                     select rec;
+
+            foreach(var userRole in rolesOfCurrentUser)
+            {
+                var selectedUserRole = output.ExistRoles.Single(r => r.Id == userRole.RoleId);
+                selectedUserRole.Selected = true;
+            }
+
+            return View(output);
+        }
+
+        /*
+        // POST: Admin/ApplicationUser/Edit/506f1c8d-7aeb-424b-a026-e5d36ffb3993
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(Guid id, County county)
+        {
+            if (id != county.ID)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(county);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!CountyExists(county.ID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(county);
+        }
+        */
+        #endregion
     }
 }

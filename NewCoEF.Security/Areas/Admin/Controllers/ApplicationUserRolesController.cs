@@ -57,7 +57,7 @@ namespace NewCoEF.Security.Areas.Admin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,NormalizedName,ConcurrencyStamp")] ApplicationUserRoles applicationUserRoles)
+        public async Task<IActionResult> Create([Bind("Id,Name,NormalizedName,ConcurrencyStamp,Description")] ApplicationUserRoles applicationUserRoles)
         {
             if (ModelState.IsValid)
             {
@@ -92,7 +92,7 @@ namespace NewCoEF.Security.Areas.Admin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Id,Name,NormalizedName,ConcurrencyStamp")] ApplicationUserRoles applicationUserRoles)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,Name,NormalizedName,ConcurrencyStamp,Description")] ApplicationUserRoles applicationUserRoles)
         {
             if (id != applicationUserRoles.Id)
             {
@@ -105,10 +105,19 @@ namespace NewCoEF.Security.Areas.Admin.Controllers
                 {
                     applicationUserRoles.NormalizedName = applicationUserRoles.Name.Normalize().ToUpper();
 
-                    _context.Update(applicationUserRoles);
+                    var roleToUpdate = await (from rec in _context.ApplicationUserRoles
+                                              where rec.Id == id
+                                              select rec).SingleAsync();
+
+                    roleToUpdate.Name = applicationUserRoles.Name;
+                    roleToUpdate.Description = applicationUserRoles.Description;
+                    roleToUpdate.NormalizedName = applicationUserRoles.NormalizedName;
+
+                    _context.Update(roleToUpdate);
+                    
                     await _context.SaveChangesAsync();
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateConcurrencyException ex)
                 {
                     if (!ApplicationUserRolesExists(applicationUserRoles.Id))
                     {

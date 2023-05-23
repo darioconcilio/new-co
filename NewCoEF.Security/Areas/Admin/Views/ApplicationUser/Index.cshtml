@@ -9,10 +9,12 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
 <table class="table">
     <thead>
         <tr>
             <th>
+                
                 @Html.DisplayNameFor(model => model.Username)
             </th>
             <th>
@@ -29,6 +31,7 @@
         {
             <tr>
                 <td>
+                    @Html.HiddenFor(modelItem => item.Id)
                     @Html.DisplayFor(modelItem => item.Username)
                 </td>
                 <td>
@@ -38,9 +41,8 @@
                     @Html.DisplayFor(modelItem => item.Roles)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Username">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Username">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Username">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                 </td>
             </tr>
         }

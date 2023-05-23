@@ -13,5 +13,7 @@ namespace NewCoEF.Security.Models
             Id = Guid.NewGuid().ToString();
             ConcurrencyStamp = Guid.NewGuid().ToString();
         }
+
+        public string Description { get; set; }
     }
 }
