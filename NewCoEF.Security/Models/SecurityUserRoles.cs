@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NewCoEF.Security.Models
 {
-    public class ApplicationUserUserRoles : IdentityUserRole<string>
+    public class SecurityUserRoles : IdentityUserRole<string>
     {
     }
 }

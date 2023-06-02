@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace NewCoEF.Security.Models
 {
-    public class ApplicationUserRoles : IdentityRole
+    public class SecurityRole : IdentityRole
     {
-        public ApplicationUserRoles()
+        public SecurityRole()
         {
             Id = Guid.NewGuid().ToString();
             ConcurrencyStamp = Guid.NewGuid().ToString();

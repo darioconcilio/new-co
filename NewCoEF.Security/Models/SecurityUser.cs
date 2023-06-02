@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace NewCoEF.Security.Models
 {
-    public class ApplicationUser : IdentityUser
+    public class SecurityUser : IdentityUser
     {
-        public ApplicationUser()
+        public SecurityUser()
         {
 
         }

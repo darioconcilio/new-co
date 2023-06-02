@@ -3,8 +3,8 @@
 @using Microsoft.AspNetCore.Authorization
 @inject IAuthorizationService AuthorizationService
 
-@inject SignInManager<ApplicationUser> SignInManager
-@inject UserManager<ApplicationUser> UserManager
+@inject SignInManager<SecurityUser> SignInManager
+@inject UserManager<SecurityUser> UserManager
 
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
@@ -15,9 +15,9 @@
             //La policy è attiva secondo le regole
             <a class="nav-link text-dark ml-2" asp-area="Identity" asp-page="/Account/Manage/Index"
                title="Manage">@User.Identity.Name</a>
-            <a class="nav-link text-dark text-uppercase" asp-area="Admin" asp-controller="ApplicationUserRoles"
+            <a class="nav-link text-dark text-uppercase" asp-area="Admin" asp-controller="SecurityRoles"
                asp-action="Index">Roles</a>
-            <a class="nav-link text-dark text-uppercase" asp-area="Admin" asp-controller="ApplicationUser"
+            <a class="nav-link text-dark text-uppercase" asp-area="Admin" asp-controller="SecurityUsers"
                asp-action="Index">Users</a>
         }
         else

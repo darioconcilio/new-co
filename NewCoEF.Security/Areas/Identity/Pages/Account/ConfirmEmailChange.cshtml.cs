@@ -15,10 +15,10 @@ namespace NewCoEF.Security.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class ConfirmEmailChangeModel : PageModel
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<SecurityUser> _userManager;
+        private readonly SignInManager<SecurityUser> _signInManager;
 
-        public ConfirmEmailChangeModel(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public ConfirmEmailChangeModel(UserManager<SecurityUser> userManager, SignInManager<SecurityUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;

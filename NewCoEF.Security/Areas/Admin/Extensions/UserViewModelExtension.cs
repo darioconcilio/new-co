@@ -9,7 +9,7 @@ namespace NewCoEF.Security.Areas.Admin.Extensions
 {
     public static class UserViewModelExtension
     {
-        public static UserViewModel ToUserViewModel(this ApplicationUser user)
+        public static UserViewModel ToUserViewModel(this SecurityUser user)
         {
             return new UserViewModel(user);
         }

@@ -12,13 +12,13 @@ namespace NewCoEF.Security.Areas.Identity.Pages.Account.Manage
 {
     public class ChangePasswordModel : PageModel
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<SecurityUser> _userManager;
+        private readonly SignInManager<SecurityUser> _signInManager;
         private readonly ILogger<ChangePasswordModel> _logger;
 
         public ChangePasswordModel(
-            UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager,
+            UserManager<SecurityUser> userManager,
+            SignInManager<SecurityUser> signInManager,
             ILogger<ChangePasswordModel> logger)
         {
             _userManager = userManager;

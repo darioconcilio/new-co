@@ -13,22 +13,22 @@ namespace NewCoEF.Security.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Policy = "AdminPolicy")]
-    public class ApplicationUserRolesController : Controller
+    public class SecurityRolesController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public ApplicationUserRolesController(ApplicationDbContext context)
+        public SecurityRolesController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Admin/ApplicationUserRoles
+        // GET: Admin/SecurityRole
         public async Task<IActionResult> Index()
         {
-            return View(await _context.ApplicationUserRoles.ToListAsync());
+            return View(await _context.SecurityRoles.ToListAsync());
         }
 
-        // GET: Admin/ApplicationUserRoles/Details/5
+        // GET: Admin/SecurityRole/Details/5
         public async Task<IActionResult> Details(string id)
         {
             if (id == null)
@@ -36,42 +36,42 @@ namespace NewCoEF.Security.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var applicationUserRoles = await _context.ApplicationUserRoles
+            var SecurityRole = await _context.SecurityRoles
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (applicationUserRoles == null)
+            if (SecurityRole == null)
             {
                 return NotFound();
             }
 
-            return View(applicationUserRoles);
+            return View(SecurityRole);
         }
 
-        // GET: Admin/ApplicationUserRoles/Create
+        // GET: Admin/SecurityRole/Create
         public IActionResult Create()
         {
-            return View(new ApplicationUserRoles());
+            return View(new SecurityRole());
         }
 
-        // POST: Admin/ApplicationUserRoles/Create
+        // POST: Admin/SecurityRole/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,NormalizedName,ConcurrencyStamp,Description")] ApplicationUserRoles applicationUserRoles)
+        public async Task<IActionResult> Create([Bind("Id,Name,NormalizedName,ConcurrencyStamp,Description")] SecurityRole SecurityRole)
         {
             if (ModelState.IsValid)
             {
 
-                applicationUserRoles.NormalizedName = applicationUserRoles.Name.Normalize().ToUpper();
+                SecurityRole.NormalizedName = SecurityRole.Name.Normalize().ToUpper();
 
-                _context.Add(applicationUserRoles);
+                _context.Add(SecurityRole);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(applicationUserRoles);
+            return View(SecurityRole);
         }
 
-        // GET: Admin/ApplicationUserRoles/Edit/5
+        // GET: Admin/SecurityRole/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
@@ -79,22 +79,22 @@ namespace NewCoEF.Security.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var applicationUserRoles = await _context.ApplicationUserRoles.FindAsync(id);
-            if (applicationUserRoles == null)
+            var SecurityRole = await _context.SecurityRoles.FindAsync(id);
+            if (SecurityRole == null)
             {
                 return NotFound();
             }
-            return View(applicationUserRoles);
+            return View(SecurityRole);
         }
 
-        // POST: Admin/ApplicationUserRoles/Edit/5
+        // POST: Admin/SecurityRole/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Id,Name,NormalizedName,ConcurrencyStamp,Description")] ApplicationUserRoles applicationUserRoles)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,Name,NormalizedName,ConcurrencyStamp,Description")] SecurityRole SecurityRole)
         {
-            if (id != applicationUserRoles.Id)
+            if (id != SecurityRole.Id)
             {
                 return NotFound();
             }
@@ -103,15 +103,15 @@ namespace NewCoEF.Security.Areas.Admin.Controllers
             {
                 try
                 {
-                    applicationUserRoles.NormalizedName = applicationUserRoles.Name.Normalize().ToUpper();
+                    SecurityRole.NormalizedName = SecurityRole.Name.Normalize().ToUpper();
 
-                    var roleToUpdate = await (from rec in _context.ApplicationUserRoles
+                    var roleToUpdate = await (from rec in _context.SecurityRoles
                                               where rec.Id == id
                                               select rec).SingleAsync();
 
-                    roleToUpdate.Name = applicationUserRoles.Name;
-                    roleToUpdate.Description = applicationUserRoles.Description;
-                    roleToUpdate.NormalizedName = applicationUserRoles.NormalizedName;
+                    roleToUpdate.Name = SecurityRole.Name;
+                    roleToUpdate.Description = SecurityRole.Description;
+                    roleToUpdate.NormalizedName = SecurityRole.NormalizedName;
 
                     _context.Update(roleToUpdate);
                     
@@ -119,7 +119,7 @@ namespace NewCoEF.Security.Areas.Admin.Controllers
                 }
                 catch (DbUpdateConcurrencyException ex)
                 {
-                    if (!ApplicationUserRolesExists(applicationUserRoles.Id))
+                    if (!SecurityRoleExists(SecurityRole.Id))
                     {
                         return NotFound();
                     }
@@ -130,10 +130,10 @@ namespace NewCoEF.Security.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(applicationUserRoles);
+            return View(SecurityRole);
         }
 
-        // GET: Admin/ApplicationUserRoles/Delete/5
+        // GET: Admin/SecurityRole/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -141,30 +141,30 @@ namespace NewCoEF.Security.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var applicationUserRoles = await _context.ApplicationUserRoles
+            var SecurityRole = await _context.SecurityRoles
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (applicationUserRoles == null)
+            if (SecurityRole == null)
             {
                 return NotFound();
             }
 
-            return View(applicationUserRoles);
+            return View(SecurityRole);
         }
 
-        // POST: Admin/ApplicationUserRoles/Delete/5
+        // POST: Admin/SecurityRole/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var applicationUserRoles = await _context.ApplicationUserRoles.FindAsync(id);
-            _context.ApplicationUserRoles.Remove(applicationUserRoles);
+            var SecurityRole = await _context.SecurityRoles.FindAsync(id);
+            _context.SecurityRoles.Remove(SecurityRole);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ApplicationUserRolesExists(string id)
+        private bool SecurityRoleExists(string id)
         {
-            return _context.ApplicationUserRoles.Any(e => e.Id == id);
+            return _context.SecurityRoles.Any(e => e.Id == id);
         }
     }
 }

@@ -3,17 +3,15 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NewCoEF.Security.Data;
 
-namespace NewCoEF.Security.Data.Migrations
+namespace NewCoEF.Security.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230427202001_SecurityWithClaimAndPolicy")]
-    partial class SecurityWithClaimAndPolicy
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -162,7 +160,7 @@ namespace NewCoEF.Security.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("NewCoEF.Security.Models.ApplicationUser", b =>
+            modelBuilder.Entity("NewCoEF.Security.Models.SecurityUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -248,11 +246,14 @@ namespace NewCoEF.Security.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("NewCoEF.Security.Models.ApplicationUserRoles", b =>
+            modelBuilder.Entity("NewCoEF.Security.Models.SecurityRole", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRole");
 
-                    b.HasDiscriminator().HasValue("ApplicationUserRoles");
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("SecurityRole");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -266,7 +267,7 @@ namespace NewCoEF.Security.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("NewCoEF.Security.Models.ApplicationUser", null)
+                    b.HasOne("NewCoEF.Security.Models.SecurityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -275,7 +276,7 @@ namespace NewCoEF.Security.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("NewCoEF.Security.Models.ApplicationUser", null)
+                    b.HasOne("NewCoEF.Security.Models.SecurityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -290,7 +291,7 @@ namespace NewCoEF.Security.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("NewCoEF.Security.Models.ApplicationUser", null)
+                    b.HasOne("NewCoEF.Security.Models.SecurityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -299,7 +300,7 @@ namespace NewCoEF.Security.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("NewCoEF.Security.Models.ApplicationUser", null)
+                    b.HasOne("NewCoEF.Security.Models.SecurityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

@@ -32,7 +32,7 @@ namespace NewCoEF.Security
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<SecurityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>() //Supporto al RoleManager<IdentityRole>
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 
@@ -42,7 +42,7 @@ namespace NewCoEF.Security
                 .AddDefaultTokenProviders();
 
             //Gestione policy
-            services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, AdditionalUserClaimsPrincipalFactory>();
+            services.AddScoped<IUserClaimsPrincipalFactory<SecurityUser>, SecurityClaimsPrincipalFactory>();
 
             services.AddControllersWithViews();
             services.AddRazorPages();

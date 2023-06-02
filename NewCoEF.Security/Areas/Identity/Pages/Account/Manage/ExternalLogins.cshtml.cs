@@ -12,12 +12,12 @@ namespace NewCoEF.Security.Areas.Identity.Pages.Account.Manage
 {
     public class ExternalLoginsModel : PageModel
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<SecurityUser> _userManager;
+        private readonly SignInManager<SecurityUser> _signInManager;
 
         public ExternalLoginsModel(
-            UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+            UserManager<SecurityUser> userManager,
+            SignInManager<SecurityUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;

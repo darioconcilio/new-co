@@ -9,17 +9,17 @@ using System.Threading.Tasks;
 
 namespace NewCoEF.Security.Models
 {
-    public class AdditionalUserClaimsPrincipalFactory
-        : UserClaimsPrincipalFactory<ApplicationUser, IdentityRole>
+    public class SecurityClaimsPrincipalFactory
+        : UserClaimsPrincipalFactory<SecurityUser, IdentityRole>
     {
-        public AdditionalUserClaimsPrincipalFactory(
-            UserManager<ApplicationUser> userManager,
+        public SecurityClaimsPrincipalFactory(
+            UserManager<SecurityUser> userManager,
             RoleManager<IdentityRole> roleManager,
             IOptions<IdentityOptions> optionsAccessor)
             : base(userManager, roleManager, optionsAccessor)
         { }
 
-        public async override Task<ClaimsPrincipal> CreateAsync(ApplicationUser user)
+        public async override Task<ClaimsPrincipal> CreateAsync(SecurityUser user)
         {
             var principal = await base.CreateAsync(user);
             var identity = (ClaimsIdentity)principal.Identity;

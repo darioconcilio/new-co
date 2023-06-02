@@ -8,7 +8,7 @@ using NewCoEF.Security.Areas.Admin.Models;
 
 namespace NewCoEF.Security.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<SecurityUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -20,7 +20,7 @@ namespace NewCoEF.Security.Data
             base.OnModelCreating(builder);
         }
 
-        public DbSet<ApplicationUserRoles> ApplicationUserRoles { get; set; }
+        public DbSet<SecurityRole> SecurityRoles { get; set; }
 
     }
 }
