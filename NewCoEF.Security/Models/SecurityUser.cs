@@ -18,9 +18,8 @@ namespace NewCoEF.Security.Models
         [DataType(DataType.Text)]
         [Display(Name = "Full name")]
         [MaxLength(50)]
-        public string Fullname { get; set; }
+        public string Fullname { get; set; } = string.Empty;
 
-        [Required]
         [Display(Name = "Birth Date")]
         [DataType(DataType.Date)]
 
@@ -30,7 +29,7 @@ namespace NewCoEF.Security.Models
         [DataType(DataType.Text)]
         [Display(Name = "Address")]
         [MaxLength(100)]
-        public string Address { get; set; }
+        public string Address { get; set; } = string.Empty;
 
         [Required]
         [Display(Name = "IsAdmin")]

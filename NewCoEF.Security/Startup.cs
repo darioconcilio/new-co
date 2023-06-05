@@ -1,13 +1,19 @@
 using IdentityModel;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Identity.Web;
+using Microsoft.Identity.Web.UI;
 using NewCoEF.Security.Data;
 using NewCoEF.Security.Models;
 using System;
@@ -35,7 +41,7 @@ namespace NewCoEF.Security
             services.AddDefaultIdentity<SecurityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>() //Supporto al RoleManager<IdentityRole>
                 .AddEntityFrameworkStores<ApplicationDbContext>()
-                
+
                 //Aggiunge i generatori di token predefiniti utilizzati per generare i token per le operazioni
                 //di reimpostazione della password, modifica dell'e-mail e del numero di telefono e 
                 //per la generazione di token per l'autenticazione a due fattori.
@@ -56,6 +62,20 @@ namespace NewCoEF.Security
             {
                 options.AddPolicy("AdminPolicy", policy => policy.RequireClaim(JwtClaimTypes.Role, claimsForAdmin));
             });
+            #endregion
+
+            #region Google Auth
+
+            services.AddAuthentication()
+                .AddGoogle(options =>
+                {
+                    IConfigurationSection googleAuthNSection =
+                        Configuration.GetSection("Authentication:Google");
+
+                    options.ClientId = googleAuthNSection["ClientId"];
+                    options.ClientSecret = googleAuthNSection["ClientSecret"];
+                });
+
             #endregion
 
         }
