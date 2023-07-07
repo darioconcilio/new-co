@@ -9,23 +9,36 @@
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
-        //Controllo dell'appartenenza della policy chiamata AdminPolicy
-        @if ((await AuthorizationService.AuthorizeAsync(User, "AdminPolicy")).Succeeded)
+        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index"
+           title="Manage">Hello @User.Identity.Name!</a>
+
+        if (User.IsInRole("admin"))
         {
-            //La policy è attiva secondo le regole
-            <a class="nav-link text-dark ml-2" asp-area="Identity" asp-page="/Account/Manage/Index"
-               title="Manage">@User.Identity.Name</a>
+
             <a class="nav-link text-dark text-uppercase" asp-area="Admin" asp-controller="SecurityRoles"
                asp-action="Index">Roles</a>
+        }
+
+        if (User.IsInRole("admin") || User.IsInRole("director"))
+        {
             <a class="nav-link text-dark text-uppercase" asp-area="Admin" asp-controller="SecurityUsers"
                asp-action="Index">Users</a>
         }
-        else
-        {
-            //La policy NON è attiva secondo le regole
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index"
-               title="Manage">Hello @User.Identity.Name!</a>
-        }
+        @*@if ((await AuthorizationService.AuthorizeAsync(User, "AdminPolicy")).Succeeded)
+                {
+                    <a class="nav-link text-dark ml-2" asp-area="Identity" asp-page="/Account/Manage/Index"
+                       title="Manage">@User.Identity.Name</a>
+                    <a class="nav-link text-dark text-uppercase" asp-area="Admin" asp-controller="SecurityRoles"
+                       asp-action="Index">Roles</a>
+                    <a class="nav-link text-dark text-uppercase" asp-area="Admin" asp-controller="SecurityUsers"
+                       asp-action="Index">Users</a>
+                }
+            else
+            {
+                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index"
+                   title="Manage">Hello @User.Identity.Name!</a>
+            }
+        *@
         <li class="nav-item">
             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                 <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>

@@ -13,7 +13,8 @@ using System.Threading.Tasks;
 namespace NewCoEF.Security.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Policy = "AdminPolicy")]
+    //[Authorize(Policy = "AdminPolicy")]
+    [Authorize(Roles = "admin,director")]
     public class SecurityUsersController : Controller
     {
         private readonly UserManager<SecurityUser> _userManager;
@@ -184,12 +185,13 @@ namespace NewCoEF.Security.Areas.Admin.Controllers
 
             try
             {
-                var userFound = await (from rec in _context.Users
+                /*var userFound = await (from rec in _context.Users
                                        where rec.Id == id
                                        select rec).SingleOrDefaultAsync();
 
-                var userViewModel = new UserViewModel(userFound);
-                return RedirectToAction("Edit", "SecurityUsers", new { id = userViewModel.Id });
+                var userViewModel = new UserViewModel(userFound);*/
+                //return RedirectToAction("Edit", "SecurityUsers", new { id = userViewModel.Id });
+                return RedirectToAction("Edit", "SecurityUsers", new { id = id });
             }
             catch (Exception ex)
             {
@@ -218,12 +220,13 @@ namespace NewCoEF.Security.Areas.Admin.Controllers
 
             try
             {
-                var userFound = await (from rec in _context.Users
+                /*var userFound = await (from rec in _context.Users
                                        where rec.Id == id
                                        select rec).SingleOrDefaultAsync();
 
-                var userViewModel = new UserViewModel(userFound);
-                return RedirectToAction("Edit", "SecurityUsers", new { id = userViewModel.Id });
+                var userViewModel = new UserViewModel(userFound);*/
+                //return RedirectToAction("Edit", "SecurityUsers", new { id = userViewModel.Id });
+                return RedirectToAction("Edit", "SecurityUsers", new { id = id });
             }
             catch (Exception ex)
             {

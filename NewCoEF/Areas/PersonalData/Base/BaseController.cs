@@ -4,7 +4,9 @@ using Microsoft.Extensions.Localization;
 using NewCoEF.Shared.Areas.PersonalData.Models;
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Net;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace NewCoEF.Areas.PersonalData.Base
 {
@@ -59,5 +61,7 @@ namespace NewCoEF.Areas.PersonalData.Base
                 }
             }
         }
+
+        
     }
 }

@@ -4,8 +4,6 @@ using NewCoEF.Shared.Areas.Sales.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace NewCoEF.Shared.Areas.PersonalData.Models
 {
@@ -76,5 +74,8 @@ namespace NewCoEF.Shared.Areas.PersonalData.Models
         public virtual ICollection<Order> Orders { get; set; }
 
         #endregion
+
+        
+
     }
 }

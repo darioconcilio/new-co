@@ -12,7 +12,8 @@ using NewCoEF.Security.Models;
 namespace NewCoEF.Security.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Policy = "AdminPolicy")]
+    //[Authorize(Policy = "AdminPolicy")]
+    [Authorize(Roles = "admin")]
     public class SecurityRolesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -23,6 +24,7 @@ namespace NewCoEF.Security.Areas.Admin.Controllers
         }
 
         // GET: Admin/SecurityRole
+        //[Authorize(Roles = "admin_view")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.SecurityRoles.ToListAsync());
@@ -114,7 +116,7 @@ namespace NewCoEF.Security.Areas.Admin.Controllers
                     roleToUpdate.NormalizedName = SecurityRole.NormalizedName;
 
                     _context.Update(roleToUpdate);
-                    
+
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException ex)

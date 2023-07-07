@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NewCo.Shared.Areas.Base;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NewCoEF.Shared.Areas.PersonalData.Models
 {
-    public class County
+    public class County : ModelBase
     {
         public County()
         {
@@ -23,5 +24,19 @@ namespace NewCoEF.Shared.Areas.PersonalData.Models
         public string Code { get; set; }
 
         public virtual ICollection<Customer> Customers { get; set; }
+
+        public void ApplyProtection()
+        {
+            this.InitProtectionProvider();
+            Name = this.Protect(Name);
+            Code = this.Protect(Code);
+        }
+
+        public void RemoveProtection()
+        {
+            this.InitProtectionProvider();
+            Name = this.Unprotect(Name);
+            Code = this.Unprotect(Code);
+        }
     }
 }

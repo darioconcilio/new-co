@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using NewCoEF.Shared.Areas.PersonalData.Models;
 using NewCoEF.Areas.PersonalData.ViewModels;
 using NewCoEF.Areas.PersonalData.Base;
+using Microsoft.AspNetCore.DataProtection;
+using System.Security.Cryptography;
 
 namespace NewCoEF.Areas.PersonalData.Controllers
 {
@@ -20,7 +22,7 @@ namespace NewCoEF.Areas.PersonalData.Controllers
         }
 
         // GET: PersonalData/Customers
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index([FromServices] IDataProtectionProvider provider)
         {
             //return View(await _context.Customers.ToListAsync());
 
@@ -28,11 +30,28 @@ namespace NewCoEF.Areas.PersonalData.Controllers
                                                       .Include("CountryRef")
                                                       .Include("CountyRef")
                                    select rec).ToListAsync();
+
+            foreach (var cust in customers)
+            {
+                try
+                {
+                    #region protect data
+                    IDataProtector protector = provider.CreateProtector("dataToProtected");
+                    cust.Name = protector.Unprotect(cust.Name);
+                    #endregion
+                }
+                catch (CryptographicException ex)
+                {
+                    //Console.WriteLine(ex.Message);
+                }
+            }
+
             return View(customers);
         }
 
         // GET: PersonalData/Customers/Details/5
-        public async Task<IActionResult> Details(Guid? id)
+        public async Task<IActionResult> Details(Guid? id,
+            [FromServices] IDataProtectionProvider provider)
         {
             if (id == null)
             {
@@ -46,6 +65,18 @@ namespace NewCoEF.Areas.PersonalData.Controllers
             if (customer == null)
             {
                 return NotFound();
+            }
+
+            try
+            {
+                #region protect data
+                IDataProtector protector = provider.CreateProtector("dataToProtected");
+                customer.Name = protector.Unprotect(customer.Name);
+                #endregion
+            }
+            catch (CryptographicException ex)
+            {
+                //Console.WriteLine(ex.Message);
             }
 
             return View(customer);
@@ -83,11 +114,18 @@ namespace NewCoEF.Areas.PersonalData.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Name,Code,Address,PostCode,City,VATRegistrationCode,CountryId,CountyId")] Customer customer)
+        public async Task<IActionResult> Create([Bind("ID,Name,Code,Address,PostCode,City,VATRegistrationCode,CountryId,CountyId")] Customer customer,
+            [FromServices] IDataProtectionProvider provider)
         {
             if (ModelState.IsValid)
             {
                 customer.ID = Guid.NewGuid();
+
+                #region protect data
+                IDataProtector protector = provider.CreateProtector("dataToProtected");
+                customer.Name = protector.Protect(customer.Name);
+                #endregion
+
                 _context.Add(customer);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -96,16 +134,29 @@ namespace NewCoEF.Areas.PersonalData.Controllers
         }
 
         // GET: PersonalData/Customers/Edit/5
-        public async Task<IActionResult> Edit(Guid? id)
+        public async Task<IActionResult> Edit(Guid? id,
+            [FromServices] IDataProtectionProvider provider)
         {
             Customer item = await (from rec in _context.Customers
-                                   .Include(o=>o.CountryRef)
-                                   .Include(o=>o.CountyRef)
+                                   .Include(o => o.CountryRef)
+                                   .Include(o => o.CountyRef)
                                    where rec.ID == id
                                    select rec).SingleOrDefaultAsync();
 
             if (item == null)
                 return NotFound();
+
+            try
+            {
+                #region protect data
+                IDataProtector protector = provider.CreateProtector("dataToProtected");
+                item.Name = protector.Unprotect(item.Name);
+                #endregion
+            }
+            catch (CryptographicException ex)
+            {
+                //Console.WriteLine(ex.Message);
+            }
 
             CustomerViewModel vm = new CustomerViewModel(item)
             {
@@ -137,7 +188,8 @@ namespace NewCoEF.Areas.PersonalData.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("ID,Name,Code,Address,PostCode,City,VATRegistrationCode,CountryId,CountyId")] Customer customer)
+        public async Task<IActionResult> Edit(Guid id, [Bind("ID,Name,Code,Address,PostCode,City,VATRegistrationCode,CountryId,CountyId")] Customer customer,
+            [FromServices] IDataProtectionProvider provider)
         {
             if (id != customer.ID)
             {
@@ -148,6 +200,11 @@ namespace NewCoEF.Areas.PersonalData.Controllers
             {
                 try
                 {
+                    #region protect data
+                    IDataProtector protector = provider.CreateProtector("dataToProtected");
+                    customer.Name = protector.Protect(customer.Name);
+                    #endregion
+
                     _context.Update(customer);
                     await _context.SaveChangesAsync();
                 }
@@ -168,7 +225,8 @@ namespace NewCoEF.Areas.PersonalData.Controllers
         }
 
         // GET: PersonalData/Customers/Delete/5
-        public async Task<IActionResult> Delete(Guid? id)
+        public async Task<IActionResult> Delete(Guid? id,
+            [FromServices] IDataProtectionProvider provider)
         {
             if (id == null)
             {
@@ -180,6 +238,18 @@ namespace NewCoEF.Areas.PersonalData.Controllers
             if (customer == null)
             {
                 return NotFound();
+            }
+
+            try
+            {
+                #region protect data
+                IDataProtector protector = provider.CreateProtector("dataToProtected");
+                customer.Name = protector.Unprotect(customer.Name);
+                #endregion
+            }
+            catch (CryptographicException ex)
+            {
+                //Console.WriteLine(ex.Message);
             }
 
             return View(customer);

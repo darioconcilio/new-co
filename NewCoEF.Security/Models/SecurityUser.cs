@@ -18,17 +18,19 @@ namespace NewCoEF.Security.Models
         [DataType(DataType.Text)]
         [Display(Name = "Full name")]
         [MaxLength(50)]
+        [PersonalData]
         public string Fullname { get; set; } = string.Empty;
 
         [Display(Name = "Birth Date")]
         [DataType(DataType.Date)]
-
+        [PersonalData]
         public DateTime BirthdayDate { get; set; }
 
         [Required]
         [DataType(DataType.Text)]
         [Display(Name = "Address")]
         [MaxLength(100)]
+        [PersonalData]
         public string Address { get; set; } = string.Empty;
 
         [Required]

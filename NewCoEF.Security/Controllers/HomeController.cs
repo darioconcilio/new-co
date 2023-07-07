@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using NewCoEF.Security.Models;
 using System;
@@ -20,11 +21,21 @@ namespace NewCoEF.Security.Controllers
 
         public IActionResult Index()
         {
+            var cookieOptions = new CookieOptions
+            {
+                Expires = DateTimeOffset.Now.AddMonths(1),
+                IsEssential = false
+            };
+
+            HttpContext.Response.Cookies.Append("ReferenceId", new Random().Next().ToString(), cookieOptions);
+
             return View();
         }
 
         public IActionResult Privacy()
         {
+            
+
             return View();
         }
 

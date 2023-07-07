@@ -43,6 +43,8 @@ namespace NewCoEF
                 o.UseSqlServer(connectionString);
             });
 
+            services.AddDataProtection();
+
             //Versioning
             services.AddApiVersioning(config =>
             {
@@ -127,8 +129,9 @@ namespace NewCoEF
                     .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
                     .AddMvcLocalization()
                     .AddDataAnnotationsLocalization();
-
             #endregion
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,4 +1,5 @@
-﻿using NewCo.Shared;
+﻿using Microsoft.AspNetCore.DataProtection;
+using NewCo.Shared;
 using NewCo.Shared.Resources.Item;
 using NewCoEF.Shared.Areas.Sales.Models;
 using Newtonsoft.Json;
@@ -43,5 +44,43 @@ namespace NewCoEF.Shared.Areas.PersonalData.Models
 
         [JsonIgnore]
         public virtual ICollection<OrderLine> OrderLines { get; set; }
+
+        #region data protection
+
+        public void ApplyProtection()
+        {
+            var dataProtectionProvider = DataProtectionProvider.Create("NewCoShared");
+            var protector = dataProtectionProvider.CreateProtector("NewCoEF.Shared.Areas.PersonalData.Models.Item");
+
+            try
+            {
+                Description = protector.Protect(Description);
+                No = protector.Protect(No);
+            }
+            catch
+            {
+                // Non faccio nulla, i dati non sono stati mai codificati prima d'ora
+            }
+
+
+        }
+
+        public void RemoveProtection()
+        {
+            var dataProtectionProvider = DataProtectionProvider.Create("NewCoShared");
+            var protector = dataProtectionProvider.CreateProtector("NewCoEF.Shared.Areas.PersonalData.Models.Item");
+
+            try
+            {
+                Description = protector.Unprotect(Description);
+                No = protector.Unprotect(No);
+            }
+            catch
+            {
+                // Non faccio nulla, i dati non sono stati mai codificati prima d'ora
+            }
+        }
+
+        #endregion
     }
 }

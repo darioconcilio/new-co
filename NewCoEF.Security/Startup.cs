@@ -1,25 +1,14 @@
-using IdentityModel;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
-using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Identity.Web;
-using Microsoft.Identity.Web.UI;
 using NewCoEF.Security.Data;
 using NewCoEF.Security.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace NewCoEF.Security
 {
@@ -35,33 +24,63 @@ namespace NewCoEF.Security
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<SecurityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddRoles<IdentityRole>() //Supporto al RoleManager<IdentityRole>
-                .AddEntityFrameworkStores<ApplicationDbContext>()
+            services.AddDefaultIdentity<SecurityUser>(options =>
+            {
+                options.SignIn.RequireConfirmedAccount = true; //Conferma via mail dopo la registrazione
 
-                //Aggiunge i generatori di token predefiniti utilizzati per generare i token per le operazioni
-                //di reimpostazione della password, modifica dell'e-mail e del numero di telefono e 
-                //per la generazione di token per l'autenticazione a due fattori.
-                .AddDefaultTokenProviders();
+                //Personalizzazione regole standard per la password
+                options.Password.RequiredLength = 8; //Lunghezza minima
+                options.Password.RequireDigit = true; //Numeri
+                options.Password.RequireNonAlphanumeric = true; //Caratteri non alfanumerici (numeri e punteggiatura)
+                options.Password.RequireUppercase = true; //Caratteri in maiuscolo
+                options.Password.RequiredUniqueChars = 2; //Numero di caratteri univoci
+                options.Password.RequireLowercase = false; //Caratteri in minuscolo
+
+                //Protezione dal Brute Force
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromHours(8); //Tempo di attesa dopo l'ultimo tentativo fallito
+                options.Lockout.MaxFailedAccessAttempts = 3; //Numero dei tentativi di autenticazione
+
+            })
+            .AddRoles<IdentityRole>() //Supporto al RoleManager<IdentityRole>
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            //Aggiunge i generatori di token predefiniti utilizzati per generare i token per le operazioni
+            //di reimpostazione della password, modifica dell'e-mail e del numero di telefono e 
+            //per la generazione di token per l'autenticazione a due fattori.
+            .AddDefaultTokenProviders();
+
+            //Sign-out remoto (o meglio sign-out "automatico")
+            services.Configure<SecurityStampValidatorOptions>(options =>
+            {
+                //Tempo di validità del cookie con SecurityStamp
+                options.ValidationInterval = TimeSpan.FromMinutes(1);
+            });
+
+            
 
             //Gestione policy
-            services.AddScoped<IUserClaimsPrincipalFactory<SecurityUser>, SecurityClaimsPrincipalFactory>();
+            //services.AddScoped<IUserClaimsPrincipalFactory<SecurityUser>, SecurityClaimsPrincipalFactory>();
 
             services.AddControllersWithViews();
             services.AddRazorPages();
 
             #region gestione policy
-            List<string> claimsForAdmin = new List<string>();
-            claimsForAdmin.Add("admin");
-            claimsForAdmin.Add("director");
+            //List<string> claimsForAdmin = new List<string>();
+            //claimsForAdmin.Add("admin");
+            //claimsForAdmin.Add("director");
 
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("AdminPolicy", policy => policy.RequireClaim(JwtClaimTypes.Role, claimsForAdmin));
-            });
+            //services.AddAuthorization(options =>
+            //{
+            //    options.AddPolicy("AdminPolicy", policy => policy.RequireClaim(JwtClaimTypes.Role, claimsForAdmin));
+            //});
             #endregion
 
             #region Google Auth
@@ -77,7 +96,6 @@ namespace NewCoEF.Security
                 });
 
             #endregion
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -96,8 +114,11 @@ namespace NewCoEF.Security
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseCookiePolicy();
 
             app.UseRouting();
+
+            
 
             app.UseAuthentication();
             app.UseAuthorization();

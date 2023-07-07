@@ -22,7 +22,12 @@ namespace NewCoEF.Areas.PersonalData.Controllers
         // GET: PersonalData/Counties
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Counties.ToListAsync());
+            var itemsUnProtected = await _context.Counties.ToListAsync();
+
+            foreach (var item in itemsUnProtected)
+                item.RemoveProtection();
+
+            return View(itemsUnProtected);
         }
 
         // GET: PersonalData/Counties/Details/5
@@ -39,6 +44,8 @@ namespace NewCoEF.Areas.PersonalData.Controllers
             {
                 return NotFound();
             }
+
+            county.RemoveProtection();
 
             return View(county);
         }
@@ -59,6 +66,9 @@ namespace NewCoEF.Areas.PersonalData.Controllers
             if (ModelState.IsValid)
             {
                 county.ID = Guid.NewGuid();
+
+                county.ApplyProtection();
+
                 _context.Add(county);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -79,6 +89,8 @@ namespace NewCoEF.Areas.PersonalData.Controllers
             {
                 return NotFound();
             }
+
+            county.RemoveProtection();
             return View(county);
         }
 
@@ -86,7 +98,7 @@ namespace NewCoEF.Areas.PersonalData.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, County county)
         {
             if (id != county.ID)
@@ -98,6 +110,7 @@ namespace NewCoEF.Areas.PersonalData.Controllers
             {
                 try
                 {
+                    county.ApplyProtection();
                     _context.Update(county);
                     await _context.SaveChangesAsync();
                 }
@@ -131,7 +144,7 @@ namespace NewCoEF.Areas.PersonalData.Controllers
             {
                 return NotFound();
             }
-
+            county.RemoveProtection();
             return View(county);
         }
 

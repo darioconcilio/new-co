@@ -44,7 +44,12 @@ namespace NewCoEF.Areas.PersonalData.Controllers
 
             dummyMethod(new Exception("Errore generico"));
 
-            return View(await _context.Items.ToListAsync());
+            var itemsUnProtected = await _context.Items.ToListAsync();
+
+            foreach(var item in itemsUnProtected)
+                item.RemoveProtection();
+
+            return View(itemsUnProtected);
         }
 
         // GET: PersonalData/Items/Details/5
@@ -73,6 +78,7 @@ namespace NewCoEF.Areas.PersonalData.Controllers
                 return NotFound();
             }
 
+            item.RemoveProtection();
             return View(item);
         }
 
@@ -95,6 +101,8 @@ namespace NewCoEF.Areas.PersonalData.Controllers
                 if (ModelState.IsValid)
                 {
                     item.Id = Guid.NewGuid();
+
+                    item.ApplyProtection();
 
                     _context.Add(item);
 
@@ -138,6 +146,9 @@ namespace NewCoEF.Areas.PersonalData.Controllers
                 logger.LogError($"Request edit item {item.Id} not found");
                 return NotFound();
             }
+
+            item.RemoveProtection();
+
             return View(item);
         }
 
@@ -162,6 +173,8 @@ namespace NewCoEF.Areas.PersonalData.Controllers
             {
                 try
                 {
+                    item.ApplyProtection();
+
                     _context.Update(item);
                     await _context.SaveChangesAsync();
                     logger.LogInformation($"Posted edit item {item.Id} updated");
@@ -206,6 +219,8 @@ namespace NewCoEF.Areas.PersonalData.Controllers
                 logger.LogError($"Requesting delete item {id} non found");
                 return NotFound();
             }
+
+            item.RemoveProtection();
 
             return View(item);
         }
